@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/nta"
+    tools:context=".activity.UserinfoActivity">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_info_usericon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/a111"
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="2dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="81dp" />
+
+    <TextView
+        android:id="@+id/user_info_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="王二小"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="@id/user_info_usericon"
+        app:layout_constraintRight_toRightOf="@id/user_info_usericon"
+        app:layout_constraintTop_toBottomOf="@id/user_info_usericon" />
+
+    <TextView
+        android:id="@+id/user_info_userreid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="ID 号：2335"
+        android:textColor="@color/white_press"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_info_username" />
+
+
+</android.support.constraint.ConstraintLayout>

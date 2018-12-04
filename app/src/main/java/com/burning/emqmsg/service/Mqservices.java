@@ -1,0 +1,98 @@
+package com.burning.emqmsg.service;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+
+import com.burning.emqlibrary.MQMessage.MessBean;
+import com.burning.emqlibrary.emqNet.EmqClient;
+import com.burning.emqlibrary.emqNet.EmqClientImp;
+import com.burning.emqlibrary.emqNet.MqListen;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+/**
+ * Created by burning on 2018/11/30.
+ * When I wrote this, only God and I understood what I was doing
+ * Now, God only knows
+ * -------------------------//┏┓　　　┏┓
+ * -------------------------//┏┛┻━━━┛┻┓
+ * -------------------------//┃　　　　　　　┃
+ * -------------------------//┃　　　━　　　┃
+ * -------------------------//┃　┳┛　┗┳　┃
+ * -------------------------//┃　　　　　　　┃
+ * -------------------------//┃　　　┻　　　┃
+ * -------------------------//┃　　　　　　　┃
+ * -------------------------//┗━┓　　　┏━┛
+ * -------------------------//┃　　　┃  神兽保佑
+ * -------------------------//┃　　　┃  代码无BUG！
+ * -------------------------//┃　　　┗━━━┓
+ * -------------------------//┃　　　　　　　┣┓
+ * -------------------------//┃　　　　　　　┏┛
+ * -------------------------//┗┓┓┏━┳┓┏┛
+ * -------------------------// ┃┫┫　┃┫┫
+ * -------------------------// ┗┻┛　┗┻┛
+ */
+public class Mqservices extends Service {
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    EmqClient instance;
+    ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        System.out.println("========onStartCommand=========================");
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("========onStartCommand========run()=================");
+                if (instance == null) {
+                    try {
+                        instance = EmqClientImp.instance();
+                        instance.setListen(mqListen);
+                    } catch (Exception e) {
+                    }
+                }
+                instance.connect();
+            }
+        });
+        return super.onStartCommand(intent, flags, startId);
+
+    }
+
+    MqListen mqListen = new MqListen() {
+        @Override
+        public void onMessage(MessBean messBean) {
+            //普通消息
+        }
+
+        @Override
+        public void onGroupMessage(Long groupid, MessBean messBean) {
+            //群消息
+        }
+
+        @Override
+        public void onServiceMessage(MessBean messBean) {
+            //系统消息
+        }
+
+        @Override
+        public void onConnected() {
+            // 链接成功
+            System.out.println("========onConnected==============");
+        }
+
+        @Override
+        public void onDisconnected() {
+            // 断开链接
+            System.out.println("========onDisconnected==============");
+            instance.connect();
+        }
+    };
+}

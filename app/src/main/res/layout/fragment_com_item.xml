@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/com_item_user_icon"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginLeft="18dp"
+        android:src="@mipmap/a111" />
+
+    <View
+        android:id="@+id/com_item_user_icon_cent"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/com_item_user_icon"
+        app:layout_constraintTop_toTopOf="@+id/com_item_user_icon" />
+
+    <TextView
+        android:id="@+id/com_item_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="用户名称"
+        android:textColor="@color/colorDrack"
+        android:textSize="@dimen/fragment_item_username"
+        app:layout_constraintBottom_toBottomOf="@+id/com_item_user_icon_cent"
+        app:layout_constraintLeft_toRightOf="@+id/com_item_user_icon"
+        app:layout_constraintTop_toTopOf="@+id/com_item_user_icon" />
+
+    <TextView
+        android:id="@+id/com_item_user_msgtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="消息是时间"
+        app:layout_constraintBottom_toBottomOf="@+id/com_item_user_icon"
+        app:layout_constraintLeft_toLeftOf="@+id/com_item_user_name"
+        app:layout_constraintTop_toTopOf="@+id/com_item_user_icon_cent" />
+
+    <TextView
+        android:id="@+id/com_item_user_messages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDrack"
+        app:layout_constraintTop_toBottomOf="@+id/com_item_user_icon" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/com_item_recycler_images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/com_item_user_messages" />
+
+    <ImageView
+        android:id="@+id/com_item_recycler_usrmasg"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/naj"
+        app:layout_constraintRight_toLeftOf="@+id/com_item_recycler_ok"
+        app:layout_constraintTop_toBottomOf="@+id/com_item_recycler_images" />
+
+    <ImageView
+        android:id="@+id/com_item_recycler_ok"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/nam"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/com_item_recycler_images" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/com_item_recycler_comforid_conent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/com_item_recycler_ok" />
+
+</android.support.constraint.ConstraintLayout>

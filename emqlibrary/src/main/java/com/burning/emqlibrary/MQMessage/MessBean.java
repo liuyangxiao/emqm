@@ -1,0 +1,30 @@
+package com.burning.emqlibrary.MQMessage;
+
+import java.io.Serializable;
+
+import lombok.Data;
+
+/**
+ * @author burning
+ * @date 2018/9/14
+ */
+@Data
+public class MessBean implements Serializable {
+    /**
+     * 消息的类型
+     */
+    private int code;
+    /**
+     * 消息主体
+     */
+    private String content;
+    /**
+     * 消息 唯一标识
+     */
+    private String uuid;
+    /**
+     * 发送者 ID
+     */
+    private long clientId;
+
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorDrack">#000000</color>
+
+    <color name="text_color_black">#666666</color>
+    <color name="text_color_blue">#21ADEA</color>
+    <color name="text_color_dark_black">#333333</color>
+    <color name="text_color_setname">#1b1b1b</color>
+    <color name="text_color_gray">#999999</color>
+    <color name="text_color_gray_tag">#ff929292</color>
+    <color name="text_color_white">#ffffff</color>
+    <color name="text_color_red">#d81e06</color>
+    <color name="text_color_green">#7ED320</color>
+    <color name="text_color_hint">#FFCCCCCC</color>
+
+    <color name="gray">#acacac</color>
+    <color name="white">#ffffff</color>
+    <color name="white_press">#4fffffff</color>
+    <color name="red">#FFFF0000</color>
+    <color name="red_dark">#4FFF0000</color>
+    <color name="black">#ff000000</color>
+    <color name="orange">#F35332</color>
+    <color name="color_blue">#21ADEA</color>
+    <color name="color_blue_press">#4f21ADEA</color>
+    <color name="green">#66CD00</color>
+    <color name="green_dark">#4f66CD00</color>
+    <color name="window_background_color">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="bg_gray">#F5F5F5</color>
+    <color name="bg_view_magin">#eeeeee</color>
+    <color name="bg_dark_blue">#063040</color>
+
+    <color name="line_color">#ECECEC</color>
+    <color name="divider_color">#F6F6F6</color>
+    <color name="dark_color">#868483</color>
+    <color name="black_gray">#333333</color>
+
+</resources>

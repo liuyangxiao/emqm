@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/msg_item_user_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="10dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="2dp" />
+
+    <View
+        android:id="@+id/msg_item_user_icon_cent"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/msg_item_user_icon"
+        app:layout_constraintTop_toTopOf="@+id/msg_item_user_icon" />
+
+    <TextView
+        android:id="@+id/msg_item_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="用户名称"
+        android:textColor="@color/colorDrack"
+        android:textSize="@dimen/fragment_item_username"
+        app:layout_constraintBottom_toBottomOf="@+id/msg_item_user_icon_cent"
+        app:layout_constraintLeft_toRightOf="@+id/msg_item_user_icon"
+        app:layout_constraintTop_toTopOf="@+id/msg_item_user_icon" />
+
+    <TextView
+        android:id="@+id/msg_item_user_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户名消息"
+        app:layout_constraintBottom_toBottomOf="@+id/msg_item_user_icon"
+        app:layout_constraintLeft_toLeftOf="@+id/msg_item_user_name"
+        app:layout_constraintTop_toTopOf="@+id/msg_item_user_icon_cent" />
+
+    <TextView
+        android:id="@+id/msg_item_msg_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="时间"
+        app:layout_constraintBottom_toBottomOf="@+id/msg_item_user_name"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/msg_item_msg_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="待自定义控件"
+        app:layout_constraintRight_toRightOf="@id/msg_item_msg_data"
+        app:layout_constraintTop_toTopOf="@+id/msg_item_user_msg" />
+
+</android.support.constraint.ConstraintLayout>
