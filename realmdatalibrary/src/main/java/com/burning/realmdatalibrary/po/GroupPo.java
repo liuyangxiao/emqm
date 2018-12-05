@@ -1,8 +1,9 @@
 package com.burning.realmdatalibrary.po;
 
 import io.realm.RealmList;
-import io.realm.RealmObject;
+import io.realm.RealmModel;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
 import lombok.Data;
 
 /**
@@ -28,7 +29,8 @@ import lombok.Data;
  * -------------------------// ┗┻┛　┗┻┛
  */
 @Data
-public class GroupPo extends RealmObject {
+@RealmClass
+public class GroupPo implements RealmModel {
     @PrimaryKey
     Long id;
     /**
@@ -36,11 +38,21 @@ public class GroupPo extends RealmObject {
      */
     String content;
     /**
-     * 组内用户
+     * 组内 若干用户
      */
     RealmList<UserPo> list;
     /**
-     * 类型 --
+     * 类型 1--好友组
+     * 2---群名
+     * 3--待定
      */
     int type;
+    /**
+     * 备注 其他等
+     */
+    private String remarks;
+    /**
+     * 群创建者
+     */
+    Long groupid;
 }

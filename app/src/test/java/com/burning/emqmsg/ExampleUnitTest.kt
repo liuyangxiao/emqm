@@ -1,7 +1,7 @@
 package com.burning.emqmsg
 
 import com.burning.realmdatalibrary.httpservice.HttpCallBack
-import com.burning.realmdatalibrary.httpservice.UserApi
+import com.burning.realmdatalibrary.httpservice.impl.UserApimpl
 import com.burning.reutils.ReHttpUtils
 import org.junit.Test
 
@@ -14,7 +14,7 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         ReHttpUtils.initRetro("http://localhost:8080")
-        var userapi = UserApi()
+        var userapi = UserApimpl()
         userapi.ccc(object : HttpCallBack {
             override fun onerror() {
                 print("onerror" )

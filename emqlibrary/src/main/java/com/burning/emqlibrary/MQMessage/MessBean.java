@@ -12,6 +12,10 @@ import lombok.Data;
 public class MessBean implements Serializable {
     /**
      * 消息的类型
+     * 100----普通消息
+     * 200----系统消息 好友添加
+     * 300---系统消息 添加好友通过
+     * 400---系统通知
      */
     private int code;
     /**

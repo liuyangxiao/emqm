@@ -1,12 +1,14 @@
-package com.burning.realmdatalibrary.po;
+package com.burning.realmdatalibrary.httpservice.impl;
 
-import io.realm.RealmModel;
-import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.RealmClass;
-import lombok.Data;
+import com.burning.realmdatalibrary.BaSubCribe;
+import com.burning.realmdatalibrary.HttpApi;
+import com.burning.realmdatalibrary.httpservice.HttpCallBack;
+import com.burning.reutils.ReHttpUtils;
+
+import rx.Observable;
 
 /**
- * Created by burning on 2018/11/29.
+ * Created by burning on 2018/12/3.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -27,29 +29,27 @@ import lombok.Data;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-@Data
-@RealmClass
-public class MessagePo  implements RealmModel {
-    @PrimaryKey
-    Long id;
-    /**
-     * 消息归属
-     */
-    long ofclientID;
-    /**
-     * 消息类型
-     */
-    int code;
-    /**
-     * 消息主体
-     */
-    String content;
-    /**
-     * 消息 唯一标识
-     */
-    private String uuid;
-    /**
-     * 发送者 ID
-     */
-    private long clientId;
+public class UserApimpl {
+    public void ccc(final HttpCallBack httpCallBack) {
+        ReHttpUtils.instans().httpRequest(new BaSubCribe<String>() {
+            @Override
+            public Observable<String> getObservable(HttpApi retrofit) {
+                return retrofit.getUsers(1111);
+            }
+
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                httpCallBack.onerror();
+            }
+
+            @Override
+            public void onNext(String s) {
+                httpCallBack.seccuss(s);
+            }
+        });
+    }
 }

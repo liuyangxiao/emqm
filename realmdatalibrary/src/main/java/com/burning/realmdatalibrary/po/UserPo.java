@@ -1,7 +1,8 @@
 package com.burning.realmdatalibrary.po;
 
-import io.realm.RealmObject;
+import io.realm.RealmModel;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
 import lombok.Data;
 
 /**
@@ -27,7 +28,8 @@ import lombok.Data;
  * -------------------------// ┗┻┛　┗┻┛
  */
 @Data
-public class UserPo extends RealmObject {
+@RealmClass
+public class UserPo implements RealmModel {
     @PrimaryKey
     Long id;
     /**
@@ -52,8 +54,5 @@ public class UserPo extends RealmObject {
      */
     private String gender;
 
-    /**
-     * 备注名称
-     */
-    private String remarksName;
+
 }

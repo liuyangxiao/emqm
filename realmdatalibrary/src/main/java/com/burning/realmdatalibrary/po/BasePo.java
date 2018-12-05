@@ -25,7 +25,6 @@ import lombok.Data;
  * -------------------------// ┗┻┛　┗┻┛
  */
 @Data
-public class BasePo /*extends RealmObject */{
-   /* @PrimaryKey
-    Long id;*/
+public class BasePo /*extends RealmObject */ {
+
 }

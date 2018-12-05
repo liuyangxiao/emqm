@@ -1,13 +1,7 @@
 package com.burning.realmdatalibrary.httpservice;
 
-import com.burning.realmdatalibrary.BaSubCribe;
-import com.burning.realmdatalibrary.HttpApi;
-import com.burning.reutils.ReHttpUtils;
-
-import rx.Observable;
-
 /**
- * Created by burning on 2018/12/3.
+ * Created by burning on 2018/12/4.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -28,27 +22,30 @@ import rx.Observable;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-public class UserApi {
-    public void ccc(final HttpCallBack httpCallBack) {
-        ReHttpUtils.instans().httpRequest(new BaSubCribe<String>() {
-            @Override
-            public Observable<String> getObservable(HttpApi retrofit) {
-                return retrofit.getUsers(1111);
-            }
+public interface UserApi {
+    /**
+     * 登入
+     */
+    void login();
 
-            @Override
-            public void onCompleted() {
-            }
+    /**
+     * 修改用户信息
+     */
+    void updataUser();
 
-            @Override
-            public void onError(Throwable e) {
-                httpCallBack.onerror();
-            }
+    /**
+     * 根据用户ID获取用户信息
+     */
+    void getUserByUid();
 
-            @Override
-            public void onNext(String s) {
-                httpCallBack.seccuss(s);
-            }
-        });
-    }
+    /**
+     * 获取用户分组及信息
+     */
+    void getUserFrendGroup();
+
+    /**
+     * 获取用户相关群信息
+     */
+    void getUserGroupDesc();
+
 }

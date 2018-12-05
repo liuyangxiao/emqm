@@ -6,7 +6,7 @@ import io.realm.annotations.RealmClass;
 import lombok.Data;
 
 /**
- * Created by burning on 2018/11/29.
+ * Created by burning on 2018/12/4.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -29,27 +29,20 @@ import lombok.Data;
  */
 @Data
 @RealmClass
-public class MessagePo  implements RealmModel {
+public class DiaryDescPo implements RealmModel {
     @PrimaryKey
     Long id;
     /**
-     * 消息归属
+     * 评论人ID
      */
-    long ofclientID;
+    Long userid;
     /**
-     * 消息类型
-     */
-    int code;
-    /**
-     * 消息主体
+     * 内容
      */
     String content;
     /**
-     * 消息 唯一标识
+     * 评论中指向的用户ID
      */
-    private String uuid;
-    /**
-     * 发送者 ID
-     */
-    private long clientId;
+    Long ofuserid;
+
 }

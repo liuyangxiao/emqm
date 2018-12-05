@@ -1,12 +1,11 @@
 package com.burning.realmdatalibrary.po;
 
-import io.realm.RealmModel;
+import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.RealmClass;
-import lombok.Data;
 
 /**
- * Created by burning on 2018/11/29.
+ * Created by burning on 2018/12/4.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -27,29 +26,22 @@ import lombok.Data;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-@Data
-@RealmClass
-public class MessagePo  implements RealmModel {
+public class LoginUserPo extends RealmObject {
+    /**
+     * 登入用户
+     */
     @PrimaryKey
-    Long id;
+    Long userid;
     /**
-     * 消息归属
+     * 用户相关--拥有NG个相关
+     * 日记等内容
      */
-    long ofclientID;
+    RealmList<DiaryPo> diaryPos;
     /**
-     * 消息类型
+     * 用户相关
+     * 拥有N个分组
+     * 群组等内容
      */
-    int code;
-    /**
-     * 消息主体
-     */
-    String content;
-    /**
-     * 消息 唯一标识
-     */
-    private String uuid;
-    /**
-     * 发送者 ID
-     */
-    private long clientId;
+    RealmList<GroupPo> groupPos;
+
 }

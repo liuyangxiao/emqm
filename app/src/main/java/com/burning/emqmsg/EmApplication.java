@@ -2,7 +2,6 @@ package com.burning.emqmsg;
 
 import android.app.Application;
 
-import com.burning.realmdatalibrary.httpservice.HttpCallBack;
 import com.burning.reutils.ReHttpUtils;
 
 import io.realm.Realm;
@@ -33,8 +32,9 @@ public class EmApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Realm.init(this);
         ReHttpUtils.initRetro("http://192.168.137.1:8080");
-
+        Realm.init(this);
+       /* RealmConfiguration config = new RealmConfiguration.Builder().build();
+        Realm.setDefaultConfiguration(config);*/
     }
 }

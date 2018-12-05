@@ -1,12 +1,7 @@
-package com.burning.realmdatalibrary.po;
-
-import io.realm.RealmModel;
-import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.RealmClass;
-import lombok.Data;
+package com.burning.realmdatalibrary.httpservice;
 
 /**
- * Created by burning on 2018/11/29.
+ * Created by burning on 2018/12/4.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -27,29 +22,11 @@ import lombok.Data;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-@Data
-@RealmClass
-public class MessagePo  implements RealmModel {
-    @PrimaryKey
-    Long id;
+public interface DiaryApi {
     /**
-     * 消息归属
+     * 获取定量的日记信息
+     * 包含-内消息
      */
-    long ofclientID;
-    /**
-     * 消息类型
-     */
-    int code;
-    /**
-     * 消息主体
-     */
-    String content;
-    /**
-     * 消息 唯一标识
-     */
-    private String uuid;
-    /**
-     * 发送者 ID
-     */
-    private long clientId;
+    void getList();
+   // void
 }

@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.fragmeng_frend.*
 class FrendFragment : BaseFragment() {
     override fun initViewOnlayout(): Int = R.layout.fragmeng_frend
     override fun initData() {
-        tv_title.text="好友"
+        tv_title.text = "好友"
         frend_recyler.layoutManager = LinearLayoutManager(activity)
         var data = ArrayList<String>()
         data.add("1")
@@ -50,7 +50,7 @@ class FrendFragment : BaseFragment() {
         data.add("15")
         data.add("16")
         data.add("17")
-        frend_recyler.adapter = FrendFragmentAdapter(this!!.activity!!, data)
+        frend_recyler.adapter = FrendFragmentAdapter(this.activity!!, data)
     }
 
 }

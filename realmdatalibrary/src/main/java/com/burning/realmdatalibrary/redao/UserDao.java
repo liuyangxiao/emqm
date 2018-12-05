@@ -1,12 +1,12 @@
-package com.burning.realmdatalibrary.po;
+package com.burning.realmdatalibrary.redao;
 
-import io.realm.RealmModel;
-import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.RealmClass;
-import lombok.Data;
+import com.burning.realmdatalibrary.po.UserPo;
+
+import io.realm.Realm;
+import io.realm.RealmAsyncTask;
 
 /**
- * Created by burning on 2018/11/29.
+ * Created by burning on 2018/12/4.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -27,29 +27,17 @@ import lombok.Data;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-@Data
-@RealmClass
-public class MessagePo  implements RealmModel {
-    @PrimaryKey
-    Long id;
-    /**
-     * 消息归属
-     */
-    long ofclientID;
-    /**
-     * 消息类型
-     */
-    int code;
-    /**
-     * 消息主体
-     */
-    String content;
-    /**
-     * 消息 唯一标识
-     */
-    private String uuid;
-    /**
-     * 发送者 ID
-     */
-    private long clientId;
+public class UserDao {
+    public void set() {
+        Realm defaultInstance = Realm.getDefaultInstance();
+        RealmAsyncTask realmAsyncTask = defaultInstance.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                String s = null;
+                realm.createAllFromJson(UserPo.class, s);
+                UserPo orUpdateObjectFromJson = realm.createOrUpdateObjectFromJson(UserPo.class, s);
+                //  UserPo object = realm.createObject();
+            }
+        });
+    }
 }

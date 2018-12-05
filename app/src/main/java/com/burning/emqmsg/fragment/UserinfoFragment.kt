@@ -1,8 +1,6 @@
 package com.burning.emqmsg.fragment
 
 import com.burning.emqmsg.R
-import com.burning.realmdatalibrary.httpservice.HttpCallBack
-import com.burning.realmdatalibrary.httpservice.UserApi
 import kotlinx.android.synthetic.main.back_title.*
 import kotlinx.android.synthetic.main.fragment_userinfo.*
 
