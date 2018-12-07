@@ -1,16 +1,9 @@
-package com.burning.realmdatalibrary;
+package com.burning.realmdatalibrary.httpservice.requbean;
 
-import com.burning.realmdatalibrary.httpservice.requbean.LoginBean;
-import com.burning.realmdatalibrary.httpservice.requbean.ResDto;
-import com.burning.realmdatalibrary.po.UserPo;
-
-import retrofit2.http.Body;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
-import rx.Observable;
+import lombok.Data;
 
 /**
- * Created by burning on 2018/12/3.
+ * Created by burning on 2018/12/6.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -31,14 +24,9 @@ import rx.Observable;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-public interface HttpApi {
-
-    @POST("/user/login")
-    Observable<ResDto<UserPo>> getLogin(@Body LoginBean bean);
-
-    @POST("content/selectbyuid")
-    Observable<ResDto<String>> getUserscontent(@Query("uid") int uid);
-
-    @POST("frend/getusers")
-    Observable<String> getUsersByuid(@Query("uid") int uid);
+@Data
+public class ResDto<T> {
+    String msg;
+    String code;
+    private T data;
 }

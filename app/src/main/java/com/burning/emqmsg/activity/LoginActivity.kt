@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.burning.emqmsg.R
+import com.burning.realmdatalibrary.httpservice.requbean.LoginBean
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
@@ -32,7 +33,11 @@ class LoginActivity : BaseActivity() {
 
     private fun attemptLogin() {
         showProgress(true)
-        startMyActivity(MainActivity().javaClass)
+        var loginBean = LoginBean()
+        loginBean.loginname = "string"
+        loginBean.password = "string"
+        // UserApimpl().login(loginBean)
+        startMyActivity(MainActivity::class.java)
     }
 
     private fun isEmailValid(email: String): Boolean {

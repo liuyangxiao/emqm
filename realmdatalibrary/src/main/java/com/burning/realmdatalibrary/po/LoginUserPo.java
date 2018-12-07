@@ -3,6 +3,7 @@ package com.burning.realmdatalibrary.po;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import lombok.Data;
 
 /**
  * Created by burning on 2018/12/4.
@@ -26,6 +27,7 @@ import io.realm.annotations.PrimaryKey;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
+@Data
 public class LoginUserPo extends RealmObject {
     /**
      * 登入用户

@@ -1,5 +1,7 @@
 package com.burning.realmdatalibrary.httpservice;
 
+import com.burning.realmdatalibrary.httpservice.requbean.LoginBean;
+
 /**
  * Created by burning on 2018/12/4.
  * When I wrote this, only God and I understood what I was doing
@@ -26,7 +28,7 @@ public interface UserApi {
     /**
      * 登入
      */
-    void login();
+    void login(LoginBean bean);
 
     /**
      * 修改用户信息
@@ -48,4 +50,8 @@ public interface UserApi {
      */
     void getUserGroupDesc();
 
+    /**
+     * 获取所有好友信息
+     */
+    void getUsersbyloginID();
 }

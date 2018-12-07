@@ -33,7 +33,7 @@ public class UserRemarksPo implements RealmModel {
     @PrimaryKey
     Long id;
     /**
-     * 用户ID
+     * 自己用户ID
      */
     Long loginuserPoId;
     /**
