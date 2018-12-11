@@ -22,8 +22,6 @@ package com.burning.realmdatalibrary.httpservice;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-public interface HttpCallBack {
-    void onerror();
-
-    void seccuss(String s);
+public interface HttpCallBack<T> {
+    void oncode(int code, String s, T data);
 }

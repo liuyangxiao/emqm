@@ -70,12 +70,20 @@ abstract class BaseFragment : Fragment() {
         println("========onPause======" + javaClass.name)
         super.onPause()
     }
+
     override fun onResume() {
         println("========onResume======" + javaClass.name)
         super.onResume()
     }
+
     override fun onStop() {
         println("========onStop======" + javaClass.name)
         super.onStop()
     }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        println("========setUserVisibleHint======" + javaClass.name + "====={$isVisibleToUser}==")
+        super.setUserVisibleHint(isVisibleToUser)
+    }
+
 }

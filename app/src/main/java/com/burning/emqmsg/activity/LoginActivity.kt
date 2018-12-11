@@ -7,7 +7,9 @@ import android.os.Build
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.Toast
 import com.burning.emqmsg.R
+import com.burning.realmdatalibrary.httpservice.impl.UserApimpl
 import com.burning.realmdatalibrary.httpservice.requbean.LoginBean
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -34,10 +36,16 @@ class LoginActivity : BaseActivity() {
     private fun attemptLogin() {
         showProgress(true)
         var loginBean = LoginBean()
-        loginBean.loginname = "string"
+        loginBean.loginname = "strxxing"
         loginBean.password = "string"
-        // UserApimpl().login(loginBean)
-        startMyActivity(MainActivity::class.java)
+        UserApimpl().login(loginBean) { code, msg, _ ->
+            if (code == 200)
+                startMyActivity(MainActivity::class.java)
+            else {
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     private fun isEmailValid(email: String): Boolean {

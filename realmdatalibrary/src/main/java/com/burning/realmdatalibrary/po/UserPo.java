@@ -33,6 +33,10 @@ public class UserPo implements RealmModel {
     @PrimaryKey
     Long id;
     /**
+     * 登入账号
+     */
+    private String loginname;
+    /**
      * 头像
      */
     private String icon;
@@ -44,15 +48,23 @@ public class UserPo implements RealmModel {
      * 详情
      */
     private String userdesc;
-
+    //
     /**
      * 用户名称
      */
     private String username;
+    //
+    /*    *//**
+     * 用户密码
+     *//*
+    private String password;*/
     /**
      * 性别
      */
     private String gender;
-
+    /**
+     * 设定ID
+     */
+    private String setID;
 
 }

@@ -28,4 +28,8 @@ public abstract class BaSubCribe<T> extends MysubCribe<T, HttpApi> {
     public Class getTempalteType() {
         return HttpApi.class;
     }
+
+    @Override
+    public void onCompleted() {
+    }
 }

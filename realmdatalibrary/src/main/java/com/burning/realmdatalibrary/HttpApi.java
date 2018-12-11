@@ -36,9 +36,14 @@ public interface HttpApi {
     @POST("/user/login")
     Observable<ResDto<UserPo>> getLogin(@Body LoginBean bean);
 
+    @POST("user/initapp")
+    Observable<ResDto<String>> initApp(@Query("uid") int uid);
+
     @POST("content/selectbyuid")
     Observable<ResDto<String>> getUserscontent(@Query("uid") int uid);
 
     @POST("frend/getusers")
     Observable<String> getUsersByuid(@Query("uid") int uid);
+
+
 }

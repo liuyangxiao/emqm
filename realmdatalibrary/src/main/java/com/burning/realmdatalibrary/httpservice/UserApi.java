@@ -28,7 +28,7 @@ public interface UserApi {
     /**
      * 登入
      */
-    void login(LoginBean bean);
+    void login(LoginBean bean, HttpCallBack<String> httpCallBack);
 
     /**
      * 修改用户信息
