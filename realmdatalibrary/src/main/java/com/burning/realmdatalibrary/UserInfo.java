@@ -1,9 +1,9 @@
-package com.burning.emqlibrary.bean;
+package com.burning.realmdatalibrary;
 
 import lombok.Data;
 
 /**
- * Created by burning on 2018/10/26.
+ * Created by burning on 2018/12/12.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -25,9 +25,8 @@ import lombok.Data;
  * -------------------------// ┗┻┛　┗┻┛
  */
 @Data
-public class FragmentMsgBean {
-    Long userid;
-    String content;
-    String username;
-    String usericon;
+public class UserInfo {
+
+    public static Long userid;
+
 }

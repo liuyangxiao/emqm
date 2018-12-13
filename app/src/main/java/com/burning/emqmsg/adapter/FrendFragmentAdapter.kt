@@ -4,8 +4,8 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.bumptech.glide.Glide
-import com.burning.emqlibrary.bean.FragmentMsgBean
 import com.burning.emqmsg.R
+import com.burning.realmdatalibrary.po.GroupPo
 import kotlinx.android.synthetic.main.item_frend_fragment.view.*
 
 /**
@@ -30,15 +30,12 @@ import kotlinx.android.synthetic.main.item_frend_fragment.view.*
 -------------------------// ┃┫┫　┃┫┫
 -------------------------// ┗┻┛　┗┻┛
  */
-class FrendFragmentAdapter(context: Context, data: MutableList<String>) : BaseAdapter<String>(context, data) {
-    override fun onSetData(itemview: View, h: String, position: Int) {
+class FrendFragmentAdapter(context: Context, data: MutableList<GroupPo>) : BaseAdapter<GroupPo>(context, data) {
+    override fun onSetData(itemview: View, h: GroupPo, position: Int) {
         //itemview.item_group_name.text = "==========" + h + "====" + position
         itemview.item_frend_recyler_view.layoutManager = LinearLayoutManager(context)
-        var images = ArrayList<FragmentMsgBean>()
-        images.add(FragmentMsgBean())
-        images.add(FragmentMsgBean())
-        images.add(FragmentMsgBean())
-        itemview.item_frend_recyler_view.adapter = MsgAdapter(context, images)
+        itemview.item_group_name.text = " ${h.content} "
+        itemview.item_frend_recyler_view.adapter = MsgAdapter(context, h.userlis)
         setChecked(itemview, btns.contains(position))
     }
 

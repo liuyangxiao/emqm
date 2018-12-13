@@ -48,5 +48,5 @@ public class DiaryPo implements RealmModel {
     /**
      * 其下所有的评论
      */
-    RealmList<DiaryDescPo> diaryDescPos;
+    RealmList<DiaryDescPo> diaryDescs;
 }

@@ -4,8 +4,8 @@ import android.content.Context
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.burning.emqlibrary.bean.FragmentComBean
 import com.burning.emqmsg.R
+import com.burning.realmdatalibrary.po.DiaryPo
 import kotlinx.android.synthetic.main.fragment_com_item.view.*
 import java.util.*
 
@@ -31,8 +31,8 @@ import java.util.*
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-class CommunityAdapter(context: Context, data: MutableList<FragmentComBean>) : BaseAdapter<FragmentComBean>(context, data) {
-    override fun onSetData(itemview: View, h: FragmentComBean, position: Int) {
+class CommunityAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdapter<DiaryPo>(context, data) {
+    override fun onSetData(itemview: View, h: DiaryPo, position: Int) {
         itemview.com_item_user_name.text = "====王二小====="
         itemview.com_item_user_messages.text = "飞洒是否会四u发货哦啊师傅i是更符合双方还将分别世界富豪榜上的开发商电话方便的是风水宝地福克斯的肌肤的数据库备份第三方控件不是防护技术的反抗军的说法的讲课风格独守空房但是发动快速减肥华盛顿发生对抗肌肤士大夫但是"
         System.currentTimeMillis()

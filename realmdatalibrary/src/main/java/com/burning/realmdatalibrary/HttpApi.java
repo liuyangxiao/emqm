@@ -2,6 +2,7 @@ package com.burning.realmdatalibrary;
 
 import com.burning.realmdatalibrary.httpservice.requbean.LoginBean;
 import com.burning.realmdatalibrary.httpservice.requbean.ResDto;
+import com.burning.realmdatalibrary.po.LoginUserPo;
 import com.burning.realmdatalibrary.po.UserPo;
 
 import retrofit2.http.Body;
@@ -37,13 +38,13 @@ public interface HttpApi {
     Observable<ResDto<UserPo>> getLogin(@Body LoginBean bean);
 
     @POST("user/initapp")
-    Observable<ResDto<String>> initApp(@Query("uid") int uid);
+    Observable<ResDto<LoginUserPo>> initApp(@Query("uid") Long uid);
 
     @POST("content/selectbyuid")
-    Observable<ResDto<String>> getUserscontent(@Query("uid") int uid);
+    Observable<ResDto<String>> getUserscontent(@Query("uid") Long uid);
 
     @POST("frend/getusers")
-    Observable<String> getUsersByuid(@Query("uid") int uid);
+    Observable<String> getUsersByuid(@Query("uid") Long uid);
 
 
 }

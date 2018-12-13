@@ -34,23 +34,13 @@ class UserinfoFragment : BaseFragment() {
     override fun initData() {
         tv_title.text = "User"
         user_fragment_usericon.setOnClickListener {
-            /* val messBean = MessBean()
-             messBean.apply {
-                 uuid = UUID.randomUUID().toString()
-                 code = 100
-                 content = "testxxxx"
-                 clientId = 2222
-             }
-             EmqClientImp.instance().sendMessage(1111, messBean, null)*/
-//            val findFirst = Realm.getDefaultInstance().where(LoginUserPo::class.java).findFirst();
-//            val userid = findFirst.userid
-//            var a = findFirst.groupPos[0].remarks
-//            tv_title.text = "xxxx{$userid}----{$a}"
             var tt = "开始"
-            for (userPo in Realm.getDefaultInstance().where(UserPo::class.java).findAll()) {
+            val defaultInstance = Realm.getDefaultInstance()
+            for (userPo in defaultInstance.where(UserPo::class.java).findAll()) {
                 val id = userPo.id
                 tt = "{$tt}id={$id}---username-${userPo.username}--\n"
             }
+            // defaultInstance.beginTransaction()
             test_tv.text = tt
         }
     }

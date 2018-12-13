@@ -36,13 +36,14 @@ class LoginActivity : BaseActivity() {
     private fun attemptLogin() {
         showProgress(true)
         var loginBean = LoginBean()
-        loginBean.loginname = "strxxing"
-        loginBean.password = "string"
+        loginBean.loginname = email.text.toString()
+        loginBean.password = password.text.toString()
         UserApimpl().login(loginBean) { code, msg, _ ->
             if (code == 200)
                 startMyActivity(MainActivity::class.java)
             else {
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+                showProgress(false)
             }
         }
 

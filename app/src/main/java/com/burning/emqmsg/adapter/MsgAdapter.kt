@@ -5,10 +5,10 @@ import android.content.Intent
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.burning.emqlibrary.bean.FragmentMsgBean
 import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.BaseActivity
 import com.burning.emqmsg.activity.MsgActivity
+import com.burning.realmdatalibrary.po.UserPo
 import kotlinx.android.synthetic.main.fragment_msg_item.view.*
 
 /**
@@ -33,15 +33,15 @@ import kotlinx.android.synthetic.main.fragment_msg_item.view.*
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-class MsgAdapter(context: Context, data: MutableList<FragmentMsgBean>) : BaseAdapter<FragmentMsgBean>(context, data) {
-    override fun onSetData(itemview: View, h: FragmentMsgBean, position: Int) {
-        itemview.msg_item_user_name.text = "================" + position
+class MsgAdapter(context: Context, data: MutableList<UserPo>) : BaseAdapter<UserPo>(context, data) {
+    override fun onSetData(itemview: View, h: UserPo, position: Int) {
+        itemview.msg_item_user_name.text = " ${h.username}"
 
         var options = RequestOptions().placeholder(R.mipmap.a111)                //加载成功之前占位图
-                .error(R.mipmap.ic_launcher)                    //加载错误之后的错误图
+                .error(R.mipmap.ccatsfas)                    //加载错误之后的错误图
                 .fitCenter()
                 .centerCrop()
-        Glide.with(context).load(R.mipmap.ccatsfas).apply(options).into(itemview.msg_item_user_icon)
+        Glide.with(context).load(h.icon).apply(options).into(itemview.msg_item_user_icon)
     }
 
     override fun getItemViewType(position: Int): Int = R.layout.fragment_msg_item

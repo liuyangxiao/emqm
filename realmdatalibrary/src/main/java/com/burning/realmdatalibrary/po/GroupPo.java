@@ -40,7 +40,7 @@ public class GroupPo implements RealmModel {
     /**
      * 组内 若干用户
      */
-    RealmList<UserPo> list;
+    RealmList<UserPo> userlis;
     /**
      * 类型 1--好友组
      * 2---群名

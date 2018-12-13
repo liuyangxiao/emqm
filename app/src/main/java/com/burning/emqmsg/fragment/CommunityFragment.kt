@@ -1,9 +1,7 @@
 package com.burning.emqmsg.fragment
 
 import android.support.v7.widget.LinearLayoutManager
-import com.burning.emqlibrary.bean.FragmentComBean
 import com.burning.emqmsg.R
-import com.burning.emqmsg.adapter.CommunityAdapter
 import kotlinx.android.synthetic.main.back_title.*
 import kotlinx.android.synthetic.main.fragmeng_frend.*
 
@@ -33,20 +31,9 @@ class CommunityFragment : BaseFragment() {
     override fun initData() {
         frend_recyler.layoutManager = LinearLayoutManager(activity)
         tv_title.text = "日迹"
-        var data = ArrayList<FragmentComBean>()
-        data.add(FragmentComBean())
-        data.add(FragmentComBean())
-        data.add(FragmentComBean())
-        data.add(FragmentComBean())
-        data.add(FragmentComBean())
-        data.add(FragmentComBean())
-        data.add(FragmentComBean())
-        data.add(FragmentComBean())
-        data.add(FragmentComBean())
-        data.add(FragmentComBean())
-        data.add(FragmentComBean())
-        data.add(FragmentComBean())
-        frend_recyler.adapter = CommunityAdapter(this.activity!!, data)
+       // var data = ArrayList<FragmentComBean>()
+
+       // frend_recyler.adapter = CommunityAdapter(this.activity!!, data)
     }
 
     override fun initViewOnlayout(): Int = R.layout.fragmeng_frend

@@ -2,6 +2,7 @@ package com.burning.realmdatalibrary.httpservice.impl;
 
 import com.burning.realmdatalibrary.BaSubCribe;
 import com.burning.realmdatalibrary.HttpApi;
+import com.burning.realmdatalibrary.UserInfo;
 import com.burning.realmdatalibrary.httpservice.HttpCallBack;
 import com.burning.realmdatalibrary.httpservice.UserApi;
 import com.burning.realmdatalibrary.httpservice.requbean.LoginBean;
@@ -10,6 +11,7 @@ import com.burning.realmdatalibrary.po.GroupPo;
 import com.burning.realmdatalibrary.po.LoginUserPo;
 import com.burning.realmdatalibrary.po.UserPo;
 import com.burning.reutils.ReHttpUtils;
+import com.google.gson.Gson;
 
 import io.realm.Realm;
 import rx.Observable;
@@ -40,6 +42,7 @@ public class UserApimpl implements UserApi {
 
     @Override
     public void login(final LoginBean bean, final HttpCallBack<String> httpCallBack) {
+        System.out.println("====main=" + Thread.currentThread().getName());
         ReHttpUtils.instans().httpRequest(new BaSubCribe<ResDto<UserPo>>() {
             @Override
             public Observable<ResDto<UserPo>> getObservable(HttpApi retrofit) {
@@ -54,10 +57,14 @@ public class UserApimpl implements UserApi {
 
             @Override
             public void onNext(ResDto<UserPo> userPo) {
-                if ("200".equals(userPo.getCode())) {
+                System.out.println("====onNext=" + Thread.currentThread().getName());
+                if (!"200".equals(userPo.getCode())) {
                     //错误
+                    httpCallBack.oncode(0, userPo.getMsg(), "");
+                    return;
                 }
                 Long id = userPo.getData().getId();
+                UserInfo.userid = id;
                 Realm defaultInstance = Realm.getDefaultInstance();
                 LoginUserPo userid = defaultInstance.where(LoginUserPo.class).equalTo("userid", id).findFirst();
                 if (userid == null) {
@@ -67,33 +74,46 @@ public class UserApimpl implements UserApi {
                             httpCallBack.oncode(code, s, data);
                         }
                     });
+                } else {
+                    httpCallBack.oncode(200, "已又数据", "");
                 }
+
 
             }
         });
     }
 
     private void initApp(final HttpCallBack<String> httpCallBack) {
-        ReHttpUtils.instans().httpRequestMain(new BaSubCribe<ResDto<String>>() {
+        System.out.println("===initApp main=" + Thread.currentThread().getName());
+        ReHttpUtils.instans().httpRequest(new BaSubCribe<ResDto<LoginUserPo>>() {
             @Override
-            public Observable<ResDto<String>> getObservable(HttpApi retrofit) {
-                return retrofit.initApp(1111);
+            public Observable<ResDto<LoginUserPo>> getObservable(HttpApi retrofit) {
+                return retrofit.initApp(UserInfo.userid);
             }
 
             @Override
             public void onError(Throwable e) {
-                httpCallBack.oncode(100, "网络异常", e.getMessage());
+                System.out.println("===initApp onError=" + Thread.currentThread().getName());
+                httpCallBack.oncode(100, "网络异常initApp", e.getMessage());
             }
 
             @Override
-            public void onNext(ResDto<String> resDto) {
-                String data = resDto.getData();
+            public void onNext(ResDto<LoginUserPo> resDto) {
+                System.out.println("===httpRequestMain=onNext=" + Thread.currentThread().getName());
+                if (!"200".equals(resDto.getCode())) {
+                    //错误
+                    httpCallBack.oncode(0, "service error code" + resDto.getMsg(), "");
+                    return;
+                }
+
+                LoginUserPo data = resDto.getData();
+                String toJson = new Gson().toJson(data);
                 Realm defaultInstance = Realm.getDefaultInstance();
                 defaultInstance.beginTransaction();
                 //初始化 用户数据
-                LoginUserPo orUpdateObjectFromJson = defaultInstance.createOrUpdateObjectFromJson(LoginUserPo.class, data);
+                LoginUserPo orUpdateObjectFromJson = defaultInstance.createOrUpdateObjectFromJson(LoginUserPo.class, toJson);
                 defaultInstance.commitTransaction();
-                if (orUpdateObjectFromJson != null) {
+                if (orUpdateObjectFromJson == null) {
                     httpCallBack.oncode(100, "初始化异常", "createOrUpdateObjectFromJson null" + data);
                 } else {
                     httpCallBack.oncode(200, "OK", "");
@@ -121,7 +141,7 @@ public class UserApimpl implements UserApi {
         ReHttpUtils.instans().httpRequest(new BaSubCribe<ResDto<String>>() {
             @Override
             public Observable<ResDto<String>> getObservable(HttpApi retrofit) {
-                return retrofit.getUserscontent(1111);
+                return retrofit.getUserscontent(1111L);
             }
 
             @Override
@@ -135,7 +155,7 @@ public class UserApimpl implements UserApi {
                 defaultInstance.beginTransaction();
                 //==保存好友分组
                 defaultInstance.createOrUpdateAllFromJson(GroupPo.class, data);
-
+                defaultInstance.commitTransaction();
             }
         });
 
