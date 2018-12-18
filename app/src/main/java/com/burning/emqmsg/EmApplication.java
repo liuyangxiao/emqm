@@ -37,6 +37,10 @@ public class EmApplication extends Application {
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().name("emq.realm").build();
         Realm.setDefaultConfiguration(config);
+        //Realm defaultInstance = Realm.getDefaultInstance();
+
+     //   UserPo firstAsync = defaultInstance.where(UserPo.class).equalTo("1", 1).findFirstAsync();
+      //  UserPo userPo =new UserPo();
        /* Realm defaultInstance = Realm.getDefaultInstance();
         defaultInstance.beginTransaction();
         LoginUserPo loginUserPo = new LoginUserPo();

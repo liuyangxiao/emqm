@@ -7,6 +7,7 @@ import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import com.burning.emqmsg.R
+import com.burning.realmdatalibrary.po.DiaryDescPo
 import kotlinx.android.synthetic.main.comdiscussion_item.view.*
 
 
@@ -32,11 +33,11 @@ import kotlinx.android.synthetic.main.comdiscussion_item.view.*
 -------------------------// ┃┫┫　┃┫┫
 -------------------------// ┗┻┛　┗┻┛
  */
-class ComDiscussionAdapter(context: Context, data: MutableList<String>) : BaseAdapter<String>(context, data) {
-    override fun onSetData(itemview: View, h: String, position: Int) {
-        val spannable = SpannableStringBuilder("王二小 : 你是大傻叉")
-        spannable.setSpan(ForegroundColorSpan(Color.RED),0,4,SPAN_EXCLUSIVE_EXCLUSIVE)
-        itemview.item_condis_text.text =spannable
+class ComDiscussionAdapter(context: Context, data: MutableList<DiaryDescPo>) : BaseAdapter<DiaryDescPo>(context, data) {
+    override fun onSetData(itemview: View, h: DiaryDescPo, position: Int) {
+        val spannable = SpannableStringBuilder("王二小 : ${h.userid}cc ${h.content}")
+        spannable.setSpan(ForegroundColorSpan(Color.RED), 0, 4, SPAN_EXCLUSIVE_EXCLUSIVE)
+        itemview.item_condis_text.text = spannable
     }
 
     override fun getItemViewType(position: Int): Int = R.layout.comdiscussion_item

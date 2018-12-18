@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.wang.avi.AVLoadingIndicatorView
 
 /**
  * Created by burning on 2018/10/23.
@@ -44,10 +45,29 @@ abstract class BaseFragment : Fragment() {
         return inflater.inflate(initViewOnlayout(), null)//super.onCreateView(inflater, container, savedI)nstanceState)
     }
 
+    var biew: AVLoadingIndicatorView? = null;
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         println("========onView===Created======" + javaClass.name)
+        showloading()
         initData()
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    fun showloading() {
+        if (biew == null) {
+            biew = AVLoadingIndicatorView(activity)
+            biew?.setIndicator("BallSpinFadeLoaderIndicator")
+        }
+        val frameLayout = getView() as ViewGroup
+        frameLayout.addView(biew)
+        biew?.show()
+    }
+
+    fun hideloading() {
+        biew?.hide()
+        val frameLayout = getView() as ViewGroup
+        frameLayout.removeView(biew)
     }
 
     override fun onAttach(context: Context?) {

@@ -5,6 +5,7 @@ import com.burning.realmdatalibrary.po.UserPo
 import io.realm.Realm
 import kotlinx.android.synthetic.main.back_title.*
 import kotlinx.android.synthetic.main.fragment_userinfo.*
+import java.util.*
 
 /**
  * Created by burning on 2018/10/23.
@@ -36,9 +37,9 @@ class UserinfoFragment : BaseFragment() {
         user_fragment_usericon.setOnClickListener {
             var tt = "开始"
             val defaultInstance = Realm.getDefaultInstance()
-            for (userPo in defaultInstance.where(UserPo::class.java).findAll()) {
-                val id = userPo.id
-                tt = "{$tt}id={$id}---username-${userPo.username}--\n"
+            defaultInstance.executeTransaction {
+                val findFirst = it.where(UserPo::class.java).equalTo("id", 3).findFirst()
+                findFirst.username = "测试修改 王八" + Random().nextInt(100)
             }
             // defaultInstance.beginTransaction()
             test_tv.text = tt

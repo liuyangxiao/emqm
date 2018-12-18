@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
+import io.realm.Realm;
+
 /**
  * Created by burning on 2018/10/23.
  * When I wrote this, only God and I understood what I was doing
@@ -30,13 +32,24 @@ import android.view.Window;
  * -------------------------// ┗┻┛　┗┻┛
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    public Realm realm;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getActivityLayout());
+        if (realm == null)
+            realm = Realm.getDefaultInstance();
         System.out.println("====================" + getClass().getName());
         init();
+    }
+
+    @Override
+    protected void onResume() {
+        if (realm == null)
+            realm = Realm.getDefaultInstance();
+        super.onResume();
     }
 
     @Override
@@ -48,13 +61,20 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        System.out.println("====onCreate================" + getClass().getName());
+        System.out.println("====onStop================" + getClass().getName());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (realm != null)
+            realm.close();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        System.out.println("====onCreate================" + getClass().getName());
+        System.out.println("====onPause================" + getClass().getName());
     }
 
     @Override

@@ -42,13 +42,22 @@ abstract class BaseAdapter<H>(var context: Context, var data: MutableList<H>) : 
 
     }
 
-    fun updataAdapter(list: List<H>) {
-        data.clear()
-        data.addAll(list)
-        notifyDataSetChanged()
+    fun updataAdapter(list: MutableList<H>) {
+        /*  data.clear()
+          if (list.isNotEmpty())
+              data.addAll(list)*/
+        if (data != list) {
+            data = list
+            notifyDataSetChanged()
+        }
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = if (data == null) {
+        0
+    } else {
+        data.size
+    }
+
     abstract fun onSetData(itemview: View, h: H, position: Int)
     abstract override fun getItemViewType(position: Int): Int
 

@@ -49,4 +49,8 @@ public class DiaryPo implements RealmModel {
      * 其下所有的评论
      */
     RealmList<DiaryDescPo> diaryDescs;
+    /**
+     * 创建时间
+     */
+    private Long createTime;
 }

@@ -2,6 +2,10 @@ package com.burning.emqmsg.fragment
 
 import android.support.v7.widget.LinearLayoutManager
 import com.burning.emqmsg.R
+import com.burning.emqmsg.activity.MainActivity
+import com.burning.emqmsg.adapter.CommunityAdapter
+import com.burning.realmdatalibrary.UserInfo
+import com.burning.realmdatalibrary.po.LoginUserPo
 import kotlinx.android.synthetic.main.back_title.*
 import kotlinx.android.synthetic.main.fragmeng_frend.*
 
@@ -28,13 +32,25 @@ import kotlinx.android.synthetic.main.fragmeng_frend.*
 -------------------------// ┗┻┛　┗┻┛
  */
 class CommunityFragment : BaseFragment() {
+    var resuPo: LoginUserPo? = null
     override fun initData() {
         frend_recyler.layoutManager = LinearLayoutManager(activity)
         tv_title.text = "日迹"
-       // var data = ArrayList<FragmentComBean>()
+        val activity = activity as MainActivity
+        resuPo = activity.realm.where(LoginUserPo::class.java).equalTo("userid", UserInfo.userid).findFirstAsync()
 
-       // frend_recyler.adapter = CommunityAdapter(this.activity!!, data)
+        resuPo?.addChangeListener<LoginUserPo> {
+            if (frend_recyler.adapter != null) {
+                frend_recyler.adapter.notifyDataSetChanged()
+            } else {
+                frend_recyler.adapter = CommunityAdapter(activity, it.diaryPos)
+            }
+        }
     }
 
-    override fun initViewOnlayout(): Int = R.layout.fragmeng_frend
+    override fun initViewOnlayout(): Int = R.layout.fragmeng_comdia
+    override fun onDestroy() {
+        super.onDestroy()
+        resuPo?.removeAllChangeListeners()
+    }
 }

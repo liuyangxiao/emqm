@@ -2,9 +2,10 @@ package com.burning.emqmsg.fragment
 
 import android.support.v7.widget.LinearLayoutManager
 import com.burning.emqmsg.R
+import com.burning.emqmsg.activity.MainActivity
 import com.burning.emqmsg.adapter.MsgAdapter
 import com.burning.realmdatalibrary.po.UserPo
-import io.realm.Realm
+import io.realm.RealmResults
 import kotlinx.android.synthetic.main.back_title.*
 import kotlinx.android.synthetic.main.fragmeng_frend.*
 
@@ -32,15 +33,21 @@ import kotlinx.android.synthetic.main.fragmeng_frend.*
  */
 class MsgFragment : BaseFragment() {
 
-    override fun initViewOnlayout(): Int = R.layout.fragmeng_frend
-
+    override fun initViewOnlayout(): Int = R.layout.fragmeng_msg
+    var result: RealmResults<UserPo>? = null
     override fun initData() {
         tv_title.text = "消息"
         frend_recyler.layoutManager = LinearLayoutManager(activity)
-        val findAll = Realm.getDefaultInstance().where(UserPo::class.java).findAll()
-        frend_recyler.adapter = MsgAdapter(activity!!, findAll)
-
+        var mac = activity as MainActivity
+        result = mac.realm.where(UserPo::class.java).findAllAsync()
+        result?.addChangeListener { results ->
+            frend_recyler.adapter = MsgAdapter(activity!!, results)
+        }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        result?.removeAllChangeListeners()
+    }
 
 }

@@ -33,14 +33,13 @@ import java.util.*
  */
 class CommunityAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdapter<DiaryPo>(context, data) {
     override fun onSetData(itemview: View, h: DiaryPo, position: Int) {
-        itemview.com_item_user_name.text = "====王二小====="
+        itemview.com_item_user_name.text = "${h.uid} 这个二比ID"
         itemview.com_item_user_messages.text = "飞洒是否会四u发货哦啊师傅i是更符合双方还将分别世界富豪榜上的开发商电话方便的是风水宝地福克斯的肌肤的数据库备份第三方控件不是防护技术的反抗军的说法的讲课风格独守空房但是发动快速减肥华盛顿发生对抗肌肤士大夫但是"
-        System.currentTimeMillis()
         Calendar.getInstance().apply {
             itemview.com_item_user_msgtime.text = "${get(Calendar.YEAR)}年${get(Calendar.MONTH)}月${get(Calendar.DAY_OF_YEAR)}"
         }
         var images = ArrayList<String>()
-        val nextInt = Random().nextInt(10)
+        val nextInt = h.icons.length
         for (i in 1..nextInt) {
             images.add("====")
         }
@@ -66,10 +65,10 @@ class CommunityAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdapt
         itemview.com_item_recycler_comforid_conent.apply {
             if (adapter == null) {
                 layoutManager = LinearLayoutManager(context)
-                adapter = ComDiscussionAdapter(context, images)
+                adapter = ComDiscussionAdapter(context, h.diaryDescs)
             } else {
-                val comDiscussionAdapter = adapter as ComDiscussionAdapter
-                comDiscussionAdapter.updataAdapter(images)
+                   val comDiscussionAdapter = adapter as ComDiscussionAdapter
+                   comDiscussionAdapter.updataAdapter(h.diaryDescs)
             }
         }
 

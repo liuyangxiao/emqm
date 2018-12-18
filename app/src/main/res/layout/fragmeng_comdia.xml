@@ -15,12 +15,9 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="添加好友" />
+            android:text="待完成界面" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="好友请求" />
+
     </LinearLayout>
 
 

@@ -34,7 +34,11 @@ class FrendFragmentAdapter(context: Context, data: MutableList<GroupPo>) : BaseA
     override fun onSetData(itemview: View, h: GroupPo, position: Int) {
         //itemview.item_group_name.text = "==========" + h + "====" + position
         itemview.item_frend_recyler_view.layoutManager = LinearLayoutManager(context)
-        itemview.item_group_name.text = " ${h.content} "
+        itemview.item_group_name.text = " ${h.content}" + if (h.type == 1) {
+            "好友分组"
+        } else {
+            "群--"
+        }
         itemview.item_frend_recyler_view.adapter = MsgAdapter(context, h.userlis)
         setChecked(itemview, btns.contains(position))
     }
