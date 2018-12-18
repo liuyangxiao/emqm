@@ -11,6 +11,11 @@ import org.fusesource.mqtt.client.CallbackConnection;
 import org.fusesource.mqtt.client.Listener;
 import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.client.QoS;
+import org.fusesource.mqtt.client.Topic;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by burning on 2018/11/30.
@@ -36,6 +41,7 @@ import org.fusesource.mqtt.client.QoS;
  */
 public class EmqClientImp implements EmqClient {
     private EmqClientImp() throws Exception {
+
         setMqConfig(new MQConfig());
     }
 
@@ -74,28 +80,49 @@ public class EmqClientImp implements EmqClient {
         this.mqListen = mqListen;
     }
 
-    @Override
-    public boolean isConnect() {
-        return false;
-    }
+    boolean connect = false;
 
     @Override
-    public void disconnect() {
-        callbackConnection.disconnect(new Callback<Void>() {
+    public boolean isConnect() {
+        return connect;
+    }
+
+    private void subtopick(Topic[] topics) {
+        callbackConnection.subscribe(topics/*{new Topic(TopicHelp.serviceToppic + Userinfo, QoS.AT_LEAST_ONCE)}*/, new Callback<byte[]>() {
             @Override
-            public void onSuccess(Void value) {
+            public void onSuccess(byte[] value) {
 
             }
 
             @Override
             public void onFailure(Throwable value) {
-
+                disconnect();
             }
         });
     }
 
     @Override
+    public void disconnect() {
+        if (callbackConnection != null && connect)
+            callbackConnection.disconnect(new Callback<Void>() {
+                @Override
+                public void onSuccess(Void value) {
+                    connect = false;
+                }
+
+                @Override
+                public void onFailure(Throwable value) {
+                    connect = false;
+                }
+            });
+    }
+
+    @Override
     public void connect() {
+        if (callbackConnection != null) {
+            disconnect();
+            callbackConnection = null;
+        }
         callbackConnection = mqtt.callbackConnection();
         callbackConnection.listener(mqclientListent);
         callbackConnection.connect(new Callback<Void>() {
@@ -134,6 +161,28 @@ public class EmqClientImp implements EmqClient {
         });
     }
 
+    Set<Topic> datatopic = new HashSet<>();
+
+    @Override
+    public void addtopick(String topick) {
+        Topic topic = new Topic(topick, QoS.AT_LEAST_ONCE);
+        datatopic.add(topic);
+        if (callbackConnection != null && isConnect()) {
+            //  Topic[] objects = (Topic[]) datatopic.toArray();
+            subtopick(new Topic[]{topic});
+        }
+    }
+
+    @Override
+    public void addtopicks(Set<String> topick) {
+        Iterator<String> iterator = topick.iterator();
+        if (iterator.hasNext()) {
+            Topic topic = new Topic(iterator.next(), QoS.AT_LEAST_ONCE);
+            datatopic.add(topic);
+        }
+        subtopick((Topic[]) datatopic.toArray());
+    }
+
     CallbackConnection callbackConnection;
     MQTT mqtt;
 
@@ -162,11 +211,17 @@ public class EmqClientImp implements EmqClient {
     Listener mqclientListent = new Listener() {
         @Override
         public void onConnected() {
+            connect = true;
+            //添加上订阅
+            Topic[] objects = (Topic[]) datatopic.toArray();
+            subtopick(objects);
             mqListen.onConnected();
+
         }
 
         @Override
         public void onDisconnected() {
+            connect = false;
             mqListen.onDisconnected();
         }
 

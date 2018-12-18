@@ -29,7 +29,6 @@ import com.burning.emqmsg.R;
  * -------------------------// ┗┻┛　┗┻┛
  */
 public class MyTransform {
-    private static int roundingRadius;
 
     public static RequestOptions getRequestOptions(int roundingRadius) {
         RoundedCorners roundedCorners = new RoundedCorners(roundingRadius);

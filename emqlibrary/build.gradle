@@ -10,7 +10,7 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
-}
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -28,6 +28,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api 'org.fusesource.mqtt-client:mqtt-client:1.12'
+    api 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
+    api 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+
     implementation project(path: ':mybaselibrary')
 
 }

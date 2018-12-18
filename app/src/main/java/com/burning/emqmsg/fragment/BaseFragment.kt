@@ -45,7 +45,7 @@ abstract class BaseFragment : Fragment() {
         return inflater.inflate(initViewOnlayout(), null)//super.onCreateView(inflater, container, savedI)nstanceState)
     }
 
-    var biew: AVLoadingIndicatorView? = null;
+    var biew: AVLoadingIndicatorView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         println("========onView===Created======" + javaClass.name)

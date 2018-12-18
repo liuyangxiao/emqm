@@ -3,16 +3,25 @@ package com.burning.emqmsg.activity
 import android.content.Intent
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import com.burning.emqlibrary.emqNet.EmqClientImp
+import com.burning.emqlibrary.emqNet.TopicHelp
 import com.burning.emqmsg.R
 import com.burning.emqmsg.fragment.CommunityFragment
 import com.burning.emqmsg.fragment.FrendFragment
 import com.burning.emqmsg.fragment.MsgFragment
 import com.burning.emqmsg.fragment.UserinfoFragment
 import com.burning.emqmsg.service.Mqservices
+import com.burning.realmdatalibrary.UserInfo
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
     override fun init() {
+        var tops = HashSet<String>()
+        tops.add(TopicHelp.baseGroupToppic + UserInfo.userid)//自己
+        tops.add(TopicHelp.serviceToppic + UserInfo.userid)//系统
+        //群组 待添加
+        EmqClientImp.instance().addtopicks(tops)
+
         navigation.itemIconTintList = null
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)

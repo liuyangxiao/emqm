@@ -39,9 +39,11 @@ class LoginActivity : BaseActivity() {
         loginBean.loginname = email.text.toString()
         loginBean.password = password.text.toString()
         UserApimpl().login(loginBean) { code, msg, _ ->
-            if (code == 200)
+            if (code == 200) {
                 startMyActivity(MainActivity::class.java)
-            else {
+                showProgress(false)
+                finish()
+            } else {
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
                 showProgress(false)
             }

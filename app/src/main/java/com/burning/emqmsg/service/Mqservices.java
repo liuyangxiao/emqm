@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.burning.emqlibrary.MQMessage.MessBean;
 import com.burning.emqlibrary.emqNet.EmqClient;
+import com.burning.emqlibrary.emqNet.EmqClientImp;
 import com.burning.emqlibrary.emqNet.MqListen;
 
 import java.util.concurrent.ExecutorService;
@@ -50,7 +51,7 @@ public class Mqservices extends Service {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-              /*  System.out.println("========onStartCommand========run()=================");
+                System.out.println("========onStartCommand========run()=================");
                 if (instance == null) {
                     try {
                         instance = EmqClientImp.instance();
@@ -58,7 +59,7 @@ public class Mqservices extends Service {
                     } catch (Exception e) {
                     }
                 }
-                instance.connect();*/
+                instance.connect();
             }
         });
         return super.onStartCommand(intent, flags, startId);
@@ -90,8 +91,15 @@ public class Mqservices extends Service {
         @Override
         public void onDisconnected() {
             // 断开链接
-            System.out.println("========onDisconnected==============");
+            // System.out.println("========onDisconnected==============");
+            //检测未链接  5秒后重连
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             instance.connect();
+
         }
     };
 }
