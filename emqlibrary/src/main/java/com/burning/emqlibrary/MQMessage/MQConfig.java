@@ -13,7 +13,7 @@ public class MQConfig {
     /**
      * 是否持久化 消息
      */
-    boolean cleanSession = false;
+    boolean cleanSession = true;
     short KEEP_ALIVE = 30;
     String userName = "admin";
     String passWord = "public";

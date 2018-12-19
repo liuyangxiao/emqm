@@ -124,6 +124,8 @@ public class EmqClientImp implements EmqClient {
 
     @Override
     public void connect() {
+        if (isConnect())
+            return;
         if (callbackConnection != null) {
             disconnect();
             callbackConnection = null;

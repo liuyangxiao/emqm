@@ -5,7 +5,9 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.burning.emqmsg.R
+import com.burning.emqmsg.activity.BaseActivity
 import com.burning.realmdatalibrary.po.DiaryPo
+import com.burning.realmdatalibrary.po.UserPo
 import kotlinx.android.synthetic.main.fragment_com_item.view.*
 import java.util.*
 
@@ -33,10 +35,17 @@ import java.util.*
  */
 class CommunityAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdapter<DiaryPo>(context, data) {
     override fun onSetData(itemview: View, h: DiaryPo, position: Int) {
-        itemview.com_item_user_name.text = "${h.uid} 这个二比ID"
-        itemview.com_item_user_messages.text = "飞洒是否会四u发货哦啊师傅i是更符合双方还将分别世界富豪榜上的开发商电话方便的是风水宝地福克斯的肌肤的数据库备份第三方控件不是防护技术的反抗军的说法的讲课风格独守空房但是发动快速减肥华盛顿发生对抗肌肤士大夫但是"
+        val baseActivity = context as BaseActivity
+        var username = baseActivity.realm.where(UserPo::class.java).equalTo("id", h.id).findFirst().username
+        itemview.com_item_user_name.text = "用户名:$username"
+        itemview.com_item_user_messages.text = "内容 :${h.contens}"
         Calendar.getInstance().apply {
-            itemview.com_item_user_msgtime.text = "${get(Calendar.YEAR)}年${get(Calendar.MONTH)}月${get(Calendar.DAY_OF_YEAR)}"
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = h.createTime
+            itemview.com_item_user_msgtime.text = "${calendar.get(Calendar.YEAR)}年" +
+                    "${calendar.get(Calendar.MONTH)}月" +
+                    "${calendar.get(Calendar.DAY_OF_YEAR)}" +
+                    "日${calendar.get(Calendar.HOUR)}时${calendar.get(Calendar.MINUTE)}分"
         }
         var images = ArrayList<String>()
         val nextInt = h.icons.length
@@ -67,8 +76,8 @@ class CommunityAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdapt
                 layoutManager = LinearLayoutManager(context)
                 adapter = ComDiscussionAdapter(context, h.diaryDescs)
             } else {
-                   val comDiscussionAdapter = adapter as ComDiscussionAdapter
-                   comDiscussionAdapter.updataAdapter(h.diaryDescs)
+                val comDiscussionAdapter = adapter as ComDiscussionAdapter
+                comDiscussionAdapter.updataAdapter(h.diaryDescs)
             }
         }
 

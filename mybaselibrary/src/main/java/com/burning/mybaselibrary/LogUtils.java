@@ -30,7 +30,7 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 
 
 public class LogUtils {
-    private static boolean isLoggable = false;
+    private static boolean isLoggable = true;
 
     public static void init() {
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
