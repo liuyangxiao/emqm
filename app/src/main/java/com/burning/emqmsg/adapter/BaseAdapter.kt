@@ -2,6 +2,7 @@ package com.burning.emqmsg.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
@@ -30,7 +31,7 @@ import android.view.ViewGroup
 abstract class BaseAdapter<H>(var context: Context, var data: MutableList<H>) : RecyclerView.Adapter<BaseAdapter.TviewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TviewHolder {
-        return TviewHolder(View.inflate(context, viewType, null))
+        return TviewHolder(LayoutInflater.from(context).inflate(viewType, parent, false))
     }
 
     open fun onBindOnclic(itemview: View, position: Int) {

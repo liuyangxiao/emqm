@@ -106,8 +106,16 @@ public class EmqClientImp implements EmqClient {
 
             @Override
             public void onFailure(Throwable value) {
+                if (value.getMessage().contains("isconnected")) {
+                    //订阅显示---未链接--但判断显示已链接  则重新获取一条链接
+                    //赋值 未链接
+                    connect = false;
+                    callbackConnection = mqtt.callbackConnection();
+                }
+                //重新开启链接
+                connect();
                 Logger.d("========订阅 失败 重连==============");
-                disconnect();
+                // disconnect();
 
             }
         });
@@ -153,6 +161,13 @@ public class EmqClientImp implements EmqClient {
 
             @Override
             public void onFailure(Throwable value) {
+                if (!isConnect() && value.getMessage().equals("Already connected")) {
+                    //本地校验未链接 但 mq链接却显示已链接--链接异常
+                    //测试先修改为 链接正常
+                    connect = true;
+                  /*  callbackConnection = mqtt.callbackConnection();//重新 再获取一个连接发起重连
+                    connect();*/
+                }
                 Logger.d("======connect==onFailure==============");
             }
         });
