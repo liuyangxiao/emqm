@@ -89,7 +89,11 @@ public class EmqClientImp implements EmqClient {
     }
 
     private void subtopick(Topic[] topics) {
-        if (topics == null || topics.length == 0 || callbackConnection == null || !isConnect())
+        if (!isConnect()) {
+            connect();
+            return;
+        }
+        if (topics == null || topics.length == 0 || callbackConnection == null)
             return;
         callbackConnection.subscribe(topics/*{new Topic(TopicHelp.serviceToppic + Userinfo, QoS.AT_LEAST_ONCE)}*/, new Callback<byte[]>() {
             @Override
@@ -124,14 +128,20 @@ public class EmqClientImp implements EmqClient {
 
     @Override
     public void connect() {
-        if (isConnect())
+       /* if (isConnect())
             return;
         if (callbackConnection != null) {
             disconnect();
             callbackConnection = null;
         }
         callbackConnection = mqtt.callbackConnection();
-        callbackConnection.listener(mqclientListent);
+        */
+        if (callbackConnection == null) {
+            callbackConnection = mqtt.callbackConnection();
+            callbackConnection.listener(mqclientListent);
+        }
+        if (isConnect())
+            return;//已经连接则不链接
         callbackConnection.connect(new Callback<Void>() {
             @Override
             public void onSuccess(Void value) {
@@ -140,7 +150,7 @@ public class EmqClientImp implements EmqClient {
 
             @Override
             public void onFailure(Throwable value) {
-                Logger.d("========onFailure==============");
+                Logger.d("======connect==onFailure==============");
             }
         });
     }
