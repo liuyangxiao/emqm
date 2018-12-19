@@ -7,7 +7,5 @@
     <ImageView
         android:id="@+id/item_imageview_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/imageshap_c"
-        tools:ignore="ContentDescription" />
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>
