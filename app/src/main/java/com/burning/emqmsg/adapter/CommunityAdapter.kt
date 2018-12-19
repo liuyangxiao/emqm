@@ -36,7 +36,7 @@ import java.util.*
 class CommunityAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdapter<DiaryPo>(context, data) {
     override fun onSetData(itemview: View, h: DiaryPo, position: Int) {
         val baseActivity = context as BaseActivity
-        var username = baseActivity.realm.where(UserPo::class.java).equalTo("id", h.id).findFirst().username
+        var username = baseActivity.realm.where(UserPo::class.java).equalTo("id", 2).findFirst().username
         itemview.com_item_user_name.text = "用户名:$username"
         itemview.com_item_user_messages.text = "内容 :${h.contens}"
         Calendar.getInstance().apply {
