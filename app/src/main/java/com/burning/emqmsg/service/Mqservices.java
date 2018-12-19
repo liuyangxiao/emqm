@@ -56,10 +56,10 @@ public class Mqservices extends Service {
                 if (instance == null) {
                     try {
                         instance = EmqClientImp.instance();
-                        instance.setListen(mqListen);
                     } catch (Exception e) {
                     }
                 }
+                instance.setListen(mqListen);
                 instance.connect();
             }
         });

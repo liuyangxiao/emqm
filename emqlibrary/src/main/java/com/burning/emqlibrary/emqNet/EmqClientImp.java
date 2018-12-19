@@ -79,6 +79,9 @@ public class EmqClientImp implements EmqClient {
     @Override
     public void setListen(MqListen mqListen) {
         this.mqListen = mqListen;
+        if (isConnect()) {
+            mqListen.onConnected();
+        }
     }
 
     boolean connect = false;
@@ -230,18 +233,24 @@ public class EmqClientImp implements EmqClient {
         public void onConnected() {
             connect = true;
             //添加上订阅
-            mqListen.onConnected();
+            if (mqListen != null)
+                mqListen.onConnected();
             subtopick(datatopic.toArray(new Topic[datatopic.size()]));
         }
 
         @Override
         public void onDisconnected() {
             connect = false;
-            mqListen.onDisconnected();
+            if (mqListen != null)
+                mqListen.onDisconnected();
         }
 
         @Override
         public void onPublish(UTF8Buffer topic, Buffer body, Runnable ack) {
+            if (mqListen == null) {
+                ack.run();
+                return;
+            }
             String msg = topic.toString();
             String mesContent = new String(body.toByteArray());
             MessBean messBean = new Gson().fromJson(mesContent, MessBean.class);
@@ -261,7 +270,6 @@ public class EmqClientImp implements EmqClient {
 
         @Override
         public void onFailure(Throwable value) {
-            //  mqListen.onDisconnected();
 
             connect = false;
             Logger.d("========onFailure==============");
