@@ -16,6 +16,7 @@
     <color name="text_color_green">#7ED320</color>
     <color name="text_color_hint">#FFCCCCCC</color>
     <color name="search_grey">#EFEFEF</color>
+    <color name="background_grey">#f7f7f7</color>
 
     <color name="gray">#acacac</color>
     <color name="white">#ffffff</color>
@@ -30,6 +31,7 @@
     <color name="green_dark">#4f66CD00</color>
     <color name="window_background_color">#FFFFFF</color>
     <color name="transparent">#00000000</color>
+    <color name="back_title_text">#565656</color>
 
     <color name="bg_gray">#F5F5F5</color>
     <color name="bg_view_magin">#eeeeee</color>
