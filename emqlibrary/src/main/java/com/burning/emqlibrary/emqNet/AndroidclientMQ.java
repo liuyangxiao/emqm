@@ -10,6 +10,8 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.util.Set;
+
 /**
  * Created by burning on 2018/12/18.
  * When I wrote this, only God and I understood what I was doing
@@ -51,13 +53,7 @@ public class AndroidclientMQ implements EmqClient {
 
     }
 
-    @Override
-    public boolean isConnect() {
-        return false;
-    }
-
-    @Override
-    public void disconnect() {
+    {
         Context context = null;
         androidClient = new MqttAndroidClient(context, "", "");
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
@@ -79,6 +75,15 @@ public class AndroidclientMQ implements EmqClient {
         });
     }
 
+    @Override
+    public boolean isConnect() {
+        return false;
+    }
+
+    @Override
+    public void disconnect() {
+    }
+
 
     @Override
     public void connect() {
@@ -87,6 +92,16 @@ public class AndroidclientMQ implements EmqClient {
 
     @Override
     public void killed() {
+
+    }
+
+    @Override
+    public void addtopick(String topick) {
+
+    }
+
+    @Override
+    public void addtopicks(Set<String> topick) {
 
     }
 }

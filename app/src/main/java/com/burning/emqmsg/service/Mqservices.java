@@ -9,6 +9,7 @@ import com.burning.emqlibrary.MQMessage.MessBean;
 import com.burning.emqlibrary.emqNet.EmqClient;
 import com.burning.emqlibrary.emqNet.EmqClientImp;
 import com.burning.emqlibrary.emqNet.MqListen;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -47,11 +48,11 @@ public class Mqservices extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        System.out.println("========onStartCommand=========================");
+        Logger.d("========onStartCommand=========================");
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                System.out.println("========onStartCommand========run()=================");
+                Logger.d("========onStartCommand========run======");
                 if (instance == null) {
                     try {
                         instance = EmqClientImp.instance();
@@ -70,28 +71,31 @@ public class Mqservices extends Service {
         @Override
         public void onMessage(MessBean messBean) {
             //普通消息
+            Logger.d("========onMessage==============");
         }
 
         @Override
         public void onGroupMessage(Long groupid, MessBean messBean) {
             //群消息
+            Logger.d("========onGroupMessage==============");
         }
 
         @Override
         public void onServiceMessage(MessBean messBean) {
             //系统消息
+            Logger.d("========onServiceMessage==============");
         }
 
         @Override
         public void onConnected() {
             // 链接成功
-            System.out.println("========onConnected==============");
+            Logger.d("========onConnected==============");
         }
 
         @Override
         public void onDisconnected() {
             // 断开链接
-            // System.out.println("========onDisconnected==============");
+            Logger.d("========onDisconnected==============");
             //检测未链接  5秒后重连
             try {
                 Thread.sleep(5000);

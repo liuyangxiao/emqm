@@ -1,6 +1,5 @@
 package com.burning.emqmsg.activity
 
-import android.content.Intent
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import com.burning.emqlibrary.emqNet.EmqClientImp
@@ -10,7 +9,6 @@ import com.burning.emqmsg.fragment.CommunityFragment
 import com.burning.emqmsg.fragment.FrendFragment
 import com.burning.emqmsg.fragment.MsgFragment
 import com.burning.emqmsg.fragment.UserinfoFragment
-import com.burning.emqmsg.service.Mqservices
 import com.burning.realmdatalibrary.UserInfo
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -26,7 +24,7 @@ class MainActivity : BaseActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_notifications
-        startService(Intent(this, Mqservices::class.java))
+
     }
 
     override fun getActivityLayout(): Int = R.layout.activity_main

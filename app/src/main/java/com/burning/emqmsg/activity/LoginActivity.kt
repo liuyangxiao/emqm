@@ -42,7 +42,7 @@ class LoginActivity : BaseActivity() {
             if (code == 200) {
                 startMyActivity(MainActivity::class.java)
                 showProgress(false)
-                finish()
+                //  finish()
             } else {
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
                 showProgress(false)

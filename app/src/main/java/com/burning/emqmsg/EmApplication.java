@@ -1,7 +1,10 @@
 package com.burning.emqmsg;
 
 import android.app.Application;
+import android.content.Intent;
 
+import com.burning.emqmsg.service.Mqservices;
+import com.burning.mybaselibrary.LogUtils;
 import com.burning.reutils.ReHttpUtils;
 
 import io.realm.Realm;
@@ -37,10 +40,12 @@ public class EmApplication extends Application {
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().name("emq.realm").build();
         Realm.setDefaultConfiguration(config);
+        startService(new Intent(this, Mqservices.class));
+        LogUtils.init();
         //Realm defaultInstance = Realm.getDefaultInstance();
 
-     //   UserPo firstAsync = defaultInstance.where(UserPo.class).equalTo("1", 1).findFirstAsync();
-      //  UserPo userPo =new UserPo();
+        //   UserPo firstAsync = defaultInstance.where(UserPo.class).equalTo("1", 1).findFirstAsync();
+        //  UserPo userPo =new UserPo();
        /* Realm defaultInstance = Realm.getDefaultInstance();
         defaultInstance.beginTransaction();
         LoginUserPo loginUserPo = new LoginUserPo();

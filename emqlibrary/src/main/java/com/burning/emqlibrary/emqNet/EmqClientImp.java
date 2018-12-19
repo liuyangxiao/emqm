@@ -3,6 +3,7 @@ package com.burning.emqlibrary.emqNet;
 import com.burning.emqlibrary.MQMessage.MQConfig;
 import com.burning.emqlibrary.MQMessage.MessBean;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.UTF8Buffer;
@@ -88,15 +89,19 @@ public class EmqClientImp implements EmqClient {
     }
 
     private void subtopick(Topic[] topics) {
+        if (topics == null || topics.length == 0 || callbackConnection == null || !isConnect())
+            return;
         callbackConnection.subscribe(topics/*{new Topic(TopicHelp.serviceToppic + Userinfo, QoS.AT_LEAST_ONCE)}*/, new Callback<byte[]>() {
             @Override
             public void onSuccess(byte[] value) {
-
+                Logger.d("========订阅 成功==============");
             }
 
             @Override
             public void onFailure(Throwable value) {
+                Logger.d("========订阅 失败 重连==============");
                 disconnect();
+
             }
         });
     }
@@ -128,12 +133,12 @@ public class EmqClientImp implements EmqClient {
         callbackConnection.connect(new Callback<Void>() {
             @Override
             public void onSuccess(Void value) {
-                System.out.println("====connectonSuccess=======");
+                Logger.d("========onSuccess==============");
             }
 
             @Override
             public void onFailure(Throwable value) {
-                System.out.println("===connect=onFailure=======");
+                Logger.d("========onFailure==============");
             }
         });
     }
@@ -176,18 +181,18 @@ public class EmqClientImp implements EmqClient {
     @Override
     public void addtopicks(Set<String> topick) {
         Iterator<String> iterator = topick.iterator();
-        if (iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Topic topic = new Topic(iterator.next(), QoS.AT_LEAST_ONCE);
             datatopic.add(topic);
         }
-        subtopick((Topic[]) datatopic.toArray());
+        subtopick(datatopic.toArray(new Topic[datatopic.size()]));
     }
 
     CallbackConnection callbackConnection;
     MQTT mqtt;
 
     private void setMqConfig(MQConfig mqConfig) throws Exception {
-        System.out.println("-------------setMqConfig------");
+        Logger.d("========setMqConfig==============");
         if (mqConfig == null) {
             return;
         }
@@ -213,10 +218,8 @@ public class EmqClientImp implements EmqClient {
         public void onConnected() {
             connect = true;
             //添加上订阅
-            Topic[] objects = (Topic[]) datatopic.toArray();
-            subtopick(objects);
             mqListen.onConnected();
-
+            subtopick(datatopic.toArray(new Topic[datatopic.size()]));
         }
 
         @Override
@@ -247,7 +250,9 @@ public class EmqClientImp implements EmqClient {
         @Override
         public void onFailure(Throwable value) {
             //  mqListen.onDisconnected();
-            System.out.println("========onFailure==============");
+
+            connect = false;
+            Logger.d("========onFailure==============");
         }
     };
 
