@@ -15,6 +15,7 @@
     <color name="text_color_red">#d81e06</color>
     <color name="text_color_green">#7ED320</color>
     <color name="text_color_hint">#FFCCCCCC</color>
+    <color name="search_grey">#EFEFEF</color>
 
     <color name="gray">#acacac</color>
     <color name="white">#ffffff</color>

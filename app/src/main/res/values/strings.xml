@@ -17,7 +17,11 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_home">消息</string>
     <string name="title_dashboard">好友</string>
-    <string name="title_notifications">朋友圈</string>
+    <string name="title_notifications">圈子</string>
     <string name="title_userinfo">我的</string>
     <string name="title_activity_userinfo">UserinfoActivity</string>
+    <string name="friend_add_friend">添加朋友</string>
+    <string name="friend_request">朋友请求</string>
+    <string name="friend_mygroup">我的群组</string>
+
 </resources>

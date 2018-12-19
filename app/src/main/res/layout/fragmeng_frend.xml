@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include
@@ -10,17 +11,65 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/edt_corner_search"
+       android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="添加好友" />
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/common_icon_search" />
 
-        <Button
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="好友请求" />
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="搜索朋友或群组"
+            android:singleLine="true"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:layout_height="wrap_content"
+          android:text="@string/friend_add_friend"
+          android:drawableTop="@mipmap/add_friend"
+          android:drawablePadding="5dp"
+          android:textSize="10sp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="@string/friend_request"
+            android:drawableTop="@mipmap/friend_request"
+            android:drawablePadding="5dp"
+            android:textSize="10sp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="@string/friend_mygroup"
+            android:drawableTop="@mipmap/my_group"
+            android:drawablePadding="5dp"
+            android:textSize="10sp"/>
     </LinearLayout>
 
 
