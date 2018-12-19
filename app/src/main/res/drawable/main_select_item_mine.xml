@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 选中时图片-->
+    <item android:drawable="@mipmap/nav_bottom_my_pre" android:state_checked="true" />
+    <!--<item android:drawable="@mipmap/a111" android:state_pressed="true" />-->
+    <!-- 未选中时 图片 -->
+    <item android:drawable="@mipmap/nav_bottom_my" android:state_checkable="false" />
+</selector>
