@@ -1,10 +1,9 @@
 package com.burning.emqmsg;
 
 import android.app.Application;
-import android.content.Intent;
 
-import com.burning.emqmsg.service.Mqservices;
 import com.burning.mybaselibrary.LogUtils;
+import com.burning.realmdatalibrary.redao.RxReamlUtils;
 import com.burning.reutils.ReHttpUtils;
 
 import io.realm.Realm;
@@ -40,46 +39,9 @@ public class EmApplication extends Application {
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().name("emq.realm").build();
         Realm.setDefaultConfiguration(config);
-        startService(new Intent(this, Mqservices.class));
+        // startService(new Intent(this, Mqservices.class));
         LogUtils.init();
-        //Realm defaultInstance = Realm.getDefaultInstance();
-
-        //   UserPo firstAsync = defaultInstance.where(UserPo.class).equalTo("1", 1).findFirstAsync();
-        //  UserPo userPo =new UserPo();
-       /* Realm defaultInstance = Realm.getDefaultInstance();
-        defaultInstance.beginTransaction();
-        LoginUserPo loginUserPo = new LoginUserPo();
-        RealmList<GroupPo> realmList = new RealmList<>();
-        List<GroupPo> data = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            GroupPo groupPo = new GroupPo();
-            groupPo.setId(1000L + i);
-            groupPo.setRemarks("xxx" + i);
-            RealmList<UserPo> userPos = new RealmList<>();
-            for (int k = 0; k < 5; k++) {
-                UserPo userPo = new UserPo();
-                userPo.setId(k*i + 10000L);
-                userPo.setUsername("KKKKKKL" + k*i);
-                userPos.add(userPo);
-            }
-            groupPo.setList(userPos);
-            data.add(groupPo);
-        }
-        realmList.addAll(data);
-        loginUserPo.setUserid(3333l);
-        loginUserPo.setGroupPos(realmList);
-        String s = new Gson().toJson(loginUserPo);
-        defaultInstance.createOrUpdateObjectFromJson(LoginUserPo.class, s);
-       *//* Long id = 1000L;
-        List<UserPo> data = new ArrayList();
-        for (int i = 0; i < 10; i++) {
-            UserPo userPo = new UserPo();
-            userPo.setId(id + i);
-            userPo.setUsername("ccdddxxxd" + i + "====");
-            data.add(userPo);
-        }
-        String s = new Gson().toJson(data);
-        defaultInstance.createOrUpdateAllFromJson(UserPo.class, s);*//*
-        defaultInstance.commitTransaction();*/
+        RxReamlUtils rxReamlUtils = new RxReamlUtils();
+        rxReamlUtils.t();
     }
 }
