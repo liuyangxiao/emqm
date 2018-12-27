@@ -81,6 +81,7 @@ class MsgActivity : BaseActivity() {
                     object : MqCallBack {
                         override fun onSuccess() {
                             print("================OK")
+
                             runOnUiThread {
                                 activity_msg_content.text = null
                             }
