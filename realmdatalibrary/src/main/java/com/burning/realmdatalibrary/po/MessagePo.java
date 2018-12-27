@@ -29,8 +29,8 @@ import lombok.Data;
  */
 @Data
 @RealmClass
-public class MessagePo  implements RealmModel {
-    @PrimaryKey
+public class MessagePo implements RealmModel {
+    // @PrimaryKey
     Long id;
     /**
      * 消息归属
@@ -52,4 +52,5 @@ public class MessagePo  implements RealmModel {
      * 发送者 ID
      */
     private long clientId;
+    private long createTime;
 }

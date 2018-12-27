@@ -17,18 +17,18 @@ public class MessBean implements Serializable {
      * 300---系统消息 添加好友通过
      * 400---系统通知
      */
-    private int code;
+    int code;
     /**
      * 消息主体
      */
-    private String content;
+    String content;
     /**
      * 消息 唯一标识
      */
-    private String uuid;
+    String uuid;
     /**
      * 发送者 ID
      */
-    private long clientId;
+    long clientId;
 
 }

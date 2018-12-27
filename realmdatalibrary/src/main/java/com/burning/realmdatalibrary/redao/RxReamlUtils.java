@@ -28,7 +28,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * -------------------------// ┗┻┛　┗┻┛
  */
 public class RxReamlUtils {
-    public void t(final RealmTrasCall realmTrasCall) {
+    public static void updata(final RealmTrasCall realmTrasCall) {
         Observable<Realm> observable = Observable.unsafeCreate(new Observable.OnSubscribe<Realm>() {
             @Override
             public void call(final Subscriber<? super Realm> subscriber) {

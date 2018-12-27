@@ -48,7 +48,8 @@ class MsgAdapter(context: Context, data: MutableList<UserPo>) : BaseAdapter<User
     override fun onBindOnclic(itemview: View, position: Int) {
         itemview.setOnClickListener {
             val baseActivity = context as BaseActivity
-            var intent = Intent(context, MsgActivity().javaClass)
+            var intent = Intent(context, MsgActivity::class.java)
+            intent.putExtra(MsgActivity.USER_ID, data[position].id)
             baseActivity.startMyActivity(intent)
         }
     }

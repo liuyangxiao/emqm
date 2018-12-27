@@ -17,6 +17,8 @@ import org.fusesource.mqtt.client.Topic;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by burning on 2018/11/30.
@@ -46,8 +48,11 @@ public class EmqClientImp implements EmqClient {
         setMqConfig(new MQConfig());
     }
 
+    ExecutorService executorService = Executors.newSingleThreadExecutor();
+
     @Override
     public void sendMessage(Long uid, MessBean messBean, MqCallBack mqCallBack) {
+
         String message = new Gson().toJson(messBean);
         senMessage(TopicHelp.baseToppic + uid, message, mqCallBack);
     }
@@ -58,21 +63,26 @@ public class EmqClientImp implements EmqClient {
         senMessage(TopicHelp.baseGroupToppic + groupID, message, mqCallBack);
     }
 
-    private void senMessage(String topice, String message, final MqCallBack mqCallBack) {
-        callbackConnection.publish(topice, message.getBytes(), QoS.AT_LEAST_ONCE, false, new Callback<Void>() {
+    private void senMessage(final String topice, final String message, final MqCallBack mqCallBack) {
+        executorService.execute(new Runnable() {
             @Override
-            public void onSuccess(Void aVoid) {
-                if (mqCallBack != null)
-                    mqCallBack.onSuccess();
-            }
+            public void run() {
+                callbackConnection.publish(topice, message.getBytes(), QoS.AT_LEAST_ONCE, false, new Callback<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        if (mqCallBack != null)
+                            mqCallBack.onSuccess();
+                    }
 
-            @Override
-            public void onFailure(Throwable throwable) {
-                if (mqCallBack != null)
-                    mqCallBack.onFailure(throwable);
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        if (mqCallBack != null)
+                            mqCallBack.onFailure(throwable);
+                    }
+                });
+
             }
         });
-
     }
 
 
@@ -268,7 +278,15 @@ public class EmqClientImp implements EmqClient {
             }
             String msg = topic.toString();
             String mesContent = new String(body.toByteArray());
-            MessBean messBean = new Gson().fromJson(mesContent, MessBean.class);
+            MessBean messBean;
+            try {
+                messBean = new Gson().fromJson(mesContent, MessBean.class);
+            } catch (Exception e) {
+                Logger.d("========onPublish=======Exception=======" + e);
+                ack.run();
+                return;
+            }
+
             if (msg.startsWith(TopicHelp.baseGroupToppic)) {
                 //群消息
                 String replace = msg.replace(TopicHelp.baseGroupToppic, "");

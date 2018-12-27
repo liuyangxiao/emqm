@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity() {
     override fun init() {
         var tops = HashSet<String>()
-        tops.add(TopicHelp.baseGroupToppic + UserInfo.userid)//自己
+        tops.add(TopicHelp.baseToppic + UserInfo.userid)//自己
         tops.add(TopicHelp.serviceToppic + UserInfo.userid)//系统
         //群组 待添加
         EmqClientImp.instance().addtopicks(tops)
