@@ -3,12 +3,14 @@ package com.burning.emqmsg.activity
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
+import android.content.Intent
 import android.os.Build
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import com.burning.emqmsg.R
+import com.burning.emqmsg.service.Mqservices
 import com.burning.realmdatalibrary.httpservice.impl.UserApimpl
 import com.burning.realmdatalibrary.httpservice.requbean.LoginBean
 import kotlinx.android.synthetic.main.activity_login.*
@@ -31,6 +33,16 @@ class LoginActivity : BaseActivity() {
             false
         })
         email_sign_in_button.setOnClickListener { attemptLogin() }
+
+        val intent = Intent(this, Mqservices::class.java)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
+
+
     }
 
     private fun attemptLogin() {

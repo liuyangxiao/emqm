@@ -1,8 +1,10 @@
 package com.burning.emqmsg.service
 
+import android.app.Notification
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
+import android.widget.Toast
 
 import com.burning.emqlibrary.MQMessage.MessBean
 import com.burning.emqlibrary.emqNet.EmqClient
@@ -96,12 +98,15 @@ class Mqservices : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 //        Logger.d("========onStartCommand=========================")
+
+        Toast.makeText(getApplicationContext(), "onStartCommand", Toast.LENGTH_SHORT).show();
         executorService.execute {
             Logger.d("========onStartCommand========run======")
             instance = EmqClientImp.instance()
             instance!!.setListen(mqListen)
             instance!!.connect()
         }
+        startForeground(2213, Notification())
         return super.onStartCommand(intent, flags, startId)
 
     }

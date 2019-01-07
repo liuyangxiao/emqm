@@ -1,9 +1,14 @@
 package com.burning.emqmsg;
 
 import android.app.Application;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.os.Build;
 
 import com.burning.emqmsg.service.Mqservices;
+import com.burning.emqmsg.service.NjobService;
 import com.burning.mybaselibrary.LogUtils;
 import com.burning.realmdatalibrary.po.MessagePo;
 import com.burning.realmdatalibrary.po.UserPo;
@@ -49,9 +54,25 @@ public class EmApplication extends Application {
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().name("emq.realm").build();
         Realm.setDefaultConfiguration(config);
-         startService(new Intent(this, Mqservices.class));
+       /* Intent intent = new Intent(this, Mqservices.class);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        } else {
+            startService(intent);
+        }*/
         LogUtils.init();
         RxReamlUtils rxReamlUtils = new RxReamlUtils();
+//        jobScheduler.schedule(jobInfo);
+        JobScheduler jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+         //   JobInfo.Builder builder = new JobInfo.Builder(333, new ComponentName(getPackageName(), NjobService.class.getName()));
+           // JobInfo jobInfo = builder.build();
+         //   jobScheduler.schedule(jobInfo);
+        } else {
+
+        }
+
         rxReamlUtils.updata(new RealmTrasCall() {
             @Override
             public void call(Realm realm) {
@@ -78,7 +99,7 @@ public class EmApplication extends Application {
                 }
                 String data = new Gson().toJson(list);
                 realm.createAllFromJson(MessagePo.class, data);
-               // realm.commitTransaction();
+                // realm.commitTransaction();
             }
         });
     }
