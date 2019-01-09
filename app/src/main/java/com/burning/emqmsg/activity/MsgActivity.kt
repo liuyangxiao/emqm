@@ -10,11 +10,9 @@ import com.burning.emqmsg.adapter.MsgActivityAdapter
 import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.po.MessagePo
 import com.burning.realmdatalibrary.po.UserPo
-import com.burning.realmdatalibrary.redao.RxReamlUtils
 import io.realm.Sort
 import kotlinx.android.synthetic.main.activity_msg.*
 import kotlinx.android.synthetic.main.back_title.*
-import kotlinx.android.synthetic.main.fragmeng_frend.*
 import java.util.*
 
 /**

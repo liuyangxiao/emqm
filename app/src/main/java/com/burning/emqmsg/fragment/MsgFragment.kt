@@ -41,7 +41,13 @@ class MsgFragment : BaseFragment() {
         var mac = activity as MainActivity
         result = mac.realm.where(UserPo::class.java).findAllAsync()
         result?.addChangeListener { results ->
-            frend_recyler.adapter = MsgAdapter(activity!!, results)
+
+            if (frend_recyler.adapter != null) {
+                frend_recyler.adapter.notifyDataSetChanged()
+            } else {
+                hideloading()
+                frend_recyler.adapter = MsgAdapter(activity!!, results)
+            }
         }
     }
 

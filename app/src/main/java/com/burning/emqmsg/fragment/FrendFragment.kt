@@ -5,7 +5,9 @@ import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.MainActivity
 import com.burning.emqmsg.adapter.FrendFragmentAdapter
 import com.burning.realmdatalibrary.UserInfo
+import com.burning.realmdatalibrary.po.GroupPo
 import com.burning.realmdatalibrary.po.LoginUserPo
+import io.realm.RealmResults
 import kotlinx.android.synthetic.main.back_title.*
 import kotlinx.android.synthetic.main.fragmeng_frend.*
 
@@ -33,23 +35,24 @@ import kotlinx.android.synthetic.main.fragmeng_frend.*
  */
 class FrendFragment : BaseFragment() {
     override fun initViewOnlayout(): Int = R.layout.fragmeng_frend
-    var resuPo: LoginUserPo? = null;
+    var results: RealmResults<GroupPo>? = null
     override fun initData() {
         tv_title.text = "好友"
         frend_recyler.layoutManager = LinearLayoutManager(activity)
         val activity = activity as MainActivity
-        resuPo = activity.realm.where(LoginUserPo::class.java).equalTo("userid", UserInfo.userid).findFirstAsync()
-        resuPo?.addChangeListener<LoginUserPo> {
+        results = activity.realm.where(LoginUserPo::class.java).equalTo("userid", UserInfo.userid).findFirst().groupPos.where().equalTo("type", 1).findAllAsync()
+        results?.addChangeListener { results ->
             if (frend_recyler.adapter != null) {
                 frend_recyler.adapter.notifyDataSetChanged()
             } else {
-                frend_recyler.adapter = FrendFragmentAdapter(activity, it.groupPos)
+                hideloading()
+                frend_recyler.adapter = FrendFragmentAdapter(activity, results)
             }
         }
     }
 
     override fun onDestroy() {
+        results?.removeAllChangeListeners()
         super.onDestroy()
-        resuPo?.removeAllChangeListeners()
     }
 }

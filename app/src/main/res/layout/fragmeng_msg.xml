@@ -9,13 +9,31 @@
         layout="@layout/back_title" />
 
     <LinearLayout
+        android:id="@+id/fragment_serch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/edt_corner_search"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/common_icon_search" />
+
+        <TextView
+            android:id="@+id/edt_search"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="待完成搜索" />
+            android:layout_weight="1"
+            android:enabled="false"
+            android:background="@null"
+            android:hint="搜索"
+            android:singleLine="true"
+            android:textSize="10sp" />
     </LinearLayout>
 
 

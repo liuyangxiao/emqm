@@ -32,5 +32,5 @@ dependencies {
     api 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
 
     implementation project(path: ':mybaselibrary')
-
+    api 'com.github.LinweiJ:ViewPagerIndicator:0.1.0'
 }

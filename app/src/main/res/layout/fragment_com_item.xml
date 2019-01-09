@@ -44,6 +44,7 @@
         android:id="@+id/com_item_user_messages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:textColor="@color/colorDrack"
         app:layout_constraintTop_toBottomOf="@+id/com_item_user_icon" />
 

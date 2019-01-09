@@ -6,7 +6,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.wang.avi.AVLoadingIndicatorView
+import com.burning.emqmsg.R
+import kotlinx.android.synthetic.main.base_fragment.*
 
 /**
  * Created by burning on 2018/10/23.
@@ -42,10 +43,11 @@ abstract class BaseFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         println("========onCreateView======" + javaClass.name)
-        return inflater.inflate(initViewOnlayout(), null)//super.onCreateView(inflater, container, savedI)nstanceState)
+        val inflate = inflater.inflate(R.layout.base_fragment, null)
+        val viewGroup = inflate as ViewGroup
+        viewGroup.addView(View.inflate(activity, initViewOnlayout(), null), 0)
+        return inflate//super.onCreateView(inflater, container, savedI)nstanceState)
     }
-
-    var biew: AVLoadingIndicatorView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         println("========onView===Created======" + javaClass.name)
@@ -55,19 +57,11 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun showloading() {
-        if (biew == null) {
-            biew = AVLoadingIndicatorView(activity)
-            biew?.setIndicator("BallSpinFadeLoaderIndicator")
-        }
-        val frameLayout = getView() as ViewGroup
-        frameLayout.addView(biew)
-        biew?.show()
+        fragment_loading.show()
     }
 
     fun hideloading() {
-        biew?.hide()
-        val frameLayout = getView() as ViewGroup
-        frameLayout.removeView(biew)
+        fragment_loading.hide()
     }
 
     override fun onAttach(context: Context?) {

@@ -20,6 +20,8 @@
 
     <color name="gray">#acacac</color>
     <color name="white">#ffffff</color>
+    <color name="login_btn_color">#6FDEEA</color>
+
     <color name="white_press">#4fffffff</color>
     <color name="red">#FFFF0000</color>
     <color name="red_dark">#4FFF0000</color>

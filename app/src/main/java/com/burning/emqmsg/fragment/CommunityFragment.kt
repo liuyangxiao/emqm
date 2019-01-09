@@ -1,13 +1,12 @@
 package com.burning.emqmsg.fragment
 
-import android.support.v7.widget.LinearLayoutManager
+import android.support.design.widget.TabLayout
 import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.MainActivity
 import com.burning.emqmsg.adapter.CommunityAdapter
-import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.po.LoginUserPo
 import kotlinx.android.synthetic.main.back_title.*
-import kotlinx.android.synthetic.main.fragmeng_frend.*
+import kotlinx.android.synthetic.main.fragmeng_comdia.*
 
 /**
  * Created by burning on 2018/10/26.
@@ -34,18 +33,19 @@ import kotlinx.android.synthetic.main.fragmeng_frend.*
 class CommunityFragment : BaseFragment() {
     var resuPo: LoginUserPo? = null
     override fun initData() {
-        frend_recyler.layoutManager = LinearLayoutManager(activity)
-        tv_title.text = "日迹"
+        tv_title.text = "圈子"
+        //    community_vp.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, false)
         val activity = activity as MainActivity
-        resuPo = activity.realm.where(LoginUserPo::class.java).equalTo("userid", UserInfo.userid).findFirstAsync()
-
-        resuPo?.addChangeListener<LoginUserPo> {
-            if (frend_recyler.adapter != null) {
-                frend_recyler.adapter.notifyDataSetChanged()
-            } else {
-                frend_recyler.adapter = CommunityAdapter(activity, it.diaryPos)
-            }
-        }
+        var data = ArrayList<String>()
+        community_vp.adapter = CommunityAdapter(fragmentManager!!)
+        //   viewPagerIndicator.
+        viewPagerIndicator.setViewPager(community_vp)
+        //com_vp_tablelayout.
+        tabLayout.setupWithViewPager(community_vp)
+        tabLayout.tabMode = TabLayout.MODE_FIXED
+        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+        tabLayout.setSelectedTabIndicatorHeight(0)
+        hideloading()
     }
 
     override fun initViewOnlayout(): Int = R.layout.fragmeng_comdia

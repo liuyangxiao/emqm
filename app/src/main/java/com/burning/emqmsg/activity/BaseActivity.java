@@ -1,11 +1,14 @@
 package com.burning.emqmsg.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
+
+import com.burning.mybaselibrary.SystemBarTintManager;
 
 import io.realm.Realm;
 
@@ -34,10 +37,21 @@ import io.realm.Realm;
 public abstract class BaseActivity extends AppCompatActivity {
     public Realm realm;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            getWindow().setStatusBarColor(R.color.text_color_blue);
+//        }
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        // enable status bar tint
+        tintManager.setStatusBarTintEnabled(true);
+        // enable navigation bar tint
+        tintManager.setNavigationBarTintEnabled(true);
+       // setRootViewFitsSystemWindows(this,true);
         setContentView(getActivityLayout());
         if (realm == null)
             realm = Realm.getDefaultInstance();

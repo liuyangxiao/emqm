@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,21 +9,45 @@
         android:id="@+id/fragment_back_title"
         layout="@layout/back_title" />
 
-    <LinearLayout
+    <com.lwj.widget.viewpagerindicator.ViewPagerIndicator
+        android:id="@+id/viewPagerIndicator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="待完成界面" />
-
-
-    </LinearLayout>
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/frend_recyler"
+        android:layout_height="6dp"
+        android:layout_marginTop="3dp"
+        app:vpi_default_color="#cdcdcd"
+        app:vpi_distance="500dp"
+        app:vpi_distanceType="BY_LAYOUT"
+        app:vpi_indicatorType="SPRING"
+        app:vpi_length="24dp"
+        app:vpi_radius="3dp"
+        app:vpi_selected_color="#FF23EEF5" />
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="20dp"
+        app:tabIndicatorColor="#FF23EEF5"
+        app:tabIndicatorHeight="0dp"
+        app:tabMaxWidth="0dp"
+        app:tabMode="scrollable"
+        app:tabPaddingEnd="-1dp"
+        app:tabPaddingStart="-1dp"
+        app:tabSelectedTextColor="#FF23EEF5"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="#FF23EEF5" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/community_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--
+                <android.support.v4.view.PagerTabStrip
+                    android:id="@+id/pagertab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top" />
+        -->
+
+    </android.support.v4.view.ViewPager>
+
 </LinearLayout>

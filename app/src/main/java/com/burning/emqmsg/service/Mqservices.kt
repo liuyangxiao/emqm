@@ -1,11 +1,13 @@
 package com.burning.emqmsg.service
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.Service
 import android.content.Intent
+import android.os.Build
 import android.os.IBinder
+import android.support.annotation.RequiresApi
 import android.widget.Toast
-
 import com.burning.emqlibrary.MQMessage.MessBean
 import com.burning.emqlibrary.emqNet.EmqClient
 import com.burning.emqlibrary.emqNet.EmqClientImp
@@ -14,8 +16,6 @@ import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.po.MessagePo
 import com.burning.realmdatalibrary.redao.RxReamlUtils
 import com.orhanobut.logger.Logger
-
-import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 /**
@@ -96,6 +96,7 @@ class Mqservices : Service() {
         return null
     }
 
+    @SuppressLint("WrongConstant")
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 //        Logger.d("========onStartCommand=========================")
 
@@ -107,7 +108,13 @@ class Mqservices : Service() {
             instance!!.connect()
         }
         startForeground(2213, Notification())
-        return super.onStartCommand(intent, flags, startId)
+        return super.onStartCommand(intent, START_REDELIVER_INTENT, startId)
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onDestroy() {
+        super.onDestroy()
+        startForegroundService(Intent(applicationContext, Mqservices::class.java))
     }
 }
