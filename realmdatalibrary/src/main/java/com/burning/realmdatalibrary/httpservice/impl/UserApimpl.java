@@ -10,8 +10,12 @@ import com.burning.realmdatalibrary.httpservice.requbean.ResDto;
 import com.burning.realmdatalibrary.po.GroupPo;
 import com.burning.realmdatalibrary.po.LoginUserPo;
 import com.burning.realmdatalibrary.po.UserPo;
+import com.burning.realmdatalibrary.redao.RealmTrasCall;
+import com.burning.realmdatalibrary.redao.RxReamlUtils;
 import com.burning.reutils.ReHttpUtils;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 import io.realm.Realm;
 import rx.Observable;
@@ -42,7 +46,6 @@ public class UserApimpl implements UserApi {
 
     @Override
     public void login(final LoginBean bean, final HttpCallBack<String> httpCallBack) {
-        System.out.println("====main=" + Thread.currentThread().getName());
         ReHttpUtils.instans().httpRequest(new BaSubCribe<ResDto<UserPo>>() {
             @Override
             public Observable<ResDto<UserPo>> getObservable(HttpApi retrofit) {
@@ -75,7 +78,7 @@ public class UserApimpl implements UserApi {
                         }
                     });
                 } else {
-                    httpCallBack.oncode(200, "已又数据", "");
+                    httpCallBack.oncode(200, "已有数据", "");
                 }
 
 
@@ -146,6 +149,7 @@ public class UserApimpl implements UserApi {
 
             @Override
             public void onError(Throwable e) {
+
             }
 
             @Override
@@ -169,5 +173,60 @@ public class UserApimpl implements UserApi {
     @Override
     public void getUsersbyloginID() {
 
+    }
+
+    /**
+     * 查找用户
+     *
+     * @param content
+     * @param httpCallBack
+     */
+    @Override
+    public void searchFrend(final String content, final HttpCallBack<List<UserPo>> httpCallBack) {
+        ReHttpUtils.instans().httpRequest(new BaSubCribe<ResDto<List<UserPo>>>() {
+            @Override
+            public void onError(Throwable e) {
+                httpCallBack.oncode(100, e.getMessage(), null);
+            }
+
+            @Override
+            public void onNext(final ResDto<List<UserPo>> userPoResDto) {
+                httpCallBack.oncode(200, userPoResDto.getMsg(), userPoResDto.getData());
+                if (userPoResDto != null && userPoResDto.getData() != null && userPoResDto.getData().size() != 0) {
+                    RxReamlUtils.updata(new RealmTrasCall() {
+                        @Override
+                        public void call(Realm realm) {
+                            //搜索后即同步数据库数据
+                            realm.createOrUpdateAllFromJson(UserPo.class, new Gson().toJson(userPoResDto.getData()));
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public Observable<ResDto<List<UserPo>>> getObservable(HttpApi retrofit) {
+                return retrofit.searchfred(content);
+            }
+        });
+    }
+
+    @Override
+    public void signup(final LoginBean bean, final HttpCallBack<String> httpCallBack) {
+        ReHttpUtils.instans().httpRequest(new BaSubCribe<ResDto<String>>() {
+            @Override
+            public void onError(Throwable e) {
+                httpCallBack.oncode(100, "注册异常:" + e.getMessage(), null);
+            }
+
+            @Override
+            public void onNext(ResDto<String> resDto) {
+                httpCallBack.oncode(200, resDto.getMsg(), resDto.getData());
+            }
+
+            @Override
+            public Observable<ResDto<String>> getObservable(HttpApi retrofit) {
+                return retrofit.creatUser(bean);
+            }
+        });
     }
 }

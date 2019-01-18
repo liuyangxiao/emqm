@@ -44,7 +44,7 @@ class FrendcomUiAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdap
             calendar.timeInMillis = h.createTime
             itemview.com_item_user_msgtime.text = "${calendar.get(Calendar.YEAR)}年" +
                     "${calendar.get(Calendar.MONTH)}月" +
-                    "${calendar.get(Calendar.DAY_OF_YEAR)}" +
+                    "${calendar.get(Calendar.YEAR)}" +
                     "日${calendar.get(Calendar.HOUR)}时${calendar.get(Calendar.MINUTE)}分"
         }
         var images = ArrayList<String>()

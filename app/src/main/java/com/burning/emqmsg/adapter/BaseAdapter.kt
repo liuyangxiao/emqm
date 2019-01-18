@@ -38,7 +38,8 @@ abstract class BaseAdapter<H>(var context: Context, var data: MutableList<H>) : 
     }
 
     override fun onBindViewHolder(holder: TviewHolder, position: Int) {
-        onSetData(holder.itemView, data[position], position)
+        if (!data.isEmpty() && position < data.size)
+            onSetData(holder.itemView, data[position], position)
         onBindOnclic(holder.itemView, position)
 
     }

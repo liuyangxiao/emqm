@@ -8,6 +8,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.BaseActivity
 import com.burning.emqmsg.activity.MsgActivity
+import com.burning.realmdatalibrary.po.GroupPo
+import com.burning.realmdatalibrary.po.MesgWinPo
 import com.burning.realmdatalibrary.po.UserPo
 import kotlinx.android.synthetic.main.fragment_msg_item.view.*
 
@@ -33,15 +35,25 @@ import kotlinx.android.synthetic.main.fragment_msg_item.view.*
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-class MsgAdapter(context: Context, data: MutableList<UserPo>) : BaseAdapter<UserPo>(context, data) {
-    override fun onSetData(itemview: View, h: UserPo, position: Int) {
-        itemview.msg_item_user_name.text = " ${h.username}"
-
+class MsgAdapter(context: Context, data: MutableList<MesgWinPo>) : BaseAdapter<MesgWinPo>(context, data) {
+    override fun onSetData(itemview: View, h: MesgWinPo, position: Int) {
+        val baseActivity = context as BaseActivity
         var options = RequestOptions().placeholder(R.mipmap.a111)                //加载成功之前占位图
                 .error(R.mipmap.ccatsfas)                    //加载错误之后的错误图
                 .fitCenter()
                 .centerCrop()
-        Glide.with(context).load(h.icon).apply(options).into(itemview.msg_item_user_icon)
+        var name = if (h.type == 1) {
+            val findFirst = baseActivity.realm.where(UserPo::class.java).equalTo("id", h.msgid).findFirst();
+            Glide.with(baseActivity).load(findFirst.icon).apply(options).into(itemview.msg_item_user_icon)
+            findFirst.username+"用户id="+findFirst.id
+        } else {
+            var group = baseActivity.realm.where(GroupPo::class.java).equalTo("id", h.msgid).findFirst()
+            Glide.with(baseActivity).load("xxxxx").apply(options).into(itemview.msg_item_user_icon)
+            group.content+"群id="+group.id
+        }
+        itemview.msg_item_user_name.text = name
+
+
     }
 
     override fun getItemViewType(position: Int): Int = R.layout.fragment_msg_item
@@ -49,7 +61,11 @@ class MsgAdapter(context: Context, data: MutableList<UserPo>) : BaseAdapter<User
         itemview.setOnClickListener {
             val baseActivity = context as BaseActivity
             var intent = Intent(context, MsgActivity::class.java)
-            intent.putExtra(MsgActivity.USER_ID, data[position].id)
+            if (data[position].type == 1) {
+                intent.putExtra(MsgActivity.USER_ID, data[position].msgid)
+            } else {
+                intent.putExtra(MsgActivity.GROUP_ID, data[position].msgid)
+            }
             baseActivity.startMyActivity(intent)
         }
     }

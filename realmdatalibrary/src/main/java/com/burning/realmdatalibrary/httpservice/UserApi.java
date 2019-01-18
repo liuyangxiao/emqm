@@ -1,6 +1,9 @@
 package com.burning.realmdatalibrary.httpservice;
 
 import com.burning.realmdatalibrary.httpservice.requbean.LoginBean;
+import com.burning.realmdatalibrary.po.UserPo;
+
+import java.util.List;
 
 /**
  * Created by burning on 2018/12/4.
@@ -54,4 +57,8 @@ public interface UserApi {
      * 获取所有好友信息
      */
     void getUsersbyloginID();
+
+    void searchFrend(String content, HttpCallBack<List<UserPo>> httpCallBack);
+
+    void signup(LoginBean bean, HttpCallBack<String> httpCallBack);
 }

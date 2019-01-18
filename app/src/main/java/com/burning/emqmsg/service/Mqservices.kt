@@ -7,12 +7,12 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.support.annotation.RequiresApi
-import android.widget.Toast
 import com.burning.emqlibrary.MQMessage.MessBean
 import com.burning.emqlibrary.emqNet.EmqClient
 import com.burning.emqlibrary.emqNet.EmqClientImp
 import com.burning.emqlibrary.emqNet.MqListen
 import com.burning.realmdatalibrary.UserInfo
+import com.burning.realmdatalibrary.po.MesgWinPo
 import com.burning.realmdatalibrary.po.MessagePo
 import com.burning.realmdatalibrary.redao.RxReamlUtils
 import com.orhanobut.logger.Logger
@@ -50,21 +50,50 @@ class Mqservices : Service() {
             //普通消息
             Logger.d("========onMessage==============")
             RxReamlUtils.updata {
-                val createObject = it.createObject(MessagePo::class.java)
+                val createObject = it.createObject(MessagePo::class.java, messBean.uuid)
                 createObject.content = messBean.content
                 createObject.clientId = messBean.clientId
                 createObject.code = messBean.code
                 createObject.ofclientID = UserInfo.userid
-                createObject.uuid = messBean.uuid
+                // createObject.uuid =
                 createObject.createTime = System.currentTimeMillis()
-                createObject.id = 332
+                //消息聊天窗口--若不存在 则添加
+                if (it.where(MesgWinPo::class.java).equalTo("userid", UserInfo.userid).equalTo("type", 2).equalTo("msgid", messBean.clientId).findFirst() == null) {
+                    val createObject = it.createObject(MesgWinPo::class.java)
+                    createObject.msgid = messBean.clientId
+                    createObject.userid = UserInfo.userid
+                    createObject.type = 1
+                }
+
+
+                //createObject.id = 332
             }
 
         }
 
         override fun onGroupMessage(groupid: Long?, messBean: MessBean) {
             //群消息
-            Logger.d("========onGroupMessage==============")
+            RxReamlUtils.updata {
+                //消息聊天窗口--若不存在 则添加
+                if (it.where(MesgWinPo::class.java).equalTo("userid", UserInfo.userid).equalTo("type", 2).equalTo("msgid", groupid).findFirst() == null) {
+                    val createObject = it.createObject(MesgWinPo::class.java)
+                    createObject.msgid = messBean.clientId
+                    createObject.userid = UserInfo.userid
+                    createObject.type = 2
+                }
+                if (messBean.clientId == UserInfo.userid) {
+                    //自己发送的消息-不保存
+                    return@updata
+                }
+                val createObject = it.createObject(MessagePo::class.java, messBean.uuid)
+                createObject.content = messBean.content
+                createObject.clientId = messBean.clientId
+                createObject.code = messBean.code
+                createObject.ofclientID = groupid!!
+                // createObject.uuid = messBean.uuid
+                createObject.createTime = System.currentTimeMillis()
+                //createObject.id = 332
+            }
         }
 
         override fun onServiceMessage(messBean: MessBean) {
@@ -100,7 +129,7 @@ class Mqservices : Service() {
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 //        Logger.d("========onStartCommand=========================")
 
-        Toast.makeText(getApplicationContext(), "onStartCommand", Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(getApplicationContext(), "onStartCommand", Toast.LENGTH_SHORT).show()
         executorService.execute {
             Logger.d("========onStartCommand========run======")
             instance = EmqClientImp.instance()

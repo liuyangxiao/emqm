@@ -39,7 +39,7 @@ class FrendFragmentAdapter(context: Context, data: MutableList<GroupPo>) : BaseA
         } else {
             "群--"
         }
-        itemview.item_frend_recyler_view.adapter = MsgAdapter(context, h.userlis)
+        itemview.item_frend_recyler_view.adapter = UsersAdapter(context, h.userlis)
         setChecked(itemview, btns.contains(position))
     }
 

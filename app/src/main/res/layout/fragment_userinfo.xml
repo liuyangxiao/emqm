@@ -1,205 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/fragment_back_title"
+        layout="@layout/back_title" />
+
+    <View
+        android:id="@+id/user_fragment_view"
+        android:layout_width="20dp"
+        android:layout_height="1dp" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-    android:background="@color/bg_view_magin">
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:padding="10dp">
 
-        <!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-        <!--xmlns:tools="http://schemas.android.com/tools"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@color/white">-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_fragment_usericon"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@mipmap/a111" />
 
-        <include
-            android:id="@+id/fragment_back_title"
-            layout="@layout/back_title" />
+        <TextView
+            android:id="@+id/user_fragment_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/user_fragment_usericon"
+            android:paddingTop="5dp"
+            android:text="王二小"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
-        <View
-            android:id="@+id/user_fragment_view"
-            android:layout_width="20dp"
-            android:layout_height="1dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/white"
-            android:padding="10dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/user_fragment_usericon"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:src="@mipmap/a111" />
-
-            <TextView
-                android:id="@+id/user_fragment_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/user_fragment_usericon"
-                android:paddingTop="5dp"
-                android:text="王二小"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/user_fragment_userreid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/user_fragment_usericon"
-                android:paddingBottom="5dp"
-                android:text="暂未设置签名"
-                android:textColor="@color/black_gray"
-                android:textSize="10sp" />
+        <TextView
+            android:id="@+id/user_fragment_userreid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/user_fragment_usericon"
+            android:paddingBottom="5dp"
+            android:text="暂未设置签名"
+            android:textColor="@color/black_gray"
+            android:textSize="10sp" />
 
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:src="@mipmap/right_arrow" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/right_arrow" />
 
-            <TextView
-                android:id="@+id/test_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/test_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
-        <RelativeLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/userinfo_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/userinfo_circle"
+            android:text="圈子"
+            android:textColor="@color/dark_color"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/userinfo_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/userinfo_follow"
+            android:text="关注"
+            android:textColor="@color/dark_color"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/userinfo_fans"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/userinfo_fans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:text="粉丝"
+            android:textColor="@color/dark_color"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/bg_view_magin" />
+
+    <!--    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:padding="15dp">
-
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
             <TextView
-                android:id="@+id/userinfo_circle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="3dp"
-                android:layout_toRightOf="@+id/userinfo_circle"
-                android:text="圈子"
-                android:textColor="@color/dark_color"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:drawablePadding="3dp"
+                android:drawableTop="@mipmap/personage_icon_collect"
+                android:text="我的收藏"
                 android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/userinfo_follow"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_centerVertical="true"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="3dp"
-                android:layout_toRightOf="@+id/userinfo_follow"
-                android:text="关注"
-                android:textColor="@color/dark_color"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:drawablePadding="3dp"
+                android:drawableTop="@mipmap/personage_icon_burse"
+                android:text="我的钱包"
                 android:textSize="10sp" />
-
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/userinfo_fans"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/userinfo_fans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="3dp"
-                android:text="粉丝"
-                android:textColor="@color/dark_color"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:drawablePadding="3dp"
+                android:drawableTop="@mipmap/personage_icon_statistics"
+                android:text="访问统计"
                 android:textSize="10sp" />
-        </RelativeLayout>
-
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:drawablePadding="3dp"
+                android:drawableTop="@mipmap/personage_icon_book"
+                android:text="回收站"
+                android:textSize="10sp" />
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@color/bg_view_magin" />
-
-        <!--    <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:drawablePadding="3dp"
-                    android:drawableTop="@mipmap/personage_icon_collect"
-                    android:text="我的收藏"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:drawablePadding="3dp"
-                    android:drawableTop="@mipmap/personage_icon_burse"
-                    android:text="我的钱包"
-                    android:textSize="10sp" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:drawablePadding="3dp"
-                    android:drawableTop="@mipmap/personage_icon_statistics"
-                    android:text="访问统计"
-                    android:textSize="10sp" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:drawablePadding="3dp"
-                    android:drawableTop="@mipmap/personage_icon_book"
-                    android:text="回收站"
-                    android:textSize="10sp" />
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/bg_view_magin" />-->
+            android:background="@color/bg_view_magin" />-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -235,6 +226,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
             android:background="@color/bg_view_magin" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -268,6 +260,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
             android:background="@color/bg_view_magin" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -301,7 +294,9 @@
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
             android:background="@color/bg_view_magin" />
+
         <RelativeLayout
+            android:id="@+id/userinfo_fg_loginout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -320,7 +315,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/userinfo_help"
-                android:text="@string/mine_help" />
+                android:text="注销退出登入" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -335,6 +330,4 @@
             android:layout_height="0.1dp"
             android:background="@color/bg_view_magin" />
     </LinearLayout>
-        <!--
-        </android.support.constraint.ConstraintLayout>-->
-    </LinearLayout>
+</LinearLayout>

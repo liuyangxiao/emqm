@@ -51,6 +51,7 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/fragment_addfrend_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -62,6 +63,7 @@
             android:textSize="10sp" />
 
         <TextView
+            android:id="@+id/fragment_newfrend_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -73,6 +75,7 @@
             android:textSize="10sp" />
 
         <TextView
+            android:id="@+id/fragment_frend_group_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

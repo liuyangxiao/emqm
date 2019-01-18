@@ -10,6 +10,7 @@ import com.burning.emqmsg.fragment.FrendFragment
 import com.burning.emqmsg.fragment.MsgFragment
 import com.burning.emqmsg.fragment.UserinfoFragment
 import com.burning.realmdatalibrary.UserInfo
+import com.burning.realmdatalibrary.po.LoginUserPo
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -17,9 +18,10 @@ class MainActivity : BaseActivity() {
         var tops = HashSet<String>()
         tops.add(TopicHelp.baseToppic + UserInfo.userid)//自己
         tops.add(TopicHelp.serviceToppic + UserInfo.userid)//系统
-        //群组 待添加
+        for (groupPo in realm.where(LoginUserPo::class.java).equalTo("userid", UserInfo.userid).findFirst().groupPos.where().equalTo("type", 2).findAll()) {
+            tops.add(TopicHelp.baseGroupToppic + groupPo.id)//群组
+        }
         EmqClientImp.instance().addtopicks(tops)
-
         navigation.itemIconTintList = null
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -58,6 +60,7 @@ class MainActivity : BaseActivity() {
     var COM_TAG = "c_1"
 
     fun replaceFragmenByTag(tag: String) {
+
         val beginTransaction = supportFragmentManager.beginTransaction()
         if (contentfragment != null)
             beginTransaction.hide(contentfragment)

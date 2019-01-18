@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/msg_item_user_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="10dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="2dp" />
+
+    <TextView
+        android:id="@+id/msg_item_user_icon_cent"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:text="===================================="
+        app:layout_constraintBottom_toBottomOf="@+id/msg_item_user_icon"
+        app:layout_constraintLeft_toLeftOf="@+id/msg_item_user_name"
+        app:layout_constraintTop_toTopOf="@+id/msg_item_user_icon" />
+
+    <TextView
+        android:id="@+id/msg_item_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="用户名称"
+        android:textColor="@color/colorDrack"
+        android:textSize="@dimen/fragment_item_username"
+        app:layout_constraintBottom_toTopOf="@+id/msg_item_user_icon_cent"
+        app:layout_constraintLeft_toRightOf="@+id/msg_item_user_icon" />
+
+    <TextView
+        android:id="@+id/msg_item_user_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请求添加好友"
+        app:layout_constraintBottom_toBottomOf="@+id/msg_item_user_icon"
+        app:layout_constraintLeft_toLeftOf="@+id/msg_item_user_name"
+        app:layout_constraintTop_toBottomOf="@+id/msg_item_user_icon_cent" />
+
+    <TextView
+        android:id="@+id/item_addfrend_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/color_blue"
+        android:gravity="center"
+        android:paddingBottom="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="6dp"
+        android:text="同意"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/msg_item_user_icon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/msg_item_user_icon" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="10dp"
+        android:background="@color/red"
+        app:layout_constraintTop_toBottomOf="@+id/msg_item_user_msg" />
+</android.support.constraint.ConstraintLayout>

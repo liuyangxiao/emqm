@@ -1,10 +1,10 @@
 package com.burning.emqmsg.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import com.bumptech.glide.Glide
 import com.burning.emqmsg.R
-import com.burning.emqmsg.R.id.item_msg_activity_username
 import com.burning.emqmsg.activity.BaseActivity
 import com.burning.emqmsg.activity.UserinfoActivity
 import com.burning.emqmsg.glidehelp.MyTransform
@@ -46,10 +46,17 @@ class MsgActivityAdapter(context: Context, data: MutableList<MessagePo>) : BaseA
         val dip2px = DpPxTransformUtil.dip2px(context, 240f)
         if (measureText > dip2px)
             itemview.item_msg_activity_message.width = dip2px
+
+    }
+
+    override fun onBindOnclic(itemview: View, position: Int) {
+        super.onBindOnclic(itemview, position)
         itemview.item_msg_activity_usericon.setOnClickListener {
-            val baseActivity = context as BaseActivity
-            baseActivity.startMyActivity(UserinfoActivity::class.java)
+            var intent = Intent(context, UserinfoActivity::class.java)
+            intent.putExtra(UserinfoActivity.USER_ID, data[position].clientId)
+            context.startActivity(intent)
         }
+
     }
 
     override fun getItemViewType(position: Int): Int {

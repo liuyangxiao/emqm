@@ -60,4 +60,6 @@ public interface EmqClient {
     void addtopick(String topick);
 
     void addtopicks(Set<String> topick);
+
+    void upsubtopicks(String topick);
 }

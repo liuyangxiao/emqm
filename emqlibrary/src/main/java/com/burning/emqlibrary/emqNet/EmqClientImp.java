@@ -14,8 +14,10 @@ import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.client.QoS;
 import org.fusesource.mqtt.client.Topic;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -185,9 +187,13 @@ public class EmqClientImp implements EmqClient {
 
     private static EmqClient emqClient;
 
-    public synchronized static EmqClient instance() throws Exception {
-        if (emqClient == null)
-            emqClient = new EmqClientImp();
+    public synchronized static EmqClient instance() {
+        try {
+            if (emqClient == null)
+                emqClient = new EmqClientImp();
+        } catch (Exception e) {
+            emqClient = null;
+        }
         return emqClient;
     }
 
@@ -226,6 +232,32 @@ public class EmqClientImp implements EmqClient {
             datatopic.add(topic);
         }
         subtopick(datatopic.toArray(new Topic[datatopic.size()]));
+    }
+
+    @Override
+    public void upsubtopicks(String topick) {
+        UTF8Buffer[] utf8Buffers;
+        if (topick == null) {
+            List<UTF8Buffer> tops = new ArrayList<>();
+            for (Topic topic : datatopic) {
+                UTF8Buffer name = topic.name();
+                tops.add(name);
+            }
+            utf8Buffers = tops.toArray(new UTF8Buffer[tops.size()]);
+        } else {
+            utf8Buffers = new UTF8Buffer[]{new UTF8Buffer(topick)};
+        }
+        callbackConnection.unsubscribe(utf8Buffers, new Callback<Void>() {
+            @Override
+            public void onSuccess(Void value) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable value) {
+
+            }
+        });
     }
 
     CallbackConnection callbackConnection;

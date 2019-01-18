@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/item_group_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:padding="5dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/item_group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text="==========="
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/item_group_icon"
+        app:layout_constraintLeft_toRightOf="@+id/item_group_icon"
+        app:layout_constraintTop_toTopOf="@+id/item_group_icon" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1px"
+        android:layout_marginTop="4dp"
+        android:background="@color/login_btn_color"
+        app:layout_constraintLeft_toLeftOf="@+id/item_group_name"
+        app:layout_constraintTop_toBottomOf="@+id/item_group_name" />
+</android.support.constraint.ConstraintLayout>

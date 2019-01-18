@@ -1,14 +1,13 @@
 package com.burning.emqmsg.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
 
-import com.burning.mybaselibrary.SystemBarTintManager;
+import com.burning.mybaselibrary.DpPxTransformUtil;
+import com.gyf.barlibrary.ImmersionBar;
 
 import io.realm.Realm;
 
@@ -36,26 +35,24 @@ import io.realm.Realm;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     public Realm realm;
+    public static int actionBarHeight;
 
-    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            getWindow().setStatusBarColor(R.color.text_color_blue);
-//        }
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        // enable status bar tint
-        tintManager.setStatusBarTintEnabled(true);
-        // enable navigation bar tint
-        tintManager.setNavigationBarTintEnabled(true);
-       // setRootViewFitsSystemWindows(this,true);
+        if (actionBarHeight == 0) {
+            //   actionBarHeight = getActionBarHeight(this);
+            actionBarHeight = DpPxTransformUtil.dip2px(this, 25);
+        }
         setContentView(getActivityLayout());
         if (realm == null)
             realm = Realm.getDefaultInstance();
         System.out.println("====================" + getClass().getName());
+        // fullScreen();
+        ImmersionBar.with(this)
+                //  .fitsSystemWindows(true)
+                //   .titleBarMarginTop(new View(this))
+                .init();
         init();
     }
 
@@ -81,6 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ImmersionBar.with(this).destroy();
         if (realm != null)
             realm.close();
     }
@@ -111,6 +109,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     abstract void init();
 
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+    }
+
     public void startMyActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);
@@ -120,5 +122,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void startMyActivity(Intent intent) {
         startActivity(intent);
     }
+
 
 }
