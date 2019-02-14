@@ -1,14 +1,9 @@
 package com.burning.emqmsg
 
-import com.burning.realmdatalibrary.BaSubCribe
-import com.burning.realmdatalibrary.HttpApi
-import com.burning.realmdatalibrary.httpservice.impl.UserApimpl
-import com.burning.realmdatalibrary.httpservice.requbean.LoginBean
-import com.burning.realmdatalibrary.httpservice.requbean.ResDto
-import com.burning.realmdatalibrary.po.UserPo
+import com.burning.realmdatalibrary.httpservice.impl.HttpUpload
 import com.burning.reutils.ReHttpUtils
 import org.junit.Test
-import rx.Observable
+import java.io.File
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -19,30 +14,11 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         ReHttpUtils.initRetro("http://localhost:8989")
-        var userapi = UserApimpl()
-        var loginBean = LoginBean()
-        loginBean.loginname = "string"
-        loginBean.password = "string"
-        ReHttpUtils.instans().httpRequestMain(object : BaSubCribe<ResDto<UserPo>>() {
-            override fun getObservable(retrofit: HttpApi): Observable<ResDto<UserPo>>? {
-                return retrofit.getLogin(loginBean)
-            }
-
-            override fun onCompleted() {
-                print("==========onCompleted======")
-            }
-
-
-            override fun onError(e: Throwable) {
-                print("==========onError======" + e)
-            }
-
-            override fun onNext(s: ResDto<UserPo>) {
-                print("==========onNext======" + s)
-                var xx: String = "xxx"
-                xx.substring(100)
-            }
-        })
-
+//        HttpUpload.upload(File("C:\\Users\\burning\\Documents\\Tencent Files\\349652514\\FileRecv\\MobileFile\\Screenshot_2017-08-27-22-35-39.png")) { i: Int, s: String, s1: String ->
+//
+//        }
+        HttpUpload.upload(File("C:\\Users\\burning\\Desktop\\ShadowsocksR-4.7.0\\user.rule")) { i: Int, s: String, s1: String ->
+            print("===data=====$s1")
+        }
     }
 }

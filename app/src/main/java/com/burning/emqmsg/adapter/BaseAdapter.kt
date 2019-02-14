@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.orhanobut.logger.Logger
 
 /**
  * Created by burning on 2018/10/23.
@@ -31,6 +32,7 @@ import android.view.ViewGroup
 abstract class BaseAdapter<H>(var context: Context, var data: MutableList<H>) : RecyclerView.Adapter<BaseAdapter.TviewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TviewHolder {
+        Logger.d("====onCreateViewHolder===")
         return TviewHolder(LayoutInflater.from(context).inflate(viewType, parent, false))
     }
 
@@ -38,6 +40,7 @@ abstract class BaseAdapter<H>(var context: Context, var data: MutableList<H>) : 
     }
 
     override fun onBindViewHolder(holder: TviewHolder, position: Int) {
+        Logger.d("====onBindViewHolder====$position")
         if (!data.isEmpty() && position < data.size)
             onSetData(holder.itemView, data[position], position)
         onBindOnclic(holder.itemView, position)

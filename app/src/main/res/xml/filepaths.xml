@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path
+        name="images"
+        path="Android/data/com.burning.emqmsg.Myfileprovider/files/Pictures" />
+    <!--  path="Pictures" />-->
+    <files-path
+        name="images"
+        path="Android/data/com.burning.emqmsg.Myfileprovider/files/Pictures/OriPicture/" />
+    <external-files-path
+        name="images"
+        path="files/Pictures/OriPicture" />
+    <root-path
+        name="images"
+        path="" />
+    <root-path
+        name="images"
+        path="" />
+
+
+</paths>

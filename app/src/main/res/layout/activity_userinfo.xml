@@ -6,14 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".activity.UserinfoActivity">
 
-    <ImageView
-        android:id="@+id/userinfo_bg_iv"
+    <me.ibrahimsn.particle.ParticleView
+        android:id="@+id/particleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/nta" />
+        app:backgroundColor="@android:color/holo_blue_light"
+        app:maxParticleRadius="12"
+        app:minParticleRadius="5"
+        app:particleColor="@android:color/white"
+        app:particleCount="20" />
 
-    <com.burning.emqmsg.view.MyScrollView
+    <ScrollView
         android:id="@+id/userinfo_sv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -76,6 +79,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/linearlayout_bt">
 
                 <RelativeLayout
+                    android:id="@+id/re_userinfo_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -88,6 +92,7 @@
                         android:src="@mipmap/personage_icon_collect" />
 
                     <TextView
+                        android:id="@+id/userinfo_gender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -95,12 +100,7 @@
                         android:layout_toRightOf="@+id/userinfo_collect"
                         android:text="性别 男" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/right_arrow" />
+
                 </RelativeLayout>
 
                 <View
@@ -109,6 +109,7 @@
                     android:background="@color/bg_view_magin" />
 
                 <RelativeLayout
+                    android:id="@+id/re_userinfo_age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -122,6 +123,7 @@
                         android:src="@mipmap/icon_my_wallet" />
 
                     <TextView
+                        android:id="@+id/tv_userinfo_age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -129,12 +131,7 @@
                         android:layout_toRightOf="@+id/userinfo_burse"
                         android:text="年龄 25" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/right_arrow" />
+
                 </RelativeLayout>
 
                 <View
@@ -143,6 +140,7 @@
                     android:background="@color/bg_view_magin" />
 
                 <RelativeLayout
+                    android:id="@+id/re_userinfo_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -156,6 +154,7 @@
                         android:src="@mipmap/icon_my_notice" />
 
                     <TextView
+                        android:id="@+id/bz_userinfo_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -163,12 +162,7 @@
                         android:layout_toRightOf="@+id/userinfo_notice"
                         android:text="备注 : 王二呀" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/right_arrow" />
+
                 </RelativeLayout>
 
                 <View
@@ -177,6 +171,7 @@
                     android:background="@color/bg_view_magin" />
 
                 <RelativeLayout
+                    android:id="@+id/re_userinfo_ac_reams"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -190,19 +185,15 @@
                         android:src="@mipmap/ug_me_help" />
 
                     <TextView
+                        android:id="@+id/userinfo_ac_reams"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/activity_userinfo_iv_data"
-                        android:text="日期" />
+                        android:text="签名" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/right_arrow" />
+
                 </RelativeLayout>
 
                 <View
@@ -211,7 +202,7 @@
                     android:background="@color/bg_view_magin" />
             </LinearLayout>
         </LinearLayout>
-    </com.burning.emqmsg.view.MyScrollView>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/linearlayout_bt"

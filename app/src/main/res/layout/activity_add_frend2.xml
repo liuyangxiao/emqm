@@ -113,8 +113,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp">
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/userinfo_notice"
@@ -130,9 +129,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/userinfo_notice"
                 android:background="@null"
+                android:padding="10dp"
                 android:text="王二呀"
                 android:textSize="13sp" />
-
         </RelativeLayout>
 
         <View
@@ -179,7 +178,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="填写验证信息" />
+        android:text="填写验证信息 :" />
 
     <View
         android:layout_width="match_parent"
@@ -190,11 +189,24 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@null"
+        android:hint="未填写验证信息"
         android:maxLength="20"
         android:paddingLeft="13dp"
         android:paddingRight="13dp"
-        android:text="中国是佛分手的借口和速度飞快华盛顿倒是"
         android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/send_addfrend"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_corner_login"
+        android:text="发送"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"

@@ -47,6 +47,17 @@ class MsgActivityAdapter(context: Context, data: MutableList<MessagePo>) : BaseA
         if (measureText > dip2px)
             itemview.item_msg_activity_message.width = dip2px
 
+        if (h.status == 0) {
+            itemview.msg_send_status.visibility = View.GONE
+        } else {
+            itemview.msg_send_status.visibility = View.VISIBLE
+            if (h.status == 1) {
+                itemview.msg_send_status.text = "发送中"
+            } else if (h.status == 2) {
+                itemview.msg_send_status.text = "发送失败"
+            }
+        }
+
     }
 
     override fun onBindOnclic(itemview: View, position: Int) {

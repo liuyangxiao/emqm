@@ -162,8 +162,8 @@ public class MyScrollView extends ScrollView {
                 initTop + 200);
         taa.setDuration(200);
         imageView.startAnimation(taa);
-        imageView.layout(imageView.getLeft(), initTop, imageView.getRight(),
-                initbottom);
+//        imageView.layout(imageView.getLeft(), initTop, imageView.getRight(),
+//                initbottom);
         // 开启移动动画
         TranslateAnimation ta = new TranslateAnimation(0, 0, inner.getTop(),
                 normal.top);

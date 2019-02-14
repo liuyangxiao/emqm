@@ -28,10 +28,10 @@ allprojects {
 }
 
 ext {
-    compileSdkVersion = 27
+    compileSdkVersion = 28
     applicationId = "com.burning.emqmsg"
     minSdkVersion = 16
-    targetSdkVersion = 27
+    targetSdkVersion = 28
     versionCode = 1
     versionName = "1.0"
 }

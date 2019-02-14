@@ -30,11 +30,11 @@ public class PermissionActivity extends Activity {
     private boolean isRequestCheck;//判断是否需要系统权限检测。防止和系统提示框重叠
 
     //启动当前权限页面的公开接口
-//    public static void startActivityForResult(Activity activity, int requestCode, String... permission) {
-//        Intent intent = new Intent(activity, PermissionActivity.class);
-//        intent.putExtra(EXTRA_PERMISSION, permission);
-//        ActivityCompat.startActivityForResult(activity, intent, requestCode, null);
-//    }
+    public static void startActivityForResult(Activity activity, int requestCode, String... permission) {
+        Intent intent = new Intent(activity, PermissionActivity.class);
+        intent.putExtra(EXTRA_PERMISSION, permission);
+        ActivityCompat.startActivityForResult(activity, intent, requestCode, null);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

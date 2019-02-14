@@ -115,6 +115,7 @@ class MsgActivity : BaseActivity() {
                     layoutManager = LinearLayoutManager(context)
                     adapter = MsgActivityAdapter(context, results)
                 } else {
+                    adapter.notifyItemChanged(results.size - 1)
                     adapter.notifyItemChanged(results.size)
                 }
                 if (results.size != 0) {

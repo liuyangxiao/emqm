@@ -30,7 +30,7 @@ class LoginActivity : BaseActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         val findFirst = realm.where(UserPo::class.java).equalTo("id", 222).findFirst()
         Logger.d("====findFirst==$findFirst")
-        login_content.setPadding(login_content.left, login_content.top + actionBarHeight, login_content.right, login_content.bottom)
+        //  login_content.setPadding(login_content.left, login_content.top + actionBarHeight, login_content.right, login_content.bottom)
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                 attemptLogin()
@@ -109,5 +109,14 @@ class LoginActivity : BaseActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        particleView.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        particleView.pause()
+    }
 
 }

@@ -47,10 +47,9 @@ public class MsgUtils {
                 RxReamlUtils.updata(new RealmTrasCall() {
                     @Override
                     public void call(Realm realm) {
-                        MessagePo first = realm.where(MessagePo.class).equalTo("uuid", messagePo.getUuid()).findFirst();
-                        if (first != null) {
-                            first.setStatus(0);
-                        }
+                        messagePo.setStatus(0);
+                        String sjson = new Gson().toJson(messagePo);
+                        realm.createOrUpdateObjectFromJson(MessagePo.class, sjson);
                     }
                 });
             }
@@ -60,10 +59,10 @@ public class MsgUtils {
                 RxReamlUtils.updata(new RealmTrasCall() {
                     @Override
                     public void call(Realm realm) {
-                        MessagePo first = realm.where(MessagePo.class).equalTo("uuid", messagePo.getUuid()).findFirst();
-                        if (first != null) {
-                            first.setStatus(2);
-                        }
+                        messagePo.setStatus(2);
+                        String sjson = new Gson().toJson(messagePo);
+                        realm.createOrUpdateObjectFromJson(MessagePo.class, sjson);
+
                     }
                 });
             }

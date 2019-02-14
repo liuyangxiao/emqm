@@ -7,9 +7,12 @@ import com.burning.realmdatalibrary.po.UserPo;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -36,6 +39,16 @@ import rx.Observable;
  * -------------------------// ┗┻┛　┗┻┛
  */
 public interface HttpApi {
+
+    /**
+     * 上传文件
+     *
+     * @param file
+     * @return
+     */
+    @Multipart
+    @POST("/image/upload")
+    Observable<ResDto<String>> uoloadFile(@Part MultipartBody.Part file);
 
     /**
      * 创建用户

@@ -5,6 +5,7 @@ import com.burning.emqlibrary.emqNet.EmqClientImp
 import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.BaseActivity
 import com.burning.emqmsg.activity.LoginActivity
+import com.burning.emqmsg.activity.UserinfoActivity
 import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.po.LoginsPo
 import com.burning.realmdatalibrary.po.UserPo
@@ -65,6 +66,11 @@ class UserinfoFragment : BaseFragment() {
                     activity?.finish()
                 }
             }
+        }
+        re_fg_setuser.setOnClickListener {
+            var intent = Intent(activity, UserinfoActivity::class.java)
+            intent.putExtra(UserinfoActivity.USER_ID, UserInfo.userid)
+            startActivity(intent)
         }
     }
 

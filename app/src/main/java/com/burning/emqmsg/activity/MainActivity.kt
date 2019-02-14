@@ -23,10 +23,9 @@ class MainActivity : BaseActivity() {
         }
         EmqClientImp.instance().addtopicks(tops)
         navigation.itemIconTintList = null
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_notifications
-
+        PermissionActivity.startActivityForResult(this, 400, "android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE")
     }
 
     override fun getActivityLayout(): Int = R.layout.activity_main
@@ -63,7 +62,7 @@ class MainActivity : BaseActivity() {
 
         val beginTransaction = supportFragmentManager.beginTransaction()
         if (contentfragment != null)
-            beginTransaction.hide(contentfragment)
+            beginTransaction.hide(contentfragment!!)
         contentfragment = supportFragmentManager.findFragmentByTag(tag)
         if (contentfragment == null) {
             when (tag) {
@@ -80,9 +79,9 @@ class MainActivity : BaseActivity() {
                     contentfragment = CommunityFragment()
                 }
             }
-            beginTransaction.add(R.id.activity_main_fragment, contentfragment, tag)
+            beginTransaction.add(R.id.activity_main_fragment, contentfragment!!, tag)
         }
-        beginTransaction.show(contentfragment).commit()
+        beginTransaction.show(contentfragment!!).commit()
     }
 
 }

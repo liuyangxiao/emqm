@@ -28,5 +28,22 @@ public interface DiaryApi {
      * 包含-内消息
      */
     void getList();
-   // void
+
+    /**
+     * 发布一条动态消息
+     */
+    void sendDiaryMessage();
+
+    /**
+     * 评论一条动态消息
+     */
+    void descantMessage();
+
+    /**
+     * 删除一条发布消息
+     */
+    void delectMessage();
+
+
+
 }
