@@ -25,7 +25,9 @@ class MainActivity : BaseActivity() {
         navigation.itemIconTintList = null
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_notifications
-        PermissionActivity.startActivityForResult(this, 400, "android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE")
+        PermissionActivity.startActivityForResult(this, 400,
+                "android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE",
+                "android.permission.READ_EXTERNAL_STORAGE", "android.permission.FOREGROUND_SERVICE")
     }
 
     override fun getActivityLayout(): Int = R.layout.activity_main
