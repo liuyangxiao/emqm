@@ -36,11 +36,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //侧滑
+    implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
 
     //相册 拍照
-    compile 'com.zhihu.android:matisse:0.5.2-beta4'
-
-
+    implementation 'com.zhihu.android:matisse:0.5.2-beta4'
 
     //圆角
     implementation 'de.hdodenhof:circleimageview:2.0.0'

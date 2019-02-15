@@ -41,8 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/frend_recyler"
+        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+            android:id="@+id/frend_msg_recyler"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout>

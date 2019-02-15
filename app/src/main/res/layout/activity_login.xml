@@ -99,12 +99,4 @@
         android:text="注册"
         android:textSize="16sp" />
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/login_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        app:indicatorColor="@color/red"
-        app:indicatorName="BallPulseIndicator" />
 </RelativeLayout>

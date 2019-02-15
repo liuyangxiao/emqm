@@ -14,7 +14,6 @@ class SignupActivity : BaseActivity() {
     override fun init() {
         title_layout.setPadding(title_layout.left, title_layout.top + BaseActivity.actionBarHeight, title_layout.right, title_layout.bottom)
         tv_title.text = "注册"
-        login_loading.hide()
         email_sign_in_button.setOnClickListener {
             var loginBean = LoginBean()
             loginBean.loginname = email.text.toString()

@@ -1,10 +1,12 @@
 package com.burning.realmdatalibrary.httpservice;
 
-import com.burning.realmdatalibrary.httpservice.requbean.DiaryComment;
-import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
+import com.burning.realmdatalibrary.po.UserPo;
+
+import java.util.List;
+import java.util.Set;
 
 /**
- * Created by burning on 2018/12/4.
+ * Created by burning on 2019/2/14.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -25,27 +27,39 @@ import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-public interface DiaryApi {
+public interface FrendApi {
     /**
-     * 获取定量的日记信息
-     * 包含-内消息
+     * 获取好友请求列表
      */
-    void getList(long uid, int page);
-
-    /**
-     * 发布一条动态消息
-     */
-    void sendDiaryMessage(DiaryMessage diaryMessage, HttpCallBack<String> httpCallBack);
+    void getAddlist(Long userid, HttpCallBack<List<UserPo>> httpCallBack);
 
     /**
-     * 评论一条动态消息
+     * 获取所有好友ID
      */
-    void descantMessage(DiaryComment diaryComment, HttpCallBack<String> httpCallBack);
+    void getFrendIds(long userid, HttpCallBack<Set<Long>> httpCallBack);
 
     /**
-     * 删除一条发布消息
+     * 获取所有好友信息
      */
-    void delectMessage();
+    void getFrendUsers(long userid, HttpCallBack<List<UserPo>> httpCallBack);
 
+    /**
+     * 添加好友
+     */
+    void addFrend(boolean isadd, long userid, long frendid, String remarks, long groupdId, HttpCallBack<String> httpCallBack);
 
+    /**
+     * 删除好友
+     */
+    void getDeletfrend(long userid, long frendid, HttpCallBack<String> httpCallBack);
+
+    /**
+     * 更改好友备注
+     */
+    void updatafrendReName(long userid, long frendid, String remarks, HttpCallBack<String> httpCallBack);
+
+    /**
+     * 更改好友分组
+     */
+    void updatafrendgroup(long userid, long frendid, long groupid, HttpCallBack<String> httpCallBack);
 }

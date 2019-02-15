@@ -1,10 +1,16 @@
-package com.burning.realmdatalibrary.httpservice;
+package com.burning.emqmsg.glidehelp;
 
-import com.burning.realmdatalibrary.httpservice.requbean.DiaryComment;
-import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 
 /**
- * Created by burning on 2018/12/4.
+ * Created by burning on 2018/7/9.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -25,27 +31,16 @@ import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-public interface DiaryApi {
-    /**
-     * 获取定量的日记信息
-     * 包含-内消息
-     */
-    void getList(long uid, int page);
+@GlideModule
+public final class EmGlideMoudle extends /*LibraryGlideModule*/AppGlideModule {
+    @Override
+    public void registerComponents(Context context, Glide glide, Registry registry) {
+        // registry.prepend(String.class, InputStream.class, new JmModelLoaderFactory(context));
+        registry.prepend(String.class, Bitmap.class, new EmModelLoaderFactory(context));
 
-    /**
-     * 发布一条动态消息
-     */
-    void sendDiaryMessage(DiaryMessage diaryMessage, HttpCallBack<String> httpCallBack);
+    }
 
-    /**
-     * 评论一条动态消息
-     */
-    void descantMessage(DiaryComment diaryComment, HttpCallBack<String> httpCallBack);
-
-    /**
-     * 删除一条发布消息
-     */
-    void delectMessage();
-
-
+    public boolean isManifestParsingEnabled() {
+        return false;
+    }
 }

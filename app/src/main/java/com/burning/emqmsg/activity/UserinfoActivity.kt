@@ -9,6 +9,7 @@ import com.burning.emqmsg.R
 import com.burning.emqmsg.utils.MatGlideEngine
 import com.burning.emqmsg.utils.UriUtils
 import com.burning.realmdatalibrary.UserInfo
+import com.burning.realmdatalibrary.po.LoginUserPo
 import com.burning.realmdatalibrary.po.UserPo
 import com.burning.realmdatalibrary.po.UserRemarksPo
 import com.zhihu.matisse.Matisse
@@ -56,21 +57,44 @@ class UserinfoActivity : BaseActivity() {
             }
             re_userinfo_gender.setOnClickListener {
                 //性别
+                var intent = Intent(this@UserinfoActivity, SetUserInfoActivity::class.java)
+                intent.putExtra(SetUserInfoActivity.SET_USER, 1)
+                startActivity(intent)
+
             }
             re_userinfo_age.setOnClickListener {
+
                 //年龄
+                var intent = Intent(this@UserinfoActivity, SetUserInfoActivity::class.java)
+                intent.putExtra(SetUserInfoActivity.SET_USER, 2)
+                startActivity(intent)
             }
             re_userinfo_name.setOnClickListener {
                 //昵称
+                var intent = Intent(this@UserinfoActivity, SetUserInfoActivity::class.java)
+                intent.putExtra(SetUserInfoActivity.SET_USER, 3)
+                startActivity(intent)
             }
             re_userinfo_ac_reams.setOnClickListener {
                 //签名
+                var intent = Intent(this@UserinfoActivity, SetUserInfoActivity::class.java)
+                intent.putExtra(SetUserInfoActivity.SET_USER, 4)
+                startActivity(intent)
             }
-            bz_userinfo_tv.text = "昵称 :$${findFirst.username}"
+            bz_userinfo_tv.text = "昵称 :${findFirst.username}"
 
         } else {
             val userRemarksPo = realm.where(UserRemarksPo::class.java).equalTo("loginuserPoId", UserInfo.userid).equalTo("userPoId", longExtra).findFirst()
-            bz_userinfo_tv.text = "备注 :$${userRemarksPo?.remarksPo}"
+            bz_userinfo_tv.text = "备注 :${userRemarksPo?.remarksPo}"
+
+            for (groupPo in realm.where(LoginUserPo::class.java).equalTo("userid", UserInfo.userid).findFirst().groupPos.where().equalTo("type", 1).findAll()) {
+                if (groupPo.userlis.contains(findFirst)) {
+                    //是好友
+                    userinfo_left_bt.visibility = View.GONE
+                }
+            }
+
+
         }
         userinfo_gender.text = "性别 : " +
                 if (findFirst.gender == "1") {

@@ -1,13 +1,16 @@
 package com.burning.emqmsg.adapter
 
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.bumptech.glide.Glide
 import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.BaseActivity
+import com.burning.emqmsg.activity.UserinfoActivity
 import com.burning.realmdatalibrary.po.DiaryPo
 import com.burning.realmdatalibrary.po.UserPo
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_com_item.view.*
 import java.util.*
 
@@ -48,29 +51,25 @@ class FrendcomUiAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdap
                     "日${calendar.get(Calendar.HOUR)}时${calendar.get(Calendar.MINUTE)}分"
         }
         var images = ArrayList<String>()
-        val nextInt = h.icons.length
+        var nextInt = h.icons.length
+        if (nextInt > 9) {
+            nextInt = 9
+        }
         for (i in 1..nextInt) {
-            images.add("====")
+            images.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
         }
-        var spancount = if (images.size > 4) {
-            3
-        } else {
-            2
-        }
-        itemview.com_item_recycler_images.apply {
-            layoutManager = GridLayoutManager(context, spancount)
-            if (adapter == null) {
-                adapter = ImageAdapter(context, images)
-            } else {
-                val imageAdapter = adapter as ImageAdapter
-                imageAdapter.updataAdapter(images)
-            }
-            visibility = if (gonesDesc.contains(position)) {
-                View.GONE
-            } else {
-                View.VISIBLE
-            }
-        }
+        Glide.with(baseActivity).load("group:${Gson().toJson(images)}").into(itemview.com_item_recycler_images)
+//
+//        itemview.com_item_recycler_images.apply {
+//            layoutManager = GridLayoutManager(context, spancount)
+//            if (adapter == null) {
+//                adapter = ImageAdapter(context, images)
+//            } else {
+//                val imageAdapter = adapter as ImageAdapter
+//                imageAdapter.updataAdapter(images)
+//            }
+//
+//        }
         itemview.com_item_recycler_comforid_conent.apply {
             if (adapter == null) {
                 layoutManager = LinearLayoutManager(context)
@@ -83,16 +82,16 @@ class FrendcomUiAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdap
 
     }
 
-    var gonesDesc = HashSet<Int>()
     override fun onBindOnclic(itemview: View, position: Int) {
+        itemview.com_item_user_icon.setOnClickListener {
+            var intent = Intent(context, UserinfoActivity::class.java)
+            intent.putExtra(UserinfoActivity.USER_ID, data[position].uid)
+            context.startActivity(intent)
+        }
         itemview.com_item_user_name.setOnClickListener {
-            if (gonesDesc.contains(position)) {
-                itemview.com_item_recycler_images.visibility = View.VISIBLE
-                gonesDesc.remove(position)
-            } else {
-                gonesDesc.add(position)
-                itemview.com_item_recycler_images.visibility = View.GONE
-            }
+            var intent = Intent(context, UserinfoActivity::class.java)
+            intent.putExtra(UserinfoActivity.USER_ID, data[position].uid)
+            context.startActivity(intent)
         }
 
     }

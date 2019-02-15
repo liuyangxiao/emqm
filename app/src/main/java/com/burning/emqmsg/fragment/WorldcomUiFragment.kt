@@ -8,7 +8,8 @@ import com.burning.emqmsg.adapter.WorldUiAdapter
 import com.burning.emqmsg.view.SSRlayoutListener
 import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.po.LoginUserPo
-import kotlinx.android.synthetic.main.fragmeng_msg.*
+import kotlinx.android.synthetic.main.frend_com_fragment.*
+
 
 /**
  * Created by burning on 2018/10/26.

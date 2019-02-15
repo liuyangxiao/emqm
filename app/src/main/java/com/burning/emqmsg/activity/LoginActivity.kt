@@ -2,6 +2,7 @@ package com.burning.emqmsg.activity
 
 import android.annotation.TargetApi
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -15,6 +16,8 @@ import com.burning.realmdatalibrary.po.LoginsPo
 import com.burning.realmdatalibrary.po.UserPo
 import com.burning.realmdatalibrary.redao.RxReamlUtils
 import com.orhanobut.logger.Logger
+import com.zyao89.view.zloading.ZLoadingDialog
+import com.zyao89.view.zloading.Z_TYPE
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
@@ -102,10 +105,16 @@ class LoginActivity : BaseActivity() {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private fun showProgress(show: Boolean) {
+        val dialog = ZLoadingDialog(this)
         if (show) {
-            login_loading.show()
+            //   login_loading.show()
+            dialog.setLoadingBuilder(Z_TYPE.SNAKE_CIRCLE)//设置类型
+                    .setLoadingColor(Color.BLUE)//颜色
+                    .setHintText("Loading...")
+                    .show()
         } else {
-            login_loading.hide()
+            //     login_loading.hide()
+            dialog.dismiss()
         }
     }
 

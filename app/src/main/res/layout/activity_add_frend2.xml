@@ -113,7 +113,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/userinfo_notice"
@@ -152,20 +153,12 @@
                 android:layout_centerVertical="true"
                 android:text="分组 :" />
 
-            <TextView
+            <Spinner
+                android:id="@+id/sp_activity_userinfo_iv_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/activity_userinfo_iv_data"
-                android:text="西数发" />
+                android:layout_toRightOf="@+id/activity_userinfo_iv_data" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/right_arrow" />
         </RelativeLayout>
 
         <View

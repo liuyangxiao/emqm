@@ -8,7 +8,9 @@ import com.burning.emqmsg.adapter.FrendcomUiAdapter
 import com.burning.emqmsg.view.SSRlayoutListener
 import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.po.LoginUserPo
+import kotlinx.android.synthetic.main.fragmeng_frend.*
 import kotlinx.android.synthetic.main.fragmeng_msg.*
+
 
 /**
  * Created by burning on 2018/10/26.

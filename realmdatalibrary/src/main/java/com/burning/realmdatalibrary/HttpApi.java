@@ -49,6 +49,7 @@ public interface HttpApi {
     @Multipart
     @POST("/image/upload")
     Observable<ResDto<String>> uoloadFile(@Part MultipartBody.Part file);
+//=-----------------------------------------------
 
     /**
      * 创建用户
@@ -98,5 +99,60 @@ public interface HttpApi {
     @POST("frend/getusers")
     Observable<String> getUsersByuid(@Query("uid") Long uid);
 
+    //-----------------------好友---------------------------
+
+    /**
+     * 获取添加好友信息列表
+     *
+     * @param uid
+     * @return
+     */
+    @GET("frend/addlist")
+    Observable<ResDto<List<UserPo>>> getaddlist(@Query("id") Long uid);
+
+    /**
+     * 添加好友
+     *
+     * @param userid
+     * @param frendid
+     * @param remarks
+     * @param groupdId
+     * @return
+     */
+    @POST("frend/add")
+    Observable<ResDto<String>> addFrend(@Query("userid") Long userid, @Query("frendid") Long frendid, @Query("remarks") String remarks, @Query("groupdId") Long groupdId);
+
+    /**
+     * 同意添加好友
+     *
+     * @param userid
+     * @param frendid
+     * @param remarks
+     * @param groupdId
+     * @return
+     */
+    @POST("frend/readd")
+    Observable<ResDto<String>> readdFrend(@Query("userid") Long userid, @Query("frendid") Long frendid, @Query("remarks") String remarks, @Query("groupdId") Long groupdId);
+
+
+    /**
+     * 获取所有好友ID
+     *
+     * @param uid
+     * @return
+     */
+    @GET("frend/getIds")
+    Observable<ResDto<String>> getFrendids(@Query("uid") Long uid);
+
+    /**
+     * 移动好友分组
+     *
+     * @param uid
+     * @param frendid
+     * @param groupid
+     * @return
+     */
+    @POST("frend/getIds")
+    Observable<ResDto<String>> updatagroup(@Query("userid") Long uid, @Query("frendid") Long frendid, @Query("groupid") Long groupid);
 
 }

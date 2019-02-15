@@ -9,12 +9,28 @@
     <!-- <include
          android:id="@+id/fragment_back_title"
          layout="@layout/back_title" />-->
-    <ImageView
-        android:id="@+id/com_ui_bg_iv"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ccatsfas" />
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/com_ui_bg_iv"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ccatsfas" />
+
+        <ImageView
+            android:id="@+id/add_comdia"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/icon_wallet_gen" />
+    </RelativeLayout>
+
 
     <com.lwj.widget.viewpagerindicator.ViewPagerIndicator
         android:id="@+id/viewPagerIndicator"

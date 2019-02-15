@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.data.DataFetcher;
-import com.burning.emqmsg.R;
 import com.burning.emqmsg.view.UtilsImage;
 
 /**
@@ -45,10 +44,16 @@ public class EmDataFetcher implements DataFetcher<Bitmap> {
     public void loadData(@NonNull Priority priority, @NonNull DataCallback<? super Bitmap> callback) {
         callback.onDataReady(getImage());
     }
-
     private Bitmap getImage() {
+//        Bitmap myBitmap = Glide.with(context.getApplicationContext())
+//                .load(yourUrl)
+//                .asBitmap() //必须
+//                .centerCrop()
+////                .into(500, 500)
+//                .get();
+
         final Bitmap[] getbitmap = new Bitmap[1];
-        UtilsImage.combineBitmap(context, new int[]{R.mipmap.a111, R.mipmap.arrow268, R.mipmap.personage_icon_collect, R.mipmap.ccatsfas}, new UtilsImage.Callback() {
+        UtilsImage.combineBitmap(context,jid , new UtilsImage.Callback() {
             @Override
             public void oncompleteBitmap(Bitmap bitmap) {
                 getbitmap[0] = bitmap;

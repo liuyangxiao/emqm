@@ -1,6 +1,7 @@
 package com.burning.emqmsg.fragment
 
 import android.content.Intent
+import com.bumptech.glide.Glide
 import com.burning.emqlibrary.emqNet.EmqClientImp
 import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.BaseActivity
@@ -43,6 +44,8 @@ class UserinfoFragment : BaseFragment() {
         tv_title.text = "User"
         val baseActivity = activity as BaseActivity
         val findFirstAsync = baseActivity.realm.where(UserPo::class.java).equalTo("id", UserInfo.userid).findFirst()
+
+        Glide.with(this).load("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg").into(user_fragment_usericon)
         hideloading()
         user_fragment_username.text = if (findFirstAsync?.username == null) {
             "未设置XX"

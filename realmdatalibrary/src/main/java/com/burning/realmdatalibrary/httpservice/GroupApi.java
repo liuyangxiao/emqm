@@ -1,10 +1,9 @@
 package com.burning.realmdatalibrary.httpservice;
 
-import com.burning.realmdatalibrary.httpservice.requbean.DiaryComment;
-import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
+import com.burning.realmdatalibrary.po.GroupPo;
 
 /**
- * Created by burning on 2018/12/4.
+ * Created by burning on 2019/2/15.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -25,27 +24,31 @@ import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-public interface DiaryApi {
+public interface GroupApi {
     /**
-     * 获取定量的日记信息
-     * 包含-内消息
+     * 创建 群组 或分组
+     *
+     * @param remark
+     * @param content
+     * @param uid
+     * @param type
+     * @param httpCallBack
      */
-    void getList(long uid, int page);
-
-    /**
-     * 发布一条动态消息
-     */
-    void sendDiaryMessage(DiaryMessage diaryMessage, HttpCallBack<String> httpCallBack);
-
-    /**
-     * 评论一条动态消息
-     */
-    void descantMessage(DiaryComment diaryComment, HttpCallBack<String> httpCallBack);
+    void addGroupContent(String remark, String content, long uid, int type, HttpCallBack<String> httpCallBack);
 
     /**
-     * 删除一条发布消息
+     * 获取好友分组
+     *
+     * @param uid
+     * @param httpCallBack
      */
-    void delectMessage();
+    void getFrendGroup(long uid, HttpCallBack<GroupPo> httpCallBack);
 
-
+    /**
+     * 获取群分组
+     *
+     * @param uid
+     * @param httpCallBack
+     */
+    void getGroups(long uid, HttpCallBack<GroupPo> httpCallBack);
 }

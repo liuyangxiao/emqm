@@ -47,6 +47,7 @@ public class JmDataFetcher implements DataFetcher<InputStream> {
 
     private InputStream getImage() {
         //图片加载
+       // DownloadUtils.downloadOnthis()
         return null;
     }
 

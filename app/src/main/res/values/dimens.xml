@@ -5,4 +5,5 @@
     <dimen name="fragment_item_username">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="grid_expected_size">120dp</dimen>
+    <dimen name="textdelect_60dp">60dp</dimen>
 </resources>

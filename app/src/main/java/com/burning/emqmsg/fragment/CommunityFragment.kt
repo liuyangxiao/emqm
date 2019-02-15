@@ -32,7 +32,7 @@ class CommunityFragment : BaseFragment() {
     var resuPo: LoginUserPo? = null
     override fun initData() {
         //  tv_title.text = "圈子"
-       // comfragment_content.setPadding(comfragment_content.left,  BaseActivity.actionBarHeight, comfragment_content.right, comfragment_content.bottom)
+        // comfragment_content.setPadding(comfragment_content.left,  BaseActivity.actionBarHeight, comfragment_content.right, comfragment_content.bottom)
 
 
         community_vp.adapter = CommunityAdapter(fragmentManager!!)
@@ -42,6 +42,10 @@ class CommunityFragment : BaseFragment() {
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
         tabLayout.setSelectedTabIndicatorHeight(0)
         hideloading()
+        add_comdia.setOnClickListener {
+
+
+        }
     }
 
     override fun initViewOnlayout(): Int = R.layout.fragmeng_comdia

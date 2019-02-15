@@ -45,8 +45,10 @@ class Mqservices : Service() {
     internal var instance: EmqClient? = null
     var executorService = Executors.newSingleThreadExecutor()
 
+
     var mqListen: MqListen = object : MqListen {
         override fun onMessage(messBean: MessBean) {
+
             //普通消息
             Logger.d("========onMessage==============")
             RxReamlUtils.updata {
@@ -104,23 +106,27 @@ class Mqservices : Service() {
         override fun onConnected() {
             // 链接成功
             Logger.d("========onConnected==============")
+            intconnect = 1//恢复 链接时间为  1
+            connecttime = 1000L
         }
 
         override fun onDisconnected() {
             // 断开链接
             Logger.d("========onDisconnected==============")
             //检测未链接  5秒后重连
+            if (intconnect > 10) {
+                return
+            }
             try {//待完成 重连规则
-                Thread.sleep(5000)
+                Thread.sleep(connecttime * intconnect * intconnect)
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
-
-            instance!!.connect()
-
+            instance?.connect()
         }
     }
-
+    var intconnect = 1
+    var connecttime = 1000L
     override fun onBind(intent: Intent): IBinder? {
         return null
     }

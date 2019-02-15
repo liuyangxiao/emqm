@@ -1,10 +1,9 @@
-package com.burning.realmdatalibrary.httpservice;
+package com.burning.realmdatalibrary.httpservice.requbean;
 
-import com.burning.realmdatalibrary.httpservice.requbean.DiaryComment;
-import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
+import lombok.Data;
 
 /**
- * Created by burning on 2018/12/4.
+ * Created by burning on 2019/2/15.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -25,27 +24,10 @@ import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-public interface DiaryApi {
-    /**
-     * 获取定量的日记信息
-     * 包含-内消息
-     */
-    void getList(long uid, int page);
-
-    /**
-     * 发布一条动态消息
-     */
-    void sendDiaryMessage(DiaryMessage diaryMessage, HttpCallBack<String> httpCallBack);
-
-    /**
-     * 评论一条动态消息
-     */
-    void descantMessage(DiaryComment diaryComment, HttpCallBack<String> httpCallBack);
-
-    /**
-     * 删除一条发布消息
-     */
-    void delectMessage();
-
-
+@Data
+public class DiaryComment {
+    String content;
+    long uid;
+    long diaryID;
+    long ofuid;
 }
