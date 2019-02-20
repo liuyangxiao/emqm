@@ -1,11 +1,10 @@
 package com.burning.realmdatalibrary.po;
 
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 import lombok.Data;
 
 /**
- * Created by burning on 2018/12/4.
+ * Created by burning on 2019/2/20.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -27,20 +26,15 @@ import lombok.Data;
  * -------------------------// ┗┻┛　┗┻┛
  */
 @Data
-public class DiaryDescPo extends RealmObject {
-    @PrimaryKey
-    Long id;
+public class DiarynoSendPo extends RealmObject {
+    long uid;
+
+    String icons;
     /**
-     * 评论人ID
+     * 0-图片上传未成功
+     * 1-图片上传完毕
      */
-    Long userid;
-    /**
-     * 内容
-     */
+    int type;
     String content;
-    /**
-     * 评论中指向的用户ID
-     */
-    Long ofuserid;
 
 }

@@ -30,7 +30,7 @@ public interface DiaryApi {
      * 获取定量的日记信息
      * 包含-内消息
      */
-    void getList(long uid, int page);
+    void getList(long uid, int page,HttpCallBack<String> httpCallBack);
 
     /**
      * 发布一条动态消息

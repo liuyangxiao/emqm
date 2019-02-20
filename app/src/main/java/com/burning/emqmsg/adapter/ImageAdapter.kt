@@ -5,6 +5,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.burning.emqmsg.R
 import com.burning.emqmsg.glidehelp.MyTransform
+import com.burning.emqmsg.utils.ImageConfig
 import kotlinx.android.synthetic.main.item_imagview.view.*
 
 /**
@@ -31,9 +32,10 @@ import kotlinx.android.synthetic.main.item_imagview.view.*
  */
 class ImageAdapter(context: Context, data: MutableList<String>) : BaseAdapter<String>(context, data) {
     override fun onSetData(itemview: View, h: String, position: Int) {
-        Glide.with(context).load(R.mipmap.ccatsfas).
-                apply(MyTransform.getRequestOptions(10)).into(itemview.item_imageview_image)
+        Glide.with(context).load(ImageConfig.Image_path + data[position]).apply(MyTransform.getRequestOptions(10)).into(itemview.item_imageview_image)
     }
 
     override fun getItemViewType(position: Int): Int = R.layout.item_imagview
+
+
 }

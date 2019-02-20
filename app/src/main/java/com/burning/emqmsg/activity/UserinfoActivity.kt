@@ -2,20 +2,30 @@ package com.burning.emqmsg.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.ActivityInfo
+import android.graphics.Color
+import android.net.Uri
+import android.text.TextUtils
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.burning.emqmsg.R
-import com.burning.emqmsg.utils.MatGlideEngine
+import com.burning.emqmsg.utils.ImageConfig
 import com.burning.emqmsg.utils.UriUtils
 import com.burning.realmdatalibrary.UserInfo
+import com.burning.realmdatalibrary.httpservice.impl.HttpUpload
+import com.burning.realmdatalibrary.httpservice.impl.UserApimpl
+import com.burning.realmdatalibrary.httpservice.requbean.UpdataUser
 import com.burning.realmdatalibrary.po.LoginUserPo
 import com.burning.realmdatalibrary.po.UserPo
 import com.burning.realmdatalibrary.po.UserRemarksPo
-import com.zhihu.matisse.Matisse
-import com.zhihu.matisse.MimeType
-import com.zhihu.matisse.internal.entity.CaptureStrategy
+import com.burning.realmdatalibrary.redao.RxReamlUtils
+import com.linchaolong.android.imagepicker.ImagePicker
+import com.zyao89.view.zloading.ZLoadingDialog
+import com.zyao89.view.zloading.Z_TYPE
 import kotlinx.android.synthetic.main.activity_userinfo.*
+import top.zibin.luban.Luban
+import top.zibin.luban.OnCompressListener
+import java.io.File
 
 
 class UserinfoActivity : BaseActivity() {
@@ -26,6 +36,8 @@ class UserinfoActivity : BaseActivity() {
         var USER_ID = "userid"
     }
 
+    var userapi = UserApimpl()
+    var imagePicker = ImagePicker()
     @SuppressLint("SetTextI18n")
     override fun init() {
         val longExtra = intent.getLongExtra(USER_ID, 0)
@@ -42,18 +54,55 @@ class UserinfoActivity : BaseActivity() {
             userinfo_left_bt.visibility = View.GONE
             user_info_usericon.setOnClickListener {
                 //头像
-                Matisse.from(this@UserinfoActivity)
-                        .choose(MimeType.ofAll())
-                        .countable(true)//是否拍照
-                        .captureStrategy(CaptureStrategy(true, "com.burning.emqmsg.Myfileprovider"))//存储到哪里
-                        .maxSelectable(8)//最大选择数量
-                        // .addFilter(GifSize(320, 320, 5 * Filter.K * Filter.K))过滤器
-                        .gridExpectedSize(resources.getDimensionPixelSize(R.dimen.grid_expected_size))
-                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                        .thumbnailScale(0.85f)
-                        .theme(R.style.Matisse_Zhihu)
-                        .imageEngine(MatGlideEngine())
-                        .forResult(REQUEST_CODE_CHOOSE)
+                /* Matisse.from(this@UserinfoActivity)
+                         .choose(MimeType.ofAll())
+                         .countable(true)//是否拍照
+                         .captureStrategy(CaptureStrategy(true, "com.burning.emqmsg.Myfileprovider"))//存储到哪里
+                         .maxSelectable(8)//最大选择数量
+                         // .addFilter(GifSize(320, 320, 5 * Filter.K * Filter.K))过滤器
+                         .gridExpectedSize(resources.getDimensionPixelSize(R.dimen.grid_expected_size))
+                         .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                         .thumbnailScale(0.85f)
+                         .theme(R.style.Matisse_Zhihu)
+                         .imageEngine(MatGlideEngine())
+                         .forResult(REQUEST_CODE_CHOOSE)*/
+
+                imagePicker.setTitle("头像 --设置")
+                imagePicker.setCropImage(true)
+                imagePicker.startChooser(this@UserinfoActivity, object : com.linchaolong.android.imagepicker.ImagePicker.Callback() {
+                    override fun onPickImage(imageUri: Uri?) {
+                        val uriToFile = UriUtils.uriToFile(imageUri, this@UserinfoActivity)
+                        if (uriToFile == null) {
+                            Toast.makeText(applicationContext, "头像设置失败", Toast.LENGTH_SHORT).show()
+                            return
+                        }
+                        var dialog = ZLoadingDialog(this@UserinfoActivity)
+                        Luban.with(this@UserinfoActivity)
+                                .load(uriToFile)
+                                .ignoreBy(100)
+                                .setTargetDir(ImageConfig.getCompressJpgFileAbsolutePath())
+                                .filter { path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")) }
+                                .setCompressListener(object : OnCompressListener {
+                                    override fun onStart() {
+                                        dialog?.setLoadingBuilder(Z_TYPE.SNAKE_CIRCLE)//设置类型
+                                                ?.setLoadingColor(Color.BLUE)//颜色
+                                                ?.setHintText("图片压缩...")
+                                                ?.show()
+                                    }
+
+                                    override fun onSuccess(file: File) {
+                                        dialog.dismiss()
+                                        upsetUsericon(file)
+                                    }
+
+                                    override fun onError(e: Throwable) {
+                                        dialog.dismiss()
+                                    }
+                                }).launch()
+
+
+                    }
+                })
             }
             re_userinfo_gender.setOnClickListener {
                 //性别
@@ -105,6 +154,7 @@ class UserinfoActivity : BaseActivity() {
         user_info_userreid.text = "私密ID : ${findFirst.setID}"
         userinfo_ac_reams.text = "签名 : ${findFirst.userdesc}"
         tv_userinfo_age.text = "年龄 :${findFirst.age}"
+        Glide.with(this@UserinfoActivity).load(ImageConfig.Image_path + findFirst.icon).into(user_info_usericon)
         userinfo_left_bt.setOnClickListener {
             if (longExtra == UserInfo.userid) {
                 //
@@ -134,14 +184,44 @@ class UserinfoActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
-            val obtainResult = Matisse.obtainResult(data)
-            if (obtainResult != null && !obtainResult.isEmpty()) {
-                val uriToFile = UriUtils.uriToFile(obtainResult[0], this@UserinfoActivity)
-                if (uriToFile != null)
-                    Glide.with(this@UserinfoActivity).load(uriToFile).into(user_info_usericon)
+        imagePicker.onActivityResult(this@UserinfoActivity, requestCode, resultCode, data);
+        /*  if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
+              val obtainResult = Matisse.obtainResult(data)
+              if (obtainResult != null && !obtainResult.isEmpty()) {
+                  val uriToFile = UriUtils.uriToFile(obtainResult[0], this@UserinfoActivity)
+                  if (uriToFile != null)
+                      Glide.with(this@UserinfoActivity).load(uriToFile).into(user_info_usericon)
+              }
+          }*/
+    }
+
+    fun upsetUsericon(uriToFile: File) {
+        var dialog = ZLoadingDialog(this@UserinfoActivity)
+        dialog?.setLoadingBuilder(Z_TYPE.SNAKE_CIRCLE)//设置类型
+                ?.setLoadingColor(Color.BLUE)//颜色
+                ?.setHintText("头像保存...")
+                ?.show()
+        HttpUpload.upload(uriToFile) { i: Int, s: String, data1: String ->
+            if (i == 200 && data1 != null) {
+                var user = UpdataUser()
+                user.icon = data1
+                user.id = UserInfo.userid
+                userapi.updataUser(user) { i: Int, s: String, data: String ->
+                    if (i == 200) {
+                        Glide.with(this@UserinfoActivity).load(uriToFile).into(user_info_usericon)
+                        RxReamlUtils.updata {
+                            val findFirst1 = it.where(UserPo::class.java).equalTo("id", UserInfo.userid).findFirst()
+                            findFirst1.icon = data1
+                        }
+                    } else {
+                        Toast.makeText(applicationContext, "头像设置失败", Toast.LENGTH_SHORT).show()
+                    }
+                    dialog.dismiss()
+                }
+            } else {
+                dialog.dismiss()
+                Toast.makeText(applicationContext, "头像设置失败", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
 }

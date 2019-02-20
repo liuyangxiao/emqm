@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide
 import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.BaseActivity
 import com.burning.emqmsg.activity.UserinfoActivity
+import com.burning.emqmsg.glidehelp.MyTransform
+import com.burning.emqmsg.utils.ImageConfig
 import com.burning.realmdatalibrary.po.DiaryPo
 import com.burning.realmdatalibrary.po.UserPo
 import com.google.gson.Gson
@@ -39,9 +41,11 @@ import java.util.*
 class FrendcomUiAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdapter<DiaryPo>(context, data) {
     override fun onSetData(itemview: View, h: DiaryPo, position: Int) {
         val baseActivity = context as BaseActivity
-        var username = baseActivity.realm.where(UserPo::class.java).equalTo("id", 2).findFirst().username
-        itemview.com_item_user_name.text = "用户名:$username"
+        var user = baseActivity.realm.where(UserPo::class.java).equalTo("id", h.uid).findFirst()
+        itemview.com_item_user_name.text = "用户名:${user.username}"
         itemview.com_item_user_messages.text = "内容 :${h.contens}"
+
+        Glide.with(baseActivity).load(ImageConfig.Image_path + user.icon).apply(MyTransform.getCircleCrop()).into(itemview.com_item_user_icon)
         Calendar.getInstance().apply {
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = h.createTime

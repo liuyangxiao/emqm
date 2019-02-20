@@ -8,6 +8,7 @@ import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.BaseActivity
 import com.burning.emqmsg.activity.UserinfoActivity
 import com.burning.emqmsg.glidehelp.MyTransform
+import com.burning.emqmsg.utils.ImageConfig
 import com.burning.mybaselibrary.DpPxTransformUtil
 import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.po.MessagePo
@@ -38,9 +39,11 @@ import kotlinx.android.synthetic.main.activity_msg_item.view.*
  */
 class MsgActivityAdapter(context: Context, data: MutableList<MessagePo>) : BaseAdapter<MessagePo>(context, data) {
     override fun onSetData(itemview: View, h: MessagePo, position: Int) {
-        Glide.with(context).load(R.mipmap.ccatsfas).apply(MyTransform.getCircleCrop()).into(itemview.item_msg_activity_usericon)
         val baseActivity = context as BaseActivity
-        itemview.item_msg_activity_username.text = baseActivity.realm.where(UserPo::class.java).equalTo("id", h.clientId).findFirst().username
+        var user = baseActivity.realm.where(UserPo::class.java).equalTo("id", h.clientId).findFirst()
+        itemview.item_msg_activity_username.text = user.username
+
+        Glide.with(baseActivity).load(ImageConfig.Image_path +user.icon).apply(MyTransform.getCircleCrop()).into(itemview.item_msg_activity_usericon)
         itemview.item_msg_activity_message.text = h.content
         val measureText = itemview.item_msg_activity_message.paint.measureText(h.content)
         val dip2px = DpPxTransformUtil.dip2px(context, 240f)

@@ -3,9 +3,10 @@ package com.burning.emqmsg.adapter
 import android.content.Context
 import android.view.View
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.BaseActivity
+import com.burning.emqmsg.glidehelp.MyTransform
+import com.burning.emqmsg.utils.ImageConfig
 import com.burning.realmdatalibrary.po.UserPo
 import kotlinx.android.synthetic.main.fragment_msg_item.view.*
 
@@ -35,24 +36,21 @@ class NewFrendAdapter(context: Context, data: MutableList<UserPo>) : BaseAdapter
     override fun onSetData(itemview: View, h: UserPo, position: Int) {
         val baseActivity = context as BaseActivity
         itemview.msg_item_user_name.text = " ${h.username}"
-        var options = RequestOptions().placeholder(R.mipmap.a111)                //加载成功之前占位图
-                .error(R.mipmap.ccatsfas)                    //加载错误之后的错误图
-                .fitCenter()
-                .centerCrop()
-        Glide.with(baseActivity).load(h.icon).apply(options).into(itemview.msg_item_user_icon)
+        Glide.with(baseActivity).load(ImageConfig.Image_path + h.icon).apply(MyTransform.getCircleCrop()).into(itemview.msg_item_user_icon)
     }
 
     override fun getItemViewType(position: Int): Int = R.layout.item_newfrend
     override fun onBindOnclic(itemview: View, position: Int) {
-//        itemview.setOnClickListener {
-//            val baseActivity = context as BaseActivity
-//            var intent = Intent(context, MsgActivity::class.java)
-//            intent.putExtra(MsgActivity.USER_ID, data[position].id)
-//            baseActivity.startMyActivity(intent)
-//        }
+        itemview.msg_item_user_name.setOnClickListener {
+            //同意好友请求
+
+
+            /*val baseActivity = context as BaseActivity
+            var intent = Intent(context, MsgActivity::class.java)
+            intent.putExtra(MsgActivity.USER_ID, data[position].id)
+            baseActivity.startMyActivity(intent)*/
+        }
     }
 
-    override fun getItemCount(): Int {
-        return 6
-    }
+
 }

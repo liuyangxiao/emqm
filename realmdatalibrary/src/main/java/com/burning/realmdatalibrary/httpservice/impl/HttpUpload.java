@@ -43,10 +43,38 @@ public class HttpUpload {
      * @param httpCallBack
      */
     public static void upload(final File file, final HttpCallBack<String> httpCallBack) {
+        ReHttpUtils.instans().httpRequest(new BaSubCribe<ResDto<String>>() {
+            @Override
+            public void onError(Throwable e) {
+                httpCallBack.oncode(100, e.getMessage(), null);
+            }
+
+            @Override
+            public void onNext(ResDto<String> loginUserPoResDto) {
+                httpCallBack.oncode(200, "OK", loginUserPoResDto.getData());
+            }
+
+            @Override
+            public Observable<ResDto<String>> getObservable(HttpApi retrofit) {
+                RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+                MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+                return retrofit.uoloadFile(body);
+            }
+        });
+
+    }
+
+    /**
+     * 上传图片
+     *
+     * @param file
+     * @param httpCallBack
+     */
+    public static void uploadOnthis(final File file, final HttpCallBack<String> httpCallBack) {
         ReHttpUtils.instans().httpRequestMain(new BaSubCribe<ResDto<String>>() {
             @Override
             public void onError(Throwable e) {
-                httpCallBack.oncode(100, "异常", e.getMessage());
+                httpCallBack.oncode(100, e.getMessage(), null);
             }
 
             @Override

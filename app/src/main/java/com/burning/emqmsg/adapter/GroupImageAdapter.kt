@@ -8,6 +8,7 @@ import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.MsgActivity
 import com.burning.emqmsg.glidehelp.MyTransform
 import com.burning.realmdatalibrary.po.GroupPo
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.item_group.view.*
 
 /**
@@ -34,7 +35,13 @@ import kotlinx.android.synthetic.main.item_group.view.*
  */
 class GroupImageAdapter(context: Context, data: MutableList<GroupPo>) : BaseAdapter<GroupPo>(context, data) {
     override fun onSetData(itemview: View, h: GroupPo, position: Int) {
-        Glide.with(context).load("aaaxxxxx").apply(MyTransform.getRequestOptions(10)).into(itemview.item_group_icon)
+        var data = ArrayList<String>()
+        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
+        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
+        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lxlGdGAKAGOAAHyC7o7ckQ665.png")
+        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
+        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lxlGdGAKAGOAAHyC7o7ckQ665.png")
+        Glide.with(context).load("group:${Gson().toJson(data)}").apply(MyTransform.getRequestOptions(10)).into(itemview.item_group_icon)
         itemview.item_group_name.text = h.content + "群ID:" + h.id
     }
 

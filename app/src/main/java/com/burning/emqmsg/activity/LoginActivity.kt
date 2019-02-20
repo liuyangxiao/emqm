@@ -100,21 +100,22 @@ class LoginActivity : BaseActivity() {
         return password.length > 4
     }
 
+    var dialog: ZLoadingDialog? = null
     /**
      * Shows the progress UI and hides the login form.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private fun showProgress(show: Boolean) {
-        val dialog = ZLoadingDialog(this)
         if (show) {
             //   login_loading.show()
-            dialog.setLoadingBuilder(Z_TYPE.SNAKE_CIRCLE)//设置类型
-                    .setLoadingColor(Color.BLUE)//颜色
-                    .setHintText("Loading...")
-                    .show()
+            dialog = ZLoadingDialog(this)
+            dialog?.setLoadingBuilder(Z_TYPE.SNAKE_CIRCLE)//设置类型
+                    ?.setLoadingColor(Color.BLUE)//颜色
+                    ?.setHintText("Loading...")
+                    ?.show()
         } else {
             //     login_loading.hide()
-            dialog.dismiss()
+            dialog?.dismiss()
         }
     }
 

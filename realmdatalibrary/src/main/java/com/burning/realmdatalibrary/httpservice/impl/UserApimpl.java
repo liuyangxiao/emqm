@@ -7,6 +7,7 @@ import com.burning.realmdatalibrary.httpservice.HttpCallBack;
 import com.burning.realmdatalibrary.httpservice.UserApi;
 import com.burning.realmdatalibrary.httpservice.requbean.LoginBean;
 import com.burning.realmdatalibrary.httpservice.requbean.ResDto;
+import com.burning.realmdatalibrary.httpservice.requbean.UpdataUser;
 import com.burning.realmdatalibrary.po.GroupPo;
 import com.burning.realmdatalibrary.po.LoginUserPo;
 import com.burning.realmdatalibrary.po.UserPo;
@@ -127,8 +128,22 @@ public class UserApimpl implements UserApi {
     }
 
     @Override
-    public void updataUser() {
+    public void updataUser(final UpdataUser updataUser, final HttpCallBack<String> httpCallBack) {
+        ReHttpUtils.instans().httpRequest(new BaSubCribe<ResDto<String>>() {
+            @Override
+            public Observable<ResDto<String>> getObservable(HttpApi retrofit) {
+                return retrofit.updataUser(updataUser);
+            }
+            @Override
+            public void onError(Throwable e) {
+                httpCallBack.oncode(100, e.getMessage(), null);
+            }
 
+            @Override
+            public void onNext(ResDto<String> resDto) {
+                httpCallBack.oncode(200, "OK", resDto.getData());
+            }
+        });
     }
 
     @Override

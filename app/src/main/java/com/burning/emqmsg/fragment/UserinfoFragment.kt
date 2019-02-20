@@ -7,6 +7,8 @@ import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.BaseActivity
 import com.burning.emqmsg.activity.LoginActivity
 import com.burning.emqmsg.activity.UserinfoActivity
+import com.burning.emqmsg.glidehelp.MyTransform
+import com.burning.emqmsg.utils.ImageConfig
 import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.po.LoginsPo
 import com.burning.realmdatalibrary.po.UserPo
@@ -38,26 +40,15 @@ import kotlinx.android.synthetic.main.fragment_userinfo.*
  */
 class UserinfoFragment : BaseFragment() {
     override fun initViewOnlayout(): Int = R.layout.fragment_userinfo
-
     override fun initData() {
         fragment_back_title.setPadding(0, BaseActivity.actionBarHeight, 0, 0)
         tv_title.text = "User"
         val baseActivity = activity as BaseActivity
         val findFirstAsync = baseActivity.realm.where(UserPo::class.java).equalTo("id", UserInfo.userid).findFirst()
-
-        Glide.with(this).load("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg").into(user_fragment_usericon)
-        hideloading()
-        user_fragment_username.text = if (findFirstAsync?.username == null) {
-            "未设置XX"
-        } else {
-            findFirstAsync?.username
+        setUser(findFirstAsync)
+        findFirstAsync?.addChangeListener<UserPo> {
+            setUser(it)
         }
-        user_fragment_userreid.text =
-                if (findFirstAsync?.userdesc == null) {
-                    "暂无签名信息"
-                } else {
-                    findFirstAsync?.userdesc
-                }
         userinfo_fg_loginout.setOnClickListener {
             UserInfo.userid = 0L
             EmqClientImp.instance().upsubtopicks(null)
@@ -77,6 +68,21 @@ class UserinfoFragment : BaseFragment() {
         }
     }
 
+    fun setUser(userPo: UserPo) {
+        Glide.with(this).load(ImageConfig.Image_path + userPo.icon).apply(MyTransform.getCircleCrop()).into(user_fragment_usericon)
+        hideloading()
+        user_fragment_username.text = if (userPo?.username == null) {
+            "未设置XX"
+        } else {
+            userPo?.username
+        }
+        user_fragment_userreid.text =
+                if (userPo?.userdesc == null) {
+                    "暂无签名信息"
+                } else {
+                    userPo?.userdesc
+                }
+    }
 
 }
 

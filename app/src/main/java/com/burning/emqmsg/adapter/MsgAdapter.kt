@@ -8,9 +8,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.BaseActivity
 import com.burning.emqmsg.activity.MsgActivity
+import com.burning.emqmsg.utils.ImageConfig
 import com.burning.realmdatalibrary.po.GroupPo
 import com.burning.realmdatalibrary.po.MesgWinPo
 import com.burning.realmdatalibrary.po.UserPo
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_msg_item.view.*
 
 /**
@@ -44,11 +46,17 @@ class MsgAdapter(context: Context, data: MutableList<MesgWinPo>) : BaseAdapter<M
                 .centerCrop()
         var name = if (h.type == 1) {
             val findFirst = baseActivity.realm.where(UserPo::class.java).equalTo("id", h.msgid).findFirst();
-            Glide.with(baseActivity).load(findFirst.icon).apply(options).into(itemview.msg_item_user_icon)
+            Glide.with(baseActivity).load(ImageConfig.Image_path + findFirst.icon).apply(options).into(itemview.msg_item_user_icon)
             findFirst.username + "用户id=" + findFirst.id
         } else {
             var group = baseActivity.realm.where(GroupPo::class.java).equalTo("id", h.msgid).findFirst()
-            Glide.with(baseActivity).load("xxxxx").apply(options).into(itemview.msg_item_user_icon)
+            var data = ArrayList<String>()
+            data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
+            data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
+            data.add("http://47.105.169.72/image/M00/00/00/rB-U8lxlGdGAKAGOAAHyC7o7ckQ665.png")
+            data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
+            data.add("http://47.105.169.72/image/M00/00/00/rB-U8lxlGdGAKAGOAAHyC7o7ckQ665.png")
+            Glide.with(baseActivity).load("group:${Gson().toJson(data)}").apply(options).into(itemview.msg_item_user_icon)
             group.content + "群id=" + group.id
         }
         itemview.msg_item_user_name.text = name

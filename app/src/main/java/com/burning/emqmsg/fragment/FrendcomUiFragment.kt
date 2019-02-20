@@ -7,6 +7,7 @@ import com.burning.emqmsg.activity.MainActivity
 import com.burning.emqmsg.adapter.FrendcomUiAdapter
 import com.burning.emqmsg.view.SSRlayoutListener
 import com.burning.realmdatalibrary.UserInfo
+import com.burning.realmdatalibrary.httpservice.impl.DiaryApimpl
 import com.burning.realmdatalibrary.po.LoginUserPo
 import kotlinx.android.synthetic.main.fragmeng_frend.*
 import kotlinx.android.synthetic.main.fragmeng_msg.*
@@ -48,11 +49,14 @@ class FrendcomUiFragment : BaseFragment() {
                 frend_recyler.adapter = FrendcomUiAdapter(activity, it.diaryPos)
             }
         }
+        var diaryApimpl = DiaryApimpl()
         swipe_refresh.apply {
             setOnPullRefreshListener(object : SSRlayoutListener {
                 override fun onRefresh() {
-                    swipe_refresh.apply {
-                        postDelayed({ isRefreshing = false }, 1000)
+                    diaryApimpl.getList(UserInfo.userid, 0) { i, meg, data ->
+                        swipe_refresh.apply {
+                            postDelayed({ isRefreshing = false }, 10)
+                        }
                     }
                 }
             })

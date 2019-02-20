@@ -42,7 +42,8 @@ public class EmApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ReHttpUtils.initRetro("http://47.105.169.72:8989");
+        ReHttpUtils.initRetro("https://47.105.169.72:8989");
+        ReHttpUtils.instans().setHttps(true);
         Realm.init(this);
         LogUtils.init();
         RealmConfiguration config = new RealmConfiguration.Builder().name("emq.realm").build();

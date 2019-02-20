@@ -1,11 +1,11 @@
-package com.burning.realmdatalibrary.po;
+package com.burning.emqmsg.utils;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-import lombok.Data;
+import android.content.Context;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
- * Created by burning on 2018/12/4.
+ * Created by burning on 2019/2/20.
  * When I wrote this, only God and I understood what I was doing
  * Now, God only knows
  * -------------------------//┏┓　　　┏┓
@@ -26,21 +26,20 @@ import lombok.Data;
  * -------------------------// ┃┫┫　┃┫┫
  * -------------------------// ┗┻┛　┗┻┛
  */
-@Data
-public class DiaryDescPo extends RealmObject {
-    @PrimaryKey
-    Long id;
-    /**
-     * 评论人ID
-     */
-    Long userid;
-    /**
-     * 内容
-     */
-    String content;
-    /**
-     * 评论中指向的用户ID
-     */
-    Long ofuserid;
+public class DiarySend {
+    public static void sendMessage(Context context, DiarySendBean diarynoSendPo) {
+        if (diarynoSendPo == null || diarynoSendPo.uid == 0 || diarynoSendPo.content == null)
+            return;
+        if (diarynoSendPo.icons != null && diarynoSendPo.icons.isEmpty()) {
+            ImaComUtils.INSTANCE.uploudList(context, diarynoSendPo.icons, new ImaComUtils.Onuploads() {
+                @Override
+                public void onCallBack(@NotNull String string) {
+                    //压缩上传
 
+                }
+            });
+        } else {
+
+        }
+    }
 }

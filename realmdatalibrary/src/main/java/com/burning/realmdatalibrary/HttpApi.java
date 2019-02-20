@@ -2,6 +2,8 @@ package com.burning.realmdatalibrary;
 
 import com.burning.realmdatalibrary.httpservice.requbean.LoginBean;
 import com.burning.realmdatalibrary.httpservice.requbean.ResDto;
+import com.burning.realmdatalibrary.httpservice.requbean.UpdataUser;
+import com.burning.realmdatalibrary.po.DiaryPo;
 import com.burning.realmdatalibrary.po.LoginUserPo;
 import com.burning.realmdatalibrary.po.UserPo;
 
@@ -77,6 +79,16 @@ public interface HttpApi {
      */
     @POST("user/initapp")
     Observable<ResDto<LoginUserPo>> initApp(@Query("uid") Long uid);
+
+
+    /**
+     * 修改用户数据
+     *
+     * @param user
+     * @return
+     */
+    @POST("user/updata")
+    Observable<ResDto<String>> updataUser(@Body UpdataUser user);
 
     /**
      * 查找用户
@@ -154,5 +166,9 @@ public interface HttpApi {
      */
     @POST("frend/getIds")
     Observable<ResDto<String>> updatagroup(@Query("userid") Long uid, @Query("frendid") Long frendid, @Query("groupid") Long groupid);
+
+    //---------------------------DiaryPo
+    @POST("diary/getlist")
+    Observable<ResDto<List<DiaryPo>>> diarygetlist(@Query("uid") Long uid, @Query("page") Integer frendid);
 
 }

@@ -44,7 +44,30 @@ abstract class BaseAdapter<H>(var context: Context, var data: MutableList<H>) : 
         if (!data.isEmpty() && position < data.size)
             onSetData(holder.itemView, data[position], position)
         onBindOnclic(holder.itemView, position)
+        if (longClickListener != null) {
+            holder.itemView.setOnLongClickListener {
+                longClickListener?.onitemViewHolder(holder)
+                return@setOnLongClickListener true
+            }
+        }
+        if (itemlic != null) {
+            holder.itemView.setOnClickListener(itemlic)
+        }
 
+    }
+
+    interface Onitemlongclic {
+        fun onitemViewHolder(tviewHolder: TviewHolder)
+    }
+
+    var longClickListener: Onitemlongclic? = null
+    fun setOnitemlongclic(longclic: Onitemlongclic) {
+        this.longClickListener = longClickListener
+    }
+
+    var itemlic: View.OnClickListener? = null
+    fun setOnitemclic(itemlic: View.OnClickListener) {
+        this.itemlic = itemlic
     }
 
     fun updataAdapter(list: MutableList<H>) {

@@ -1,7 +1,9 @@
 package com.burning.emqmsg.fragment
 
+import android.content.Intent
 import android.support.design.widget.TabLayout
 import com.burning.emqmsg.R
+import com.burning.emqmsg.activity.SendDiaryActivity
 import com.burning.emqmsg.adapter.CommunityAdapter
 import com.burning.realmdatalibrary.po.LoginUserPo
 import kotlinx.android.synthetic.main.fragmeng_comdia.*
@@ -43,8 +45,7 @@ class CommunityFragment : BaseFragment() {
         tabLayout.setSelectedTabIndicatorHeight(0)
         hideloading()
         add_comdia.setOnClickListener {
-
-
+            startActivity(Intent(activity, SendDiaryActivity::class.java))
         }
     }
 

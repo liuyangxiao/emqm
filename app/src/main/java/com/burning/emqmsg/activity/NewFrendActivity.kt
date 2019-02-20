@@ -40,7 +40,7 @@ class NewFrendActivity : BaseActivity() {
         title_layout.setPadding(title_layout.left, title_layout.top + BaseActivity.actionBarHeight, title_layout.right, title_layout.bottom)
         tv_title.text = "好友请求"
         activity_group_rv.layoutManager = LinearLayoutManager(this)
-
+        by_messgae_title.text = "好友通知"
         val dialog = ZLoadingDialog(this)
         dialog.setLoadingBuilder(Z_TYPE.SNAKE_CIRCLE)//设置类型
                 .setLoadingColor(Color.BLUE)//颜色

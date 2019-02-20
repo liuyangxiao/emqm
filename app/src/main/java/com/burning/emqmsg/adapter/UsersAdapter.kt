@@ -8,6 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.BaseActivity
 import com.burning.emqmsg.activity.MsgActivity
+import com.burning.emqmsg.utils.ImageConfig
 import com.burning.realmdatalibrary.po.UserPo
 import kotlinx.android.synthetic.main.fragment_msg_item.view.*
 
@@ -41,7 +42,7 @@ class UsersAdapter(context: Context, data: MutableList<UserPo>) : BaseAdapter<Us
                 .error(R.mipmap.ccatsfas)                    //加载错误之后的错误图
                 .fitCenter()
                 .centerCrop()
-        Glide.with(baseActivity).load(h.icon).apply(options).into(itemview.msg_item_user_icon)
+        Glide.with(baseActivity).load(ImageConfig.Image_path +h.icon).apply(options).into(itemview.msg_item_user_icon)
     }
 
     override fun getItemViewType(position: Int): Int = R.layout.fragment_msg_item

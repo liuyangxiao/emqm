@@ -1,6 +1,6 @@
 package com.burning.realmdatalibrary.po;
 
-import io.realm.RealmModel;
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmClass;
 import lombok.Data;
@@ -29,7 +29,7 @@ import lombok.Data;
  */
 @Data
 @RealmClass
-public class UserRemarksPo implements RealmModel {
+public class UserRemarksPo extends RealmObject {
     @PrimaryKey
     Long id;
     /**

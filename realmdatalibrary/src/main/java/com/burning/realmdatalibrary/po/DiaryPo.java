@@ -1,9 +1,8 @@
 package com.burning.realmdatalibrary.po;
 
 import io.realm.RealmList;
-import io.realm.RealmModel;
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.RealmClass;
 import lombok.Data;
 
 /**
@@ -29,8 +28,7 @@ import lombok.Data;
  * -------------------------// ┗┻┛　┗┻┛
  */
 @Data
-@RealmClass
-public class DiaryPo implements RealmModel {
+public class DiaryPo extends RealmObject {
     @PrimaryKey
     Long id;
     /**

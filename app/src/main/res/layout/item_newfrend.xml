@@ -22,7 +22,7 @@
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:lines="1"
-        android:text="===================================="
+        android:text="======="
         app:layout_constraintBottom_toBottomOf="@+id/msg_item_user_icon"
         app:layout_constraintLeft_toLeftOf="@+id/msg_item_user_name"
         app:layout_constraintTop_toTopOf="@+id/msg_item_user_icon" />

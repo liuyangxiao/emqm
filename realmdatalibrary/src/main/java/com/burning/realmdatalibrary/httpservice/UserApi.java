@@ -1,6 +1,7 @@
 package com.burning.realmdatalibrary.httpservice;
 
 import com.burning.realmdatalibrary.httpservice.requbean.LoginBean;
+import com.burning.realmdatalibrary.httpservice.requbean.UpdataUser;
 import com.burning.realmdatalibrary.po.UserPo;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public interface UserApi {
     /**
      * 修改用户信息
      */
-    void updataUser();
+    void updataUser(UpdataUser updataUser, HttpCallBack<String> httpCallBack);
 
     /**
      * 根据用户ID获取用户信息
