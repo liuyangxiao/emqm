@@ -13,6 +13,16 @@ class SetUserInfoActivity : BaseActivity() {
     override fun init() {
         title_layout.setPadding(title_layout.left, title_layout.top + BaseActivity.actionBarHeight, title_layout.right, title_layout.bottom)
         val intExtra = intent.getIntExtra(SET_USER, 0)
+        iv_right.text = "保存"
+        btn_back.text = "取消"
+        btn_back.setOnClickListener {
+            finish()
+        }
+
+        iv_right.setOnClickListener {
+
+
+        }
         tv_title.text = when (intExtra) {
             1 -> "修改性别"
             2 -> "修改年龄"
@@ -23,7 +33,6 @@ class SetUserInfoActivity : BaseActivity() {
                 "--"
             }
         }
-
 
     }
 

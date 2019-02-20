@@ -31,9 +31,11 @@ import java.io.File
 class UserinfoActivity : BaseActivity() {
     override fun getActivityLayout(): Int = R.layout.activity_userinfo
     private val REQUEST_CODE_CHOOSE = 33252
+    private val REQUEST_CODE_SETUSER = 3334
 
     companion object {
         var USER_ID = "userid"
+        val SET_USER_STRING = "setuser"
     }
 
     var userapi = UserApimpl()
@@ -185,14 +187,21 @@ class UserinfoActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         imagePicker.onActivityResult(this@UserinfoActivity, requestCode, resultCode, data);
-        /*  if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
-              val obtainResult = Matisse.obtainResult(data)
-              if (obtainResult != null && !obtainResult.isEmpty()) {
-                  val uriToFile = UriUtils.uriToFile(obtainResult[0], this@UserinfoActivity)
-                  if (uriToFile != null)
-                      Glide.with(this@UserinfoActivity).load(uriToFile).into(user_info_usericon)
-              }
-          }*/
+        if (requestCode == REQUEST_CODE_SETUSER && resultCode == RESULT_OK) {
+
+            var setID = data?.getIntExtra(SET_USER_STRING, 0)
+            if (setID == 0)
+                return
+            var setString = data?.getStringExtra(SET_USER_STRING)
+            var user = UpdataUser()
+            when (setID) {
+                1 -> user.gender = setString
+              //  2 -> user.age = setString
+                3 -> user.username = setString
+                4 -> user.userdesc = setString
+            }
+            setUser(user, 1)
+        }
     }
 
     fun upsetUsericon(uriToFile: File) {
@@ -221,6 +230,25 @@ class UserinfoActivity : BaseActivity() {
             } else {
                 dialog.dismiss()
                 Toast.makeText(applicationContext, "头像设置失败", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    fun setUser(user: UpdataUser, set: Int) {
+        userapi.updataUser(user) { i: Int, s: String, data: String ->
+            if (i == 200) {
+                RxReamlUtils.updata {
+                    val findFirst1 = it.where(UserPo::class.java).equalTo("id", UserInfo.userid).findFirst()
+                    when (set) {
+                        1 -> findFirst1.gender = user.gender
+                        2 -> findFirst1.age = user.age
+                        3 -> findFirst1.username = user.username
+                        4 -> findFirst1.userdesc = user.userdesc
+                    }
+                }
+            } else {
+                Toast.makeText(applicationContext, "信息设置失败", Toast.LENGTH_SHORT).show()
             }
         }
     }

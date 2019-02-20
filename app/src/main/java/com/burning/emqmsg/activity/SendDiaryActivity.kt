@@ -61,7 +61,7 @@ class SendDiaryActivity : BaseActivity() {
             sendpo.content = activity_send_edt.text.toString()
             sendpo.icons = icons
             application
-            DiarySend.sendMessage(sendpo)
+            DiarySend.sendMessage(applicationContext, sendpo)
             finish()
         }
 
