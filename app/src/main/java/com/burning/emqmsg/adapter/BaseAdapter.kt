@@ -33,7 +33,19 @@ abstract class BaseAdapter<H>(var context: Context, var data: MutableList<H>) : 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TviewHolder {
         Logger.d("====onCreateViewHolder===")
-        return TviewHolder(LayoutInflater.from(context).inflate(viewType, parent, false))
+        val tviewHolder = TviewHolder(LayoutInflater.from(context).inflate(viewType, parent, false))
+        if (longClickListener != null) {
+            tviewHolder.itemView.setOnLongClickListener {
+                longClickListener?.onitemViewHolder(tviewHolder)
+                return@setOnLongClickListener true
+            }
+        }
+        if (itemlic != null) {
+            tviewHolder.itemView.setOnClickListener {
+                itemlic?.onitemViewHolder(tviewHolder)
+            }
+        }
+        return tviewHolder
     }
 
     open fun onBindOnclic(itemview: View, position: Int) {
@@ -44,17 +56,7 @@ abstract class BaseAdapter<H>(var context: Context, var data: MutableList<H>) : 
         if (!data.isEmpty() && position < data.size)
             onSetData(holder.itemView, data[position], position)
         onBindOnclic(holder.itemView, position)
-        if (longClickListener != null) {
-            holder.itemView.setOnLongClickListener {
-                longClickListener?.onitemViewHolder(holder)
-                return@setOnLongClickListener true
-            }
-        }
-        if (itemlic != null) {
-            holder.itemView.setOnClickListener {
-                itemlic?.onitemViewHolder(holder)
-            }
-        }
+
 
     }
 

@@ -39,7 +39,7 @@ class MainActivity : BaseActivity() {
         navigation.selectedItemId = R.id.navigation_notifications
         PermissionActivity.startActivityForResult(this, 400,
                 "android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE",
-                "android.permission.READ_EXTERNAL_STORAGE", "android.permission.FOREGROUND_SERVICE")
+                "android.permission.READ_EXTERNAL_STORAGE", "android.permission.FOREGROUND_SERVICE", "android.permission.READ_PROFILE")
     }
 
     override fun getActivityLayout(): Int = R.layout.activity_main
