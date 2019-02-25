@@ -5,9 +5,9 @@
         path="" />
     <external-files-path
         name="name"
-        path="path" />
+        path="fileimage" />
     <external-cache-path
         name="name"
-        path="path" />
+        path="cacheimage" />
 
 </paths>

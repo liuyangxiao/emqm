@@ -44,7 +44,11 @@ class MsgActivityAdapter(context: Context, data: MutableList<MessagePo>) : BaseA
         itemview.item_msg_activity_username.text = user.username
 
         Glide.with(baseActivity).load(ImageConfig.Image_path +user.icon).apply(MyTransform.getCircleCrop()).into(itemview.item_msg_activity_usericon)
+
+
         itemview.item_msg_activity_message.text = h.content
+
+
         val measureText = itemview.item_msg_activity_message.paint.measureText(h.content)
         val dip2px = DpPxTransformUtil.dip2px(context, 240f)
         if (measureText > dip2px)

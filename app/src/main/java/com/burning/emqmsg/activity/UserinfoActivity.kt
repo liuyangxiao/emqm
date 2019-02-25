@@ -3,13 +3,13 @@ package com.burning.emqmsg.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.burning.emqmsg.R
 import com.burning.emqmsg.utils.ImageConfig
+import com.burning.emqmsg.utils.MatUtils
 import com.burning.emqmsg.utils.UriUtils
 import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.httpservice.impl.HttpUpload
@@ -19,7 +19,7 @@ import com.burning.realmdatalibrary.po.LoginUserPo
 import com.burning.realmdatalibrary.po.UserPo
 import com.burning.realmdatalibrary.po.UserRemarksPo
 import com.burning.realmdatalibrary.redao.RxReamlUtils
-import com.linchaolong.android.imagepicker.ImagePicker
+import com.zhihu.matisse.Matisse
 import com.zyao89.view.zloading.ZLoadingDialog
 import com.zyao89.view.zloading.Z_TYPE
 import kotlinx.android.synthetic.main.activity_userinfo.*
@@ -39,7 +39,6 @@ class UserinfoActivity : BaseActivity() {
     }
 
     var userapi = UserApimpl()
-    var imagePicker = ImagePicker()
     @SuppressLint("SetTextI18n")
     override fun init() {
         val longExtra = intent.getLongExtra(USER_ID, 0)
@@ -55,6 +54,7 @@ class UserinfoActivity : BaseActivity() {
             //  userinfo_left_bt.text    = "修改信息"
             userinfo_left_bt.visibility = View.GONE
             user_info_usericon.setOnClickListener {
+                MatUtils.getIcon(this@UserinfoActivity, 1)
                 //头像
                 /* Matisse.from(this@UserinfoActivity)
                          .choose(MimeType.ofAll())
@@ -68,43 +68,31 @@ class UserinfoActivity : BaseActivity() {
                          .theme(R.style.Matisse_Zhihu)
                          .imageEngine(MatGlideEngine())
                          .forResult(REQUEST_CODE_CHOOSE)*/
+//
+//                        var dialog = ZLoadingDialog(this@UserinfoActivity)
+//                        Luban.with(this@UserinfoActivity)
+//                                .load(uriToFile)
+//                                .ignoreBy(100)
+//                                .setTargetDir(ImageConfig.getCompressJpgFileAbsolutePath())
+//                                .filter { path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")) }
+//                                .setCompressListener(object : OnCompressListener {
+//                                    override fun onStart() {
+//                                        dialog?.setLoadingBuilder(Z_TYPE.SNAKE_CIRCLE)//设置类型
+//                                                ?.setLoadingColor(Color.BLUE)//颜色
+//                                                ?.setHintText("图片压缩...")
+//                                                ?.show()
+//                                    }
+//
+//                                    override fun onSuccess(file: File) {
+//                                        dialog.dismiss()
+//                                        upsetUsericon(file)
+//                                    }
+//
+//                                    override fun onError(e: Throwable) {
+//                                        dialog.dismiss()
+//                                    }
+//                                }).launch()
 
-                imagePicker.setTitle("头像 --设置")
-                imagePicker.setCropImage(true)
-                imagePicker.startChooser(this@UserinfoActivity, object : com.linchaolong.android.imagepicker.ImagePicker.Callback() {
-                    override fun onPickImage(imageUri: Uri?) {
-                        val uriToFile = UriUtils.uriToFile(imageUri, this@UserinfoActivity)
-                        if (uriToFile == null) {
-                            Toast.makeText(applicationContext, "头像设置失败", Toast.LENGTH_SHORT).show()
-                            return
-                        }
-                        var dialog = ZLoadingDialog(this@UserinfoActivity)
-                        Luban.with(this@UserinfoActivity)
-                                .load(uriToFile)
-                                .ignoreBy(100)
-                                .setTargetDir(ImageConfig.getCompressJpgFileAbsolutePath())
-                                .filter { path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")) }
-                                .setCompressListener(object : OnCompressListener {
-                                    override fun onStart() {
-                                        dialog?.setLoadingBuilder(Z_TYPE.SNAKE_CIRCLE)//设置类型
-                                                ?.setLoadingColor(Color.BLUE)//颜色
-                                                ?.setHintText("图片压缩...")
-                                                ?.show()
-                                    }
-
-                                    override fun onSuccess(file: File) {
-                                        dialog.dismiss()
-                                        upsetUsericon(file)
-                                    }
-
-                                    override fun onError(e: Throwable) {
-                                        dialog.dismiss()
-                                    }
-                                }).launch()
-
-
-                    }
-                })
             }
             re_userinfo_gender.setOnClickListener {
                 //性别
@@ -186,22 +174,53 @@ class UserinfoActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        imagePicker.onActivityResult(this@UserinfoActivity, requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_SETUSER && resultCode == RESULT_OK) {
-
+        if (requestCode == MatUtils.REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
+            //头像
+            var list = Matisse.obtainResult(data)
+            val uriToFile = UriUtils.uriToFile(list[0], this)
+            lubanComImage(uriToFile)
+            // upsetUsericon(uriToFile)
+        } else if (requestCode == REQUEST_CODE_SETUSER && resultCode == RESULT_OK) {
             var setID = data?.getIntExtra(SET_USER_STRING, 0)
             if (setID == 0)
                 return
-            var setString = data?.getStringExtra(SET_USER_STRING)
+            var setString = data?.getStringExtra(SetUserInfoActivity.SET_USER)
             var user = UpdataUser()
             when (setID) {
                 1 -> user.gender = setString
-              //  2 -> user.age = setString
+            //  2 -> user.age = setString
                 3 -> user.username = setString
                 4 -> user.userdesc = setString
             }
-            setUser(user, 1)
+                setUser(user, setID!!)
         }
+    }
+
+    fun lubanComImage(uriToFile: File) {
+        var dialog = ZLoadingDialog(this@UserinfoActivity)
+        Luban.with(this@UserinfoActivity)
+                .load(uriToFile)
+                .ignoreBy(100)
+                .setTargetDir(ImageConfig.getCompressJpgFileAbsolutePath())
+                .filter { path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")) }
+                .setCompressListener(object : OnCompressListener {
+                    override fun onStart() {
+
+                        dialog?.setLoadingBuilder(Z_TYPE.SNAKE_CIRCLE)//设置类型
+                                ?.setLoadingColor(Color.BLUE)//颜色
+                                ?.setHintText("图片压缩...")
+                                ?.show()
+                    }
+
+                    override fun onSuccess(file: File) {
+                        dialog.dismiss()
+                        upsetUsericon(file)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        dialog.dismiss()
+                    }
+                }).launch()
     }
 
     fun upsetUsericon(uriToFile: File) {

@@ -1,6 +1,12 @@
 package com.burning.emqmsg.activity
 
+import android.content.Intent
+import android.text.Editable
+import android.text.InputType
+import android.text.TextUtils
+import android.widget.Toast
 import com.burning.emqmsg.R
+import kotlinx.android.synthetic.main.activity_set_user_info.*
 import kotlinx.android.synthetic.main.back_title.*
 
 class SetUserInfoActivity : BaseActivity() {
@@ -21,13 +27,34 @@ class SetUserInfoActivity : BaseActivity() {
 
         iv_right.setOnClickListener {
 
-
+            if (activity_setuser.text == null || TextUtils.isEmpty(activity_setuser.text)) {
+                Toast.makeText(this@SetUserInfoActivity, "空内容", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            var intent = Intent()
+            intent.putExtra(UserinfoActivity.SET_USER_STRING, intExtra)//返回-
+            intent.putExtra(SET_USER, activity_setuser.text.toString())//返回-
+            setResult(RESULT_OK, intent)
+            finish()
         }
         tv_title.text = when (intExtra) {
-            1 -> "修改性别"
-            2 -> "修改年龄"
-            3 -> "修改昵称"
-            4 -> "修改签名"
+            1 -> {
+                activity_setuser.hint = Editable.Factory.getInstance().newEditable("性别")
+                "修改性别"
+            }
+            2 -> {
+                activity_setuser.hint = Editable.Factory.getInstance().newEditable("年龄")
+                activity_setuser.inputType = InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE
+                "修改年龄"
+            }
+            3 -> {
+                activity_setuser.hint = Editable.Factory.getInstance().newEditable("昵称")
+                "修改昵称"
+            }
+            4 -> {
+                activity_setuser.hint = Editable.Factory.getInstance().newEditable("签名")
+                "修改签名"
+            }
             else -> {
                 finish()
                 "--"

@@ -97,6 +97,7 @@ object ImaComUtils {
                         icons.add(data)//添加
                     }
                 }
+
             }
             onuoload.onCallBack(Gson().toJson(icons))
         }.start()

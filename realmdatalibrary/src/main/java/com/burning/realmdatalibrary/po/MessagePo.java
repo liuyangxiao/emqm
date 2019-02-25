@@ -2,7 +2,6 @@ package com.burning.realmdatalibrary.po;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.RealmClass;
 import lombok.Data;
 
 /**
@@ -37,8 +36,8 @@ public class MessagePo extends RealmObject {
     long ofclientID;
     /**
      * 消息类型
-     * 100----普通消息
-     * 111----群消息
+     * 100--110--用户--普通消息
+     * 111---121-群消息
      * 200----系统消息 好友添加
      * 300---系统消息 添加好友通过
      * 400---系统通知

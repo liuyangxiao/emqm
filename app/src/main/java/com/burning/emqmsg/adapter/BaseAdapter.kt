@@ -51,7 +51,9 @@ abstract class BaseAdapter<H>(var context: Context, var data: MutableList<H>) : 
             }
         }
         if (itemlic != null) {
-            holder.itemView.setOnClickListener(itemlic)
+            holder.itemView.setOnClickListener {
+                itemlic?.onitemViewHolder(holder)
+            }
         }
 
     }
@@ -62,11 +64,11 @@ abstract class BaseAdapter<H>(var context: Context, var data: MutableList<H>) : 
 
     var longClickListener: Onitemlongclic? = null
     fun setOnitemlongclic(longclic: Onitemlongclic) {
-        this.longClickListener = longClickListener
+        this.longClickListener = longclic
     }
 
-    var itemlic: View.OnClickListener? = null
-    fun setOnitemclic(itemlic: View.OnClickListener) {
+    var itemlic: Onitemlongclic? = null
+    fun setOnitemclic(itemlic: Onitemlongclic) {
         this.itemlic = itemlic
     }
 

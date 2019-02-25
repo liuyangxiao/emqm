@@ -48,10 +48,13 @@ public class MoveItemCallBack extends ItemTouchHelper.Callback {
 
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+
         int fromPosition = viewHolder.getAdapterPosition();
         BaseAdapter adapter = (BaseAdapter) recyclerView.getAdapter();
         //拿到当前拖拽到的item的viewHolder
         int toPosition = target.getAdapterPosition();
+        if (toPosition == adapter.getData().size())
+            return true;
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(adapter.getData(), i, i + 1);
@@ -69,15 +72,18 @@ public class MoveItemCallBack extends ItemTouchHelper.Callback {
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 
     }
+
     @Override
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
         viewHolder.itemView.setBackgroundColor(0);
     }
+
     @Override
     public boolean isLongPressDragEnabled() {
         return false;
     }
+
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {

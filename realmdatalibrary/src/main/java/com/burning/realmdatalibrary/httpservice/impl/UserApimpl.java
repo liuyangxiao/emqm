@@ -71,6 +71,7 @@ public class UserApimpl implements UserApi {
                 UserInfo.userid = id;
                 Realm defaultInstance = Realm.getDefaultInstance();
                 LoginUserPo userid = defaultInstance.where(LoginUserPo.class).equalTo("userid", id).findFirst();
+                defaultInstance.close();
                 if (userid == null) {
                     initApp(new HttpCallBack<String>() {
                         @Override
@@ -117,6 +118,7 @@ public class UserApimpl implements UserApi {
                 //初始化 用户数据
                 LoginUserPo orUpdateObjectFromJson = defaultInstance.createOrUpdateObjectFromJson(LoginUserPo.class, toJson);
                 defaultInstance.commitTransaction();
+                defaultInstance.close();
                 if (orUpdateObjectFromJson == null) {
                     httpCallBack.oncode(100, "初始化异常", "createOrUpdateObjectFromJson null" + data);
                 } else {
@@ -134,6 +136,7 @@ public class UserApimpl implements UserApi {
             public Observable<ResDto<String>> getObservable(HttpApi retrofit) {
                 return retrofit.updataUser(updataUser);
             }
+
             @Override
             public void onError(Throwable e) {
                 httpCallBack.oncode(100, e.getMessage(), null);
@@ -175,6 +178,7 @@ public class UserApimpl implements UserApi {
                 //==保存好友分组
                 defaultInstance.createOrUpdateAllFromJson(GroupPo.class, data);
                 defaultInstance.commitTransaction();
+                defaultInstance.close();
             }
         });
 

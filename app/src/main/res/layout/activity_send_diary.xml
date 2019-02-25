@@ -12,7 +12,7 @@
     <EditText
         android:id="@+id/activity_send_edt"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="180dp"
         android:background="@null"
         android:gravity="top"
         android:padding="10dp"

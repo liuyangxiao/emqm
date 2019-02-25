@@ -1,5 +1,6 @@
 package com.burning.realmdatalibrary;
 
+import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
 import com.burning.realmdatalibrary.httpservice.requbean.LoginBean;
 import com.burning.realmdatalibrary.httpservice.requbean.ResDto;
 import com.burning.realmdatalibrary.httpservice.requbean.UpdataUser;
@@ -170,5 +171,8 @@ public interface HttpApi {
     //---------------------------DiaryPo
     @POST("diary/getlist")
     Observable<ResDto<List<DiaryPo>>> diarygetlist(@Query("uid") Long uid, @Query("page") Integer frendid);
+
+    @POST("diary/send")
+    Observable<ResDto<String>> sendDiary(@Body DiaryMessage diaryMessage);
 
 }

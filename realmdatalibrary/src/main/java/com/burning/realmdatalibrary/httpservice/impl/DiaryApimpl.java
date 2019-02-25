@@ -2,18 +2,22 @@ package com.burning.realmdatalibrary.httpservice.impl;
 
 import com.burning.realmdatalibrary.BaSubCribe;
 import com.burning.realmdatalibrary.HttpApi;
+import com.burning.realmdatalibrary.UserInfo;
 import com.burning.realmdatalibrary.httpservice.DiaryApi;
 import com.burning.realmdatalibrary.httpservice.HttpCallBack;
 import com.burning.realmdatalibrary.httpservice.requbean.DiaryComment;
 import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
 import com.burning.realmdatalibrary.httpservice.requbean.ResDto;
 import com.burning.realmdatalibrary.po.DiaryPo;
+import com.burning.realmdatalibrary.po.LoginUserPo;
+import com.burning.realmdatalibrary.redao.RealmTrasCall;
+import com.burning.realmdatalibrary.redao.RxReamlUtils;
 import com.burning.reutils.ReHttpUtils;
-import com.google.gson.Gson;
 
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import rx.Observable;
 
 /**
@@ -53,26 +57,60 @@ public class DiaryApimpl implements DiaryApi {
             }
 
             @Override
-            public void onNext(ResDto<List<DiaryPo>> resDto) {
+            public void onNext(final ResDto<List<DiaryPo>> resDto) {
                 if (!"200".equals(resDto.getCode()) || resDto.getData() == null || resDto.getData().size() == 0) {
                     httpCallBack.oncode(100, resDto.getMsg(), null);
                     return;
                 }
-                List<DiaryPo> data = resDto.getData();
-                String toJson = new Gson().toJson(data);
-                Realm defaultInstance = Realm.getDefaultInstance();
-                defaultInstance.beginTransaction();
-                //保存
-                defaultInstance.createOrUpdateAllFromJson(DiaryPo.class, toJson);
-                defaultInstance.commitTransaction();
+                RxReamlUtils.updata(new RealmTrasCall() {
+                    @Override
+                    public void call(Realm realm) {
+                        List<DiaryPo> data = resDto.getData();
+                        //    String toJson = new Gson().toJson(data);
+                        LoginUserPo loginUserPo = realm.where(LoginUserPo.class).equalTo("userid", UserInfo.userid).findFirst();
+                        RealmList<DiaryPo> userPoDiaryPos = loginUserPo.getDiaryPos();
+                        for (DiaryPo diaryPo : data) {
+                            //  diaryPo.getId();
+                            DiaryPo id = realm.where(DiaryPo.class).equalTo("id", diaryPo.getId()).findFirst();
+                            if (id == null) {
+                                //如原系统无此 ID 则添加到集合
+                                userPoDiaryPos.add(diaryPo);
+                            }
+                        }
+                        realm.insertOrUpdate(data);//更新或者插入 刷新的数据
+                    }
+                });
+
                 httpCallBack.oncode(200, resDto.getMsg(), "OK");
+
             }
         });
     }
 
     @Override
-    public void sendDiaryMessage(DiaryMessage diaryMessage, HttpCallBack<String> httpCallBack) {
+    public void sendDiaryMessage(final DiaryMessage diaryMessage, final HttpCallBack<String> httpCallBack) {
+        ReHttpUtils.instans().httpRequest(new BaSubCribe<ResDto<String>>() {
+            @Override
+            public void onError(Throwable e) {
+                httpCallBack.oncode(100, e.getMessage(), null);
+            }
 
+            @Override
+            public void onNext(ResDto<String> resDto) {
+                httpCallBack.oncode(200, resDto.getMsg(), "OK");//发送成功
+                getList(UserInfo.userid, 0, new HttpCallBack<String>() {
+                    @Override
+                    public void oncode(int code, String s, String data) {
+                        //更新结果
+                    }
+                });
+            }
+
+            @Override
+            public Observable<ResDto<String>> getObservable(HttpApi retrofit) {
+                return retrofit.sendDiary(diaryMessage);
+            }
+        });
     }
 
     @Override

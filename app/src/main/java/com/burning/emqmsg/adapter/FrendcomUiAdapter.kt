@@ -43,7 +43,7 @@ class FrendcomUiAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdap
         val baseActivity = context as BaseActivity
         var user = baseActivity.realm.where(UserPo::class.java).equalTo("id", h.uid).findFirst()
         itemview.com_item_user_name.text = "用户名:${user.username}"
-        itemview.com_item_user_messages.text = "内容 :${h.contens}"
+        itemview.com_item_user_messages.text = "id==${h.id}内容 :${h.contens}"
 
         Glide.with(baseActivity).load(ImageConfig.Image_path + user.icon).apply(MyTransform.getCircleCrop()).into(itemview.com_item_user_icon)
         Calendar.getInstance().apply {

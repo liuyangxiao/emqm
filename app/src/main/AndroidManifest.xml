@@ -58,9 +58,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.AddFrendActivity" />
-        <activity android:name="com.linchaolong.android.imagepicker.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
-       <!-- <provider
+        <activity
+            android:name="com.linchaolong.android.imagepicker.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
+        <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.burning.emqmsg.Myfileprovider"
             android:exported="false"
@@ -69,7 +71,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
--->
+
         <activity android:name=".activity.SetUserInfoActivity" />
         <activity android:name=".activity.SendDiaryActivity"></activity>
     </application>

@@ -41,7 +41,7 @@ dependencies {
 
     //相册 拍照
     implementation 'com.zhihu.android:matisse:0.5.2-beta4'
-    implementation 'com.linchaolong.android:imagepicker:1.5'
+    //  implementation 'com.linchaolong.android:imagepicker:1.5'
     //压缩
     implementation 'top.zibin:Luban:1.1.8'
     //圆角

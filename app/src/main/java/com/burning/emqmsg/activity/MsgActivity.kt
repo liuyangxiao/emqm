@@ -83,10 +83,10 @@ class MsgActivity : BaseActivity() {
             }
             realm.where(MessagePo::class.java)
                     .beginGroup()
-                    .equalTo("code", code)
+                    .between("code", code, 110)
                     .equalTo("ofclientID", UserInfo.userid).equalTo("clientId", msgid).endGroup()
                     .or()
-                    .equalTo("code", code)
+                    .between("code", code, 110)
                     .beginGroup().equalTo("clientId", UserInfo.userid).equalTo("ofclientID", msgid).endGroup()
                     .findAllSortedAsync("createTime", Sort.ASCENDING)
             //正序
@@ -106,7 +106,7 @@ class MsgActivity : BaseActivity() {
             }
 
             realm.where(MessagePo::class.java)
-                    .equalTo("code", code)
+                    .between("code", code, 121)
                     .equalTo("ofclientID", msgid).findAllSortedAsync("createTime", Sort.ASCENDING)
         }
         result.addChangeListener { results ->
