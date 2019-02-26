@@ -1,14 +1,20 @@
 package com.burning.emqmsg.fragment
 
 import android.graphics.Color
+import android.support.v4.os.HandlerCompat.postDelayed
 import android.support.v7.widget.LinearLayoutManager
 import com.burning.emqmsg.R
+import com.burning.emqmsg.R.id.frend_recyler
+import com.burning.emqmsg.R.id.swipe_refresh
 import com.burning.emqmsg.activity.MainActivity
 import com.burning.emqmsg.adapter.FrendcomUiAdapter
 import com.burning.emqmsg.view.SSRlayoutListener
 import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.httpservice.impl.DiaryApimpl
+import com.burning.realmdatalibrary.po.DiaryPo
 import com.burning.realmdatalibrary.po.LoginUserPo
+import io.realm.RealmResults
+import io.realm.Sort
 import kotlinx.android.synthetic.main.fragmeng_frend.*
 import kotlinx.android.synthetic.main.fragmeng_msg.*
 
@@ -36,17 +42,21 @@ import kotlinx.android.synthetic.main.fragmeng_msg.*
 -------------------------// ┗┻┛　┗┻┛
  */
 class FrendcomUiFragment : BaseFragment() {
-    var resuPo: LoginUserPo? = null
+    private var diarypos: RealmResults<DiaryPo>? = null
     override fun initData() {
         frend_recyler.layoutManager = LinearLayoutManager(activity)
         val activity = activity as MainActivity
-        resuPo = activity.realm.where(LoginUserPo::class.java).equalTo("userid", UserInfo.userid).findFirstAsync()
-        resuPo?.addChangeListener<LoginUserPo> {
+
+        diarypos = activity.realm.where(LoginUserPo::class.java)
+                .equalTo("userid", UserInfo.userid).findFirst()
+                .diaryPos.where().distinct("id").sort("id", Sort.DESCENDING)
+
+        diarypos?.addChangeListener { dias ->
             if (frend_recyler.adapter != null) {
-                frend_recyler.adapter.notifyItemRangeChanged(0, it.diaryPos.size)
+                frend_recyler.adapter.notifyDataSetChanged()
             } else {
                 hideloading()
-                frend_recyler.adapter = FrendcomUiAdapter(activity, it.diaryPos)
+                frend_recyler.adapter = FrendcomUiAdapter(activity, dias)
             }
         }
         var diaryApimpl = DiaryApimpl()
@@ -67,13 +77,14 @@ class FrendcomUiFragment : BaseFragment() {
 //            设置默认圆形背景色
 //            setDefaultCircleShadowColor
         }
-
+        //更新 数据
+        diaryApimpl.getList(UserInfo.userid, 0) { _, _, _ -> }
 
     }
 
     override fun initViewOnlayout(): Int = R.layout.frend_com_fragment
     override fun onDestroy() {
         super.onDestroy()
-        resuPo?.removeAllChangeListeners()
+        diarypos?.removeAllChangeListeners()
     }
 }

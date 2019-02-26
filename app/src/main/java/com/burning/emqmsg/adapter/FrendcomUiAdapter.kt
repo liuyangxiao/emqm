@@ -15,6 +15,7 @@ import com.burning.realmdatalibrary.po.UserPo
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_com_item.view.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by burning on 2018/10/26.
@@ -55,12 +56,13 @@ class FrendcomUiAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdap
                     "日${calendar.get(Calendar.HOUR)}时${calendar.get(Calendar.MINUTE)}分"
         }
         var images = ArrayList<String>()
-        var nextInt = h.icons.length
-        if (nextInt > 9) {
-            nextInt = 9
-        }
-        for (i in 1..nextInt) {
-            images.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
+        //val fromJson = Gson().fromJson<List<String>>(h.icons, object : TypeToken<List<String>>() {}.type)
+//        var getdata = GsonUtils().getdata<ArrayList<String>>(h.icons)
+//        getdata?.forEach {
+//            images.add(ImageConfig.Image_path + it)
+//        }
+        if (images.size == 0) {
+            images.add("http://47.105.169.72/image/M00/00/00/rB-U8lxrrceAbZ8EAAsr_QUb9Io069.jpg")
         }
         Glide.with(baseActivity).load("group:${Gson().toJson(images)}").into(itemview.com_item_recycler_images)
 //
@@ -103,3 +105,4 @@ class FrendcomUiAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdap
     override fun getItemViewType(position: Int): Int = R.layout.fragment_com_item
 
 }
+
