@@ -37,7 +37,7 @@ public class DiarySend {
     public static void sendMessage(Context context, final DiarySendBean diarynoSendPo) {
         if (diarynoSendPo == null || diarynoSendPo.uid == 0 || diarynoSendPo.content == null)
             return;
-        if (diarynoSendPo.icons != null && diarynoSendPo.icons.isEmpty()) {
+        if (diarynoSendPo.icons != null) {
             ImaComUtils.INSTANCE.uploudList(context, diarynoSendPo.icons, new ImaComUtils.Onuploads() {
                 @Override
                 public void onCallBack(@NotNull String string) {
@@ -51,12 +51,13 @@ public class DiarySend {
                         @Override
                         public void oncode(int code, String s, String data) {
                             Logger.d("======sendDiaryMessage==oncode=====" + code);
+                            if (code != 200) {
+
+                            }
                         }
                     });
                 }
             });
-        } else {
-
         }
     }
 }

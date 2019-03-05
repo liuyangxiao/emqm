@@ -4,6 +4,7 @@ import android.content.Intent
 import android.text.Editable
 import android.text.InputType
 import android.text.TextUtils
+import android.text.method.NumberKeyListener
 import android.widget.Toast
 import com.burning.emqmsg.R
 import kotlinx.android.synthetic.main.activity_set_user_info.*
@@ -40,19 +41,33 @@ class SetUserInfoActivity : BaseActivity() {
         tv_title.text = when (intExtra) {
             1 -> {
                 activity_setuser.hint = Editable.Factory.getInstance().newEditable("性别")
+                activity_tinput.hint = Editable.Factory.getInstance().newEditable("性别")
                 "修改性别"
             }
             2 -> {
                 activity_setuser.hint = Editable.Factory.getInstance().newEditable("年龄")
-                activity_setuser.inputType = InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE
+                activity_tinput.hint = Editable.Factory.getInstance().newEditable("年龄")
+                activity_setuser.inputType = InputType.TYPE_CLASS_PHONE
+                val numberKeyListener = object : NumberKeyListener() {
+                    override fun getInputType(): Int {
+                        return android.text.InputType.TYPE_CLASS_PHONE;
+                    }
+
+                    override fun getAcceptedChars(): CharArray {
+                        return charArrayOf('1', '2', '3', '4', '5', '6', '7', '8', '9', '0')
+                    }
+
+                }
                 "修改年龄"
             }
             3 -> {
                 activity_setuser.hint = Editable.Factory.getInstance().newEditable("昵称")
+                activity_tinput.hint = Editable.Factory.getInstance().newEditable("昵称")
                 "修改昵称"
             }
             4 -> {
                 activity_setuser.hint = Editable.Factory.getInstance().newEditable("签名")
+                activity_tinput.hint = Editable.Factory.getInstance().newEditable("签名")
                 "修改签名"
             }
             else -> {

@@ -3,7 +3,6 @@ package com.burning.emqmsg.adapter
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.bumptech.glide.Glide
 import com.burning.emqmsg.R
 import com.burning.realmdatalibrary.po.GroupPo
 import kotlinx.android.synthetic.main.item_frend_fragment.view.*
@@ -47,10 +46,12 @@ class FrendFragmentAdapter(context: Context, data: MutableList<GroupPo>) : BaseA
     var btns = HashSet<Int>()
     fun setChecked(itemview: View, boolean: Boolean) {
         itemview.item_frend_recyler_view.visibility = if (boolean) {
-            Glide.with(context).load(R.mipmap.nsr).into(itemview.frend_item_check_goup)
+            // Glide.with(context).load(R.mipmap.nsr).into(itemview.frend_item_check_goup)
+            itemview.frend_item_check_goup.setImageResource(R.mipmap.nsr)
             View.VISIBLE
         } else {
-            Glide.with(context).load(R.mipmap.nss).into(itemview.frend_item_check_goup)
+            itemview.frend_item_check_goup.setImageResource(R.mipmap.nss)
+            //    Glide.with(context).load().into(itemview.frend_item_check_goup)
             View.GONE
         }
     }

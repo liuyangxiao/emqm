@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">appssss</string>
+    <string name="app_name">Q记</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">账号</string>
@@ -27,5 +27,6 @@
     <string name="mine_burse">我的钱包</string>
     <string name="mine_notice">我的通知</string>
     <string name="mine_help">帮助与反馈</string>
+    <string name="title_activity_view_pager">ViewPagerActivity</string>
 
 </resources>

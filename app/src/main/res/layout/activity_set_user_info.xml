@@ -12,7 +12,9 @@
         app:layout_constraintVertical_chainStyle="spread" />
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/activity_tinput"
         android:layout_width="match_parent"
+        android:hint="@string/app_name"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp">
 

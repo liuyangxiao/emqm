@@ -47,6 +47,6 @@ public class EmGroupModeloader implements ModelLoader<String, Bitmap> {
 
     @Override
     public boolean handles(@NonNull String s) {
-        return s.contains("group:");
+        return s.startsWith("group:");
     }
 }

@@ -81,14 +81,16 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/logingin_icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_above="@+id/login_form"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/a111" />
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="2dp" />
 
     <TextView
         android:id="@+id/signup_tv"

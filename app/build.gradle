@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //apply plugin: 'realm-android'
@@ -19,10 +18,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
     }
 }
 
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //noinspection GradleCompatiblea'a
@@ -38,7 +39,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //侧滑
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
-
+    //图片查看
+    implementation 'com.bm.photoview:library:1.4.1'
     //相册 拍照
     implementation 'com.zhihu.android:matisse:0.5.2-beta4'
     //  implementation 'com.linchaolong.android:imagepicker:1.5'
@@ -49,7 +51,7 @@ dependencies {
 
     //--图片
     api 'com.github.bumptech.glide:glide:4.6.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    //kapt 'com.github.bumptech.glide:compiler:4.6.1'
     //组合图片
     implementation 'com.github.Othershe:CombineBitmap:1.0.5'
     //沉浸式-方案

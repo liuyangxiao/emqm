@@ -18,7 +18,7 @@
     </style>
 
     <style name="AppTheme.emqapp" parent="AppTheme.NoActionBar">
-      <!--  <item name="android:fitsSystemWindows">true</item>-->
+        <!--  <item name="android:fitsSystemWindows">true</item>-->
         <item name="android:clipToPadding">false</item>
         <item name="android:windowBackground">@color/white</item>
         <!-- 设置是否透明 -->
@@ -30,5 +30,9 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.emqapp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.emqapp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

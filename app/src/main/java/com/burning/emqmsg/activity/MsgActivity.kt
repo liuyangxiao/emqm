@@ -55,7 +55,7 @@ class MsgActivity : BaseActivity() {
         SoftHideKeyBoardUtil.assistActivity(this).setOnWindow {
             activity_msg_recview.apply {
                 post {
-                    scrollToPosition(adapter.itemCount - 1)
+                    scrollToPosition(adapter?.itemCount!! - 1)
                 }
             }
         }

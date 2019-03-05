@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.burning.emqmsg">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -9,8 +10,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <!-- jobScheduler-->
+    <!-- jobScheduler -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -18,15 +22,27 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.emqapp">
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.MsgActivity" />
-        <activity android:name=".activity.UserinfoActivity" />
-        <activity android:name=".activity.GroupActivity" />
-        <activity android:name=".activity.NewFrendActivity" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.MsgActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.UserinfoActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.GroupActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.NewFrendActivity"
+            android:launchMode="singleTop" />
 
         <service
             android:name=".service.Mqservices"
@@ -46,17 +62,27 @@
             android:priority="1000"
             android:process=":rsety" />
 
-        <activity android:name=".activity.SearchAddActivity" />
-        <activity android:name=".activity.SignupActivity" />
-        <activity android:name=".activity.PermissionActivity" />
-        <activity android:name=".activity.WellcomActivity">
+        <activity
+            android:name=".activity.SearchAddActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.SignupActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.PermissionActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.WellcomActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AddFrendActivity" />
+        <activity
+            android:name=".activity.AddFrendActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name="com.linchaolong.android.imagepicker.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -71,8 +97,16 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
-        <activity android:name=".activity.SetUserInfoActivity" />
-        <activity android:name=".activity.SendDiaryActivity"></activity>
+        <activity
+            android:name=".activity.SetUserInfoActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.SendDiaryActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ViewPagerActivity"
+            android:label="@string/title_activity_view_pager"
+            android:theme="@style/AppTheme.emqapp"></activity>
     </application>
 
 </manifest>

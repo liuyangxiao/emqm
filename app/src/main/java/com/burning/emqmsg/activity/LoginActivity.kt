@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.burning.emqmsg.R
 import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.httpservice.impl.UserApimpl
@@ -31,7 +32,14 @@ class LoginActivity : BaseActivity() {
 
     override fun init() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+
         val findFirst = realm.where(UserPo::class.java).equalTo("id", 222).findFirst()
+        Glide.with(this)
+                .load(R.mipmap.mq_cc_2)
+                // .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(logingin_icon)
+
         Logger.d("====findFirst==$findFirst")
         //  login_content.setPadding(login_content.left, login_content.top + actionBarHeight, login_content.right, login_content.bottom)
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->

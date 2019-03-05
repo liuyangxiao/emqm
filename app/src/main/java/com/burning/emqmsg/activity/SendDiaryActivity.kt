@@ -64,7 +64,7 @@ class SendDiaryActivity : BaseActivity() {
             sendpo.uid = UserInfo.userid
             sendpo.content = activity_send_edt.text.toString()
             dataicons.forEach {
-                icons.add(UriUtils.uriToFile(it, this@SendDiaryActivity))
+                icons.add(UriUtils.getRealFilePath(it, this@SendDiaryActivity))
             }
             sendpo.icons = icons
             DiarySend.sendMessage(applicationContext, sendpo)

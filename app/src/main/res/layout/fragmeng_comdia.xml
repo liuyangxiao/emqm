@@ -18,8 +18,7 @@
             android:id="@+id/com_ui_bg_iv"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ccatsfas" />
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/add_comdia"

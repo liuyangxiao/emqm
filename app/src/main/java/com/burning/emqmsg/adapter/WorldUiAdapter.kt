@@ -12,6 +12,7 @@ import com.burning.emqmsg.utils.ImageConfig
 import com.burning.realmdatalibrary.po.DiaryPo
 import com.burning.realmdatalibrary.po.UserPo
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.item_worldui.view.*
 
 
@@ -39,20 +40,24 @@ import kotlinx.android.synthetic.main.item_worldui.view.*
  */
 class WorldUiAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdapter<DiaryPo>(context, data) {
     override fun onSetData(itemview: View, h: DiaryPo, position: Int) {
-        var data = ArrayList<String>()
-        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
-        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
-        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lxlGdGAKAGOAAHyC7o7ckQ665.png")
-        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
-        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
-        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lxlGdGAKAGOAAHyC7o7ckQ665.png")
-        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
-        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
-        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lxlGdGAKAGOAAHyC7o7ckQ665.png")
-//        data.add("http://47.105.169.72/image/M00/00/00/rB-U8lv2cW2AVUvpAAAhrr-Mr6w145.jpg")
-        Glide.with(context).load("group:${Gson().toJson(data)}").into(itemview.item_word_images)
+        var images = ArrayList<String>()
+        var getdata: ArrayList<String>? = null
+        try {
+            getdata = Gson().fromJson<ArrayList<String>>(h.icons, object : TypeToken<ArrayList<String>>() {}.type)
+        } catch (e: Exception) {
+        }
+        getdata?.forEach {
+            images.add(ImageConfig.Image_path + it)
+        }
+        if (images.size == 0) {
+            images.add("http://47.105.169.72/image/M00/00/00/rB-U8lxrrceAbZ8EAAsr_QUb9Io069.jpg")
+        }
+        Glide.with(context).load(images[0]).into(itemview.item_word_images)
         val activity = context as MainActivity
         var user = activity.realm.where(UserPo::class.java).equalTo("id", h.uid).findFirst()
+        itemview.msg_item_user_name.text = user.username
+        itemview.item_word_title.text = "图片=${h.icons}-" +
+                "\n 内容: ${h.contens}"
         Glide.with(activity).load(ImageConfig.Image_path + user.icon).apply(MyTransform.getCircleCrop()).into(itemview.msg_item_user_icon)
     }
 

@@ -40,13 +40,14 @@ import kotlinx.android.synthetic.main.fragment_userinfo.*
  */
 class UserinfoFragment : BaseFragment() {
     override fun initViewOnlayout(): Int = R.layout.fragment_userinfo
+    var userpo: UserPo? = null
     override fun initData() {
         fragment_back_title.setPadding(0, BaseActivity.actionBarHeight, 0, 0)
         tv_title.text = "User"
         val baseActivity = activity as BaseActivity
-        val findFirstAsync = baseActivity.realm.where(UserPo::class.java).equalTo("id", UserInfo.userid).findFirst()
-        setUser(findFirstAsync)
-        findFirstAsync?.addChangeListener<UserPo> {
+        userpo = baseActivity.realm.where(UserPo::class.java).equalTo("id", UserInfo.userid).findFirst()
+        setUser(userpo!!)
+        userpo?.addChangeListener<UserPo> {
             setUser(it)
         }
         userinfo_fg_loginout.setOnClickListener {
@@ -84,5 +85,9 @@ class UserinfoFragment : BaseFragment() {
                 }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        userpo?.removeAllChangeListeners()
+    }
 }
 

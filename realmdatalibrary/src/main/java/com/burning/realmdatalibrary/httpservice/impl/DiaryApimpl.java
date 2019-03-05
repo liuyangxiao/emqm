@@ -8,6 +8,7 @@ import com.burning.realmdatalibrary.httpservice.HttpCallBack;
 import com.burning.realmdatalibrary.httpservice.requbean.DiaryComment;
 import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
 import com.burning.realmdatalibrary.httpservice.requbean.ResDto;
+import com.burning.realmdatalibrary.po.DiaryDescPo;
 import com.burning.realmdatalibrary.po.DiaryPo;
 import com.burning.realmdatalibrary.po.LoginUserPo;
 import com.burning.realmdatalibrary.redao.RealmTrasCall;
@@ -97,11 +98,12 @@ public class DiaryApimpl implements DiaryApi {
 
             @Override
             public void onNext(ResDto<String> resDto) {
-                httpCallBack.oncode(200, resDto.getMsg(), "OK");//发送成功
+                httpCallBack.oncode(200, resDto.getMsg(), resDto.getData());//发送成功
                 getList(UserInfo.userid, 0, new HttpCallBack<String>() {
                     @Override
                     public void oncode(int code, String s, String data) {
                         //更新结果
+
                     }
                 });
             }
@@ -114,8 +116,55 @@ public class DiaryApimpl implements DiaryApi {
     }
 
     @Override
-    public void descantMessage(DiaryComment diaryComment, HttpCallBack<String> httpCallBack) {
+    public void descantMessage(final DiaryComment diaryComment, final HttpCallBack<String> httpCallBack) {
+        ReHttpUtils.instans().httpRequest(new BaSubCribe<ResDto<String>>() {
+            @Override
+            public void onError(Throwable e) {
+                httpCallBack.oncode(100, e.getMessage(), null);
+            }
+            @Override
+            public void onNext(ResDto<String> resDto) {
+                httpCallBack.oncode(Integer.valueOf(resDto.getCode()), resDto.getMsg(), resDto.getMsg());//发送成功
+                getDiaryid(diaryComment.getDiaryID());
+            }
 
+            @Override
+            public Observable<ResDto<String>> getObservable(HttpApi retrofit) {
+                return retrofit.sendDiarycomment(diaryComment);
+            }
+        });
+    }
+
+    @Override
+    public void getDiaryid(final Long diaryid) {
+        ReHttpUtils.instans().httpRequest(new BaSubCribe<ResDto<List<DiaryDescPo>>>() {
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResDto<List<DiaryDescPo>> resDto) {
+                if (Integer.valueOf(resDto.getCode()) == 200 && resDto.getData() != null && !resDto.getData().isEmpty()) {
+                    RxReamlUtils.updata(new RealmTrasCall() {
+                        @Override
+                        public void call(Realm realm) {
+                            DiaryPo mDiaryPo = realm.where(DiaryPo.class).equalTo("id", diaryid).findFirst();
+                            if (mDiaryPo != null) {
+                                RealmList<DiaryDescPo> diaryDescs = mDiaryPo.getDiaryDescs();
+                                diaryDescs.deleteAllFromRealm();
+                                diaryDescs.addAll(resDto.getData());
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public Observable<ResDto<List<DiaryDescPo>>> getObservable(HttpApi retrofit) {
+                return retrofit.getDiaryid(diaryid);
+            }
+        });
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.burning.emqmsg.fragment
 
 import android.content.Intent
 import android.support.design.widget.TabLayout
+import com.bumptech.glide.Glide
 import com.burning.emqmsg.R
 import com.burning.emqmsg.activity.SendDiaryActivity
 import com.burning.emqmsg.adapter.CommunityAdapter
@@ -35,14 +36,15 @@ class CommunityFragment : BaseFragment() {
     override fun initData() {
         //  tv_title.text = "圈子"
         // comfragment_content.setPadding(comfragment_content.left,  BaseActivity.actionBarHeight, comfragment_content.right, comfragment_content.bottom)
-
-
+        Glide.with(this).load(R.mipmap.mq_cc_3).into(com_ui_bg_iv)
         community_vp.adapter = CommunityAdapter(fragmentManager!!)
         viewPagerIndicator.setViewPager(community_vp)
         tabLayout.setupWithViewPager(community_vp)
         tabLayout.tabMode = TabLayout.MODE_FIXED
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
         tabLayout.setSelectedTabIndicatorHeight(0)
+
+
         hideloading()
         add_comdia.setOnClickListener {
             startActivity(Intent(activity, SendDiaryActivity::class.java))

@@ -12,7 +12,10 @@ class WellcomActivity : BaseActivity() {
     override fun getActivityLayout(): Int = R.layout.activity_wellcom
 
     override fun init() {
-        Glide.with(this).load(R.mipmap.a111).into(wellcom_iv)
+        Glide.with(this)
+                .load(R.mipmap.mq_cc_1)
+                // .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(wellcom_iv)
         val findFirst = realm.where(LoginsPo::class.java).equalTo("status", 100).findFirst()
         if (findFirst != null) {
             UserInfo.userid = findFirst.userid

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp">
@@ -63,23 +64,52 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginRight="20dp"
-        android:src="@mipmap/naj"
+        android:src="@mipmap/msq_cmar"
         app:layout_constraintRight_toLeftOf="@+id/com_item_recycler_ok"
-        app:layout_constraintTop_toBottomOf="@+id/com_item_recycler_images" />
+        app:layout_constraintTop_toTopOf="@+id/com_item_recycler_ok" />
 
     <ImageView
         android:id="@+id/com_item_recycler_ok"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginRight="20dp"
-        android:src="@mipmap/nam"
+        android:src="@mipmap/dianzan1"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/com_item_recycler_images" />
+
+    <LinearLayout
+        android:id="@+id/edi_linea"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/com_item_recycler_ok"
+        app:layout_constraintTop_toTopOf="@+id/com_item_recycler_ok">
+
+        <EditText
+            android:id="@+id/send_message"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/edt_corner_login"
+            android:hint="@string/title_home"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/senm_icon"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:src="@mipmap/send_msg_cma" />
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/com_item_recycler_comforid_conent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/com_item_recycler_ok" />
+
 
 </android.support.constraint.ConstraintLayout>

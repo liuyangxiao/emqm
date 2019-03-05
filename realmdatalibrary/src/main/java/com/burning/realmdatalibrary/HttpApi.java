@@ -1,9 +1,11 @@
 package com.burning.realmdatalibrary;
 
+import com.burning.realmdatalibrary.httpservice.requbean.DiaryComment;
 import com.burning.realmdatalibrary.httpservice.requbean.DiaryMessage;
 import com.burning.realmdatalibrary.httpservice.requbean.LoginBean;
 import com.burning.realmdatalibrary.httpservice.requbean.ResDto;
 import com.burning.realmdatalibrary.httpservice.requbean.UpdataUser;
+import com.burning.realmdatalibrary.po.DiaryDescPo;
 import com.burning.realmdatalibrary.po.DiaryPo;
 import com.burning.realmdatalibrary.po.LoginUserPo;
 import com.burning.realmdatalibrary.po.UserPo;
@@ -174,5 +176,18 @@ public interface HttpApi {
 
     @POST("diary/send")
     Observable<ResDto<String>> sendDiary(@Body DiaryMessage diaryMessage);
+
+    /**
+     * 评论
+     *
+     * @param diaryMessage
+     * @return
+     */
+    @POST("/diary/comment")
+    Observable<ResDto<String>> sendDiarycomment(@Body DiaryComment diaryMessage);
+
+    @POST("/diary/getdes")
+    Observable<ResDto<List<DiaryDescPo>>> getDiaryid(@Query("diaryid") Long diaryid);
+
 
 }
