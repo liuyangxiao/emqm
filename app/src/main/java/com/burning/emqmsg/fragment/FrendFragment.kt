@@ -46,7 +46,7 @@ class FrendFragment : BaseFragment() {
         results = activity.realm.where(LoginUserPo::class.java).equalTo("userid", UserInfo.userid).findFirst().groupPos.where().equalTo("type", 1).findAllAsync()
         results?.addChangeListener { results ->
             if (frend_recyler.adapter != null) {
-                frend_recyler.adapter.notifyItemRangeChanged(0, results.size)
+                frend_recyler.adapter?.notifyItemRangeChanged(0, results.size)
             } else {
                 hideloading()
                 frend_recyler.adapter = FrendFragmentAdapter(activity, results)

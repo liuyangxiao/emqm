@@ -40,6 +40,10 @@ class GroupActivity : BaseActivity() {
         activity_group_rv.layoutManager = LinearLayoutManager(this)
         var data = realm.where(LoginUserPo::class.java).equalTo("userid", UserInfo.userid).findFirst().groupPos.where().equalTo("type", 2).findAll()
         activity_group_rv.adapter = GroupImageAdapter(this, data)
+        iv_right.text = "添加"
+        iv_right.setOnClickListener {
+
+        }
     }
 
 }

@@ -1,11 +1,8 @@
 package com.burning.emqmsg.fragment
 
 import android.graphics.Color
-import android.support.v4.os.HandlerCompat.postDelayed
 import android.support.v7.widget.LinearLayoutManager
 import com.burning.emqmsg.R
-import com.burning.emqmsg.R.id.frend_recyler
-import com.burning.emqmsg.R.id.swipe_refresh
 import com.burning.emqmsg.activity.MainActivity
 import com.burning.emqmsg.adapter.WorldUiAdapter
 import com.burning.emqmsg.view.SSRlayoutListener
@@ -52,7 +49,7 @@ class WorldcomUiFragment : BaseFragment() {
                 .diaryPos.where().distinct("id").sort("id", Sort.DESCENDING)
         diarypos?.addChangeListener {dias ->
             if (frend_recyler.adapter != null) {
-                frend_recyler.adapter.notifyDataSetChanged()
+                frend_recyler.adapter!!.notifyDataSetChanged()
             } else {
                 hideloading()
                 frend_recyler.adapter = WorldUiAdapter(activity, dias)

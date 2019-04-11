@@ -77,7 +77,7 @@ class SendDiaryActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MatUtils.REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             dataicons.addAll(Matisse.obtainResult(data))
-            activity_send_recyview.adapter.notifyDataSetChanged()
+            activity_send_recyview.adapter?.notifyDataSetChanged()
         }
 
     }

@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -38,7 +39,7 @@ class LoginActivity : BaseActivity() {
         Glide.with(this)
                 .load(R.mipmap.mq_cc_2)
                 // .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .into(logingin_icon)
+                .into(logingin_icon as ImageView)
 
         Logger.d("====findFirst==$findFirst")
         //  login_content.setPadding(login_content.left, login_content.top + actionBarHeight, login_content.right, login_content.bottom)

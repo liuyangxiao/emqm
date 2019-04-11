@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.burning.emqmsg.R
@@ -52,7 +53,8 @@ class FrendcomUiAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdap
         itemview.com_item_user_name.text = "用户名:${user.username}"
         itemview.com_item_user_messages.text = "id==${h.id}内容 :${h.contens}"
         itemview.edi_linea.visibility = View.GONE
-        Glide.with(baseActivity).load(ImageConfig.Image_path + user.icon).apply(MyTransform.getCircleCrop()).into(itemview.com_item_user_icon)
+
+        Glide.with(baseActivity).load(ImageConfig.Image_path + user.icon).apply(MyTransform.getCircleCrop()).into(itemview.com_item_user_icon as ImageView)
         Calendar.getInstance().apply {
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = h.createTime
@@ -76,17 +78,6 @@ class FrendcomUiAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdap
             images.add("http://47.105.169.72/image/M00/00/00/rB-U8lxrrceAbZ8EAAsr_QUb9Io069.jpg")
         }
         Glide.with(baseActivity).load(images[0]).into(itemview.com_item_recycler_images)
-//
-//        itemview.com_item_recycler_images.apply {
-//            layoutManager = GridLayoutManager(context, spancount)
-//            if (adapter == null) {
-//                adapter = ImageAdapter(context, images)
-//            } else {
-//                val imageAdapter = adapter as ImageAdapter
-//                imageAdapter.updataAdapter(images)
-//            }
-//
-//        }
         itemview.com_item_recycler_comforid_conent.apply {
             if (adapter == null) {
                 layoutManager = LinearLayoutManager(context)
@@ -131,7 +122,7 @@ class FrendcomUiAdapter(context: Context, data: MutableList<DiaryPo>) : BaseAdap
                 } else {
                     itemview.com_item_recycler_comforid_conent
                             .postDelayed({
-                                itemview.com_item_recycler_comforid_conent.adapter.notifyDataSetChanged()
+                                itemview.com_item_recycler_comforid_conent.adapter?.notifyDataSetChanged()
                             }, 1000)
                 }
             }

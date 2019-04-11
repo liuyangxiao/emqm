@@ -2,7 +2,7 @@ package com.burning.emqmsg.activity
 
 import android.content.Intent
 import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
+import android.widget.Toast
 import com.burning.emqlibrary.emqNet.EmqClientImp
 import com.burning.emqlibrary.emqNet.TopicHelp
 import com.burning.emqmsg.R
@@ -10,6 +10,7 @@ import com.burning.emqmsg.fragment.CommunityFragment
 import com.burning.emqmsg.fragment.FrendFragment
 import com.burning.emqmsg.fragment.MsgFragment
 import com.burning.emqmsg.fragment.UserinfoFragment
+import com.burning.emqmsg.utils.LiveDataBus
 import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.po.LoginUserPo
 import com.burning.realmdatalibrary.po.LoginsPo
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
     override fun init() {
+
         var tops = HashSet<String>()
         if (UserInfo.userid == 0L || UserInfo.userid == null) {
             val findFirst = realm.where(LoginsPo::class.java).equalTo("status", 100).findFirst()
@@ -42,15 +44,17 @@ class MainActivity : BaseActivity() {
     }
 
     override fun getActivityLayout(): Int = R.layout.activity_main
-
-
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
+
+
+                Toast.makeText(this, " Key:" + LiveDataBus.get().bus.size, Toast.LENGTH_SHORT).show()
                 replaceFragmenByTag(MSG_TAG)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
+
                 replaceFragmenByTag(FED_TAG)
                 return@OnNavigationItemSelectedListener true
             }
@@ -65,36 +69,47 @@ class MainActivity : BaseActivity() {
         }
         false
     }
-    private var contentfragment: Fragment? = null
+    // private var contentfragment: Fragment? = null
     var USER_TAG = "u_1"
     var MSG_TAG = "m_1"
     var FED_TAG = "f_1"
     var COM_TAG = "c_1"
-
+    private var CONTENT_FRAGMENT_TAG = "NO"
     fun replaceFragmenByTag(tag: String) {
-
-        val beginTransaction = supportFragmentManager.beginTransaction()
-        if (contentfragment != null)
-            beginTransaction.hide(contentfragment!!)
-        contentfragment = supportFragmentManager.findFragmentByTag(tag)
-        if (contentfragment == null) {
-            when (tag) {
-                USER_TAG -> {
-                    contentfragment = UserinfoFragment()
-                }
-                MSG_TAG -> {
-                    contentfragment = MsgFragment()
-                }
-                FED_TAG -> {
-                    contentfragment = FrendFragment()
-                }
-                COM_TAG -> {
-                    contentfragment = CommunityFragment()
-                }
-            }
-            beginTransaction.add(R.id.activity_main_fragment, contentfragment!!, tag)
+        if (CONTENT_FRAGMENT_TAG == tag) {
+            return
         }
-        beginTransaction.show(contentfragment!!).commit()
+        val beginTransaction = supportFragmentManager.beginTransaction()
+        supportFragmentManager.findFragmentByTag(CONTENT_FRAGMENT_TAG)?.apply {
+            beginTransaction.hide(this)
+        }
+        supportFragmentManager.findFragmentByTag(tag).apply {
+            if (this == null) {
+                var newTagfragment = when (tag) {
+                    USER_TAG -> {
+                        UserinfoFragment()
+                    }
+                    MSG_TAG -> {
+                        MsgFragment()
+                    }
+                    FED_TAG -> {
+                        FrendFragment()
+                    }
+                    COM_TAG -> {
+                        CommunityFragment()
+                    }
+                    else -> {
+                        FrendFragment()
+                    }
+                }
+                beginTransaction.add(R.id.activity_main_fragment, newTagfragment, tag)
+                beginTransaction.show(newTagfragment).commit()
+            } else {
+                beginTransaction.show(this).commit()
+            }
+            CONTENT_FRAGMENT_TAG = tag
+        }
     }
 
 }
+

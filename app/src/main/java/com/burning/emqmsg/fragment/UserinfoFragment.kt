@@ -1,6 +1,7 @@
 package com.burning.emqmsg.fragment
 
 import android.content.Intent
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.burning.emqlibrary.emqNet.EmqClientImp
 import com.burning.emqmsg.R
@@ -70,7 +71,7 @@ class UserinfoFragment : BaseFragment() {
     }
 
     fun setUser(userPo: UserPo) {
-        Glide.with(this).load(ImageConfig.Image_path + userPo.icon).apply(MyTransform.getCircleCrop()).into(user_fragment_usericon)
+        Glide.with(this).load(ImageConfig.Image_path + userPo.icon).apply(MyTransform.getCircleCrop()).into(user_fragment_usericon as ImageView)
         hideloading()
         user_fragment_username.text = if (userPo?.username == null) {
             "未设置XX"

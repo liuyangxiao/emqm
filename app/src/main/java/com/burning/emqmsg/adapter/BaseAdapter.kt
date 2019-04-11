@@ -33,7 +33,8 @@ abstract class BaseAdapter<H>(var context: Context, var data: MutableList<H>) : 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TviewHolder {
         Logger.d("====onCreateViewHolder===")
-        val tviewHolder = TviewHolder(LayoutInflater.from(context).inflate(viewType, parent, false))
+        var tviewHolder = TviewHolder(LayoutInflater.from(context).inflate(viewType, parent, false))
+        tviewHolder.itemView
         if (longClickListener != null) {
             tviewHolder.itemView.setOnLongClickListener {
                 longClickListener?.onitemViewHolder(tviewHolder)

@@ -34,6 +34,7 @@ public class RxReamlUtils {
             public void call(final Subscriber<? super Realm> subscriber) {
                 System.out.println(Thread.currentThread().getName() + "====call===");
                 Realm defaultInstance = Realm.getDefaultInstance();
+                //defaultInstance.getPath()
                 defaultInstance.executeTransactionAsync(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {

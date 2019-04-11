@@ -85,8 +85,7 @@ class MsgFragment : BaseFragment() {
         result = mac.realm.where(MesgWinPo::class.java).equalTo("userid", UserInfo.userid).findAllAsync()
         result?.addChangeListener { results ->
             if (frend_msg_recyler.adapter != null) {
-                frend_msg_recyler.adapter.notifyDataSetChanged()
-
+                frend_msg_recyler.adapter?.notifyDataSetChanged()
                 //     notifyItemChanged(0, results.size)
             } else {
                 hideloading()

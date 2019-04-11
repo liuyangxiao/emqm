@@ -51,8 +51,8 @@
         android:id="@+id/item_word_images"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:scaleType="matrix"
+        android:padding="18dp"
+        android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="@+id/msg_item_user_name"
         app:layout_constraintTop_toBottomOf="@+id/item_word_title" />
 

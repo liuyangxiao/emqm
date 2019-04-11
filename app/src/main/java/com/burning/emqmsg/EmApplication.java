@@ -35,6 +35,9 @@ import io.realm.RealmConfiguration;
  * -------------------------// ┗┻┛　┗┻┛
  */
 public class EmApplication extends Application {
+
+    long aLong;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -67,6 +70,17 @@ public class EmApplication extends Application {
 //                    .build();
 //            jobScheduler.schedule(jobInfo);
 //        }
+//        FlowableProcessor
+
+        //objectObjectSerializedSubject.onNext();
+        //objectObjectSerializedSubject.map()
+        // objectObjectSerializedSubject.ofType()
+        // PublishProcessor
+        //  SerializedSubject a=PublishRelay.create().toSerialized();
+//        Subject a=null;
+//        Relay
+//        a.onNext();
+//        a.ofType().observeOn()
     }
 
 }

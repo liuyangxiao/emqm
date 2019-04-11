@@ -1,18 +1,17 @@
 package com.burning.emqmsg.activity
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.graphics.Color
 import android.text.TextUtils
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.burning.emqmsg.R
-import com.burning.emqmsg.utils.ImageConfig
-import com.burning.emqmsg.utils.MatGlideEngine
-import com.burning.emqmsg.utils.MatUtils
+import com.burning.emqmsg.utils.*
 import com.burning.emqmsg.utils.MatUtils.REQUEST_CODE_CHOOSE
-import com.burning.emqmsg.utils.UriUtils
 import com.burning.realmdatalibrary.UserInfo
 import com.burning.realmdatalibrary.httpservice.impl.HttpUpload
 import com.burning.realmdatalibrary.httpservice.impl.UserApimpl
@@ -44,6 +43,12 @@ class UserinfoActivity : BaseActivity() {
     var userapi = UserApimpl()
     @SuppressLint("SetTextI18n")
     override fun init() {
+        LiveDataBus.get().with("TAG", String.javaClass)
+                .observe(this, Observer {
+                    print("=============TAG=====$it")
+                })
+
+
         val longExtra = intent.getLongExtra(USER_ID, 0)
         if (longExtra == 0L) {
             return
@@ -128,7 +133,7 @@ class UserinfoActivity : BaseActivity() {
         user_info_userreid.text = "私密ID : ${findFirst.setID}"
         userinfo_ac_reams.text = "签名 : ${findFirst.userdesc}"
         tv_userinfo_age.text = "年龄 :${findFirst.age}"
-        Glide.with(this@UserinfoActivity).load(ImageConfig.Image_path + findFirst.icon).into(user_info_usericon)
+        Glide.with(this@UserinfoActivity).load(ImageConfig.Image_path + findFirst.icon).into(user_info_usericon as ImageView)
         userinfo_left_bt.setOnClickListener {
             if (longExtra == UserInfo.userid) {
                 //
@@ -229,7 +234,7 @@ class UserinfoActivity : BaseActivity() {
                 user.id = UserInfo.userid
                 userapi.updataUser(user) { i: Int, s: String, data: String ->
                     if (i == 200) {
-                        Glide.with(this@UserinfoActivity).load(uriToFile).into(user_info_usericon)
+                        Glide.with(this@UserinfoActivity).load(uriToFile).into(user_info_usericon as ImageView)
                         RxReamlUtils.updata {
                             val findFirst1 = it.where(UserPo::class.java).equalTo("id", UserInfo.userid).findFirst()
                             findFirst1.icon = data1

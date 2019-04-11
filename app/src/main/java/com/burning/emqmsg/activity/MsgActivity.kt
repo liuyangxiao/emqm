@@ -51,7 +51,6 @@ class MsgActivity : BaseActivity() {
     var code = 100
     var msgid = 0L
     override fun init() {
-
         SoftHideKeyBoardUtil.assistActivity(this).setOnWindow {
             activity_msg_recview.apply {
                 post {
@@ -115,12 +114,12 @@ class MsgActivity : BaseActivity() {
                     layoutManager = LinearLayoutManager(context)
                     adapter = MsgActivityAdapter(context, results)
                 } else {
-                    adapter.notifyItemChanged(results.size - 1)
-                    adapter.notifyItemChanged(results.size)
+                    adapter?.notifyItemChanged(results.size - 1)
+                    adapter?.notifyItemChanged(results.size)
                 }
                 if (results.size != 0) {
                     post {
-                        scrollToPosition(adapter.itemCount - 1)
+                        scrollToPosition(adapter?.itemCount!! - 1)
                     }
                 }
             }
@@ -145,3 +144,5 @@ class MsgActivity : BaseActivity() {
 
     }
 }
+
+
